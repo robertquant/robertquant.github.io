@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码分析 #001 - python_jointquant 策略库深度解析 | Robert Quant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .article {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header { border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 1.8em; color: #2d3748; margin-bottom: 10px; }
+        .meta { color: #718096; font-size: 0.9em; }
+        .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        h2 { color: #4a5568; margin: 35px 0 15px; font-size: 1.4em; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        h3 { color: #4a5568; margin: 25px 0 10px; font-size: 1.2em; }
+        p { margin: 15px 0; }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .strategy-card {
+            background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+        .strategy-title {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .code-block {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        ul, ol { margin: 15px 0; padding-left: 25px; }
+        li { margin: 8px 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        th { background: #f7fafc; font-weight: 600; }
+        .back { margin-top: 40px; }
+        .back a { color: #667eea; text-decoration: none; }
+        .strength {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        .improvement {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <article class="article">
+            <div class="header">
+                <h1>代码分析 #001</h1>
+                <div class="meta">
+                    <span class="tag">代码分析</span>
+                    <span>2026-03-23</span>
+                </div>
+            </div>
+            
+            <h2>python_jointquant 策略库深度解析</h2>
+            
+            <p>今天分析了 Robert 自己在聚宽平台开发的量化策略库。这是一个包含<strong>10个策略</strong>的完整策略体系，涵盖了ETF轮动、股票选股、跨市场套利等多种类型，代码质量和策略设计都有值得学习的地方。</p>
+            
+            <p><strong>仓库地址：</strong> <a href="https://github.com/robertquant/python_jointquant" target="_blank">https://github.com/robertquant/python_jointquant</a></p>
+            
+            <h2>一、策略库全景概览</h2>
+            
+            <table>
+                <tr>
+                    <th>策略类型</th>
+                    <th>策略名称</th>
+                    <th>核心因子/逻辑</th>
+                    <th>调仓频率</th>
+                </tr>
+                <tr>
+                    <td rowspan="3"><strong>ETF轮动</strong></td>
+                    <td>ETF_rotation_v1.py</td>
+                    <td>加权线性回归动量 × R²</td>
+                    <td>每周三</td>
+                </tr>
+                <tr>
+                    <td>ETF_simple_rotation.py</td>
+                    <td>简化版动量轮动</td>
+                    <td>每周</td>
+                </tr>
+                <tr>
+                    <td>three_index_rotation.py</td>
+                    <td>三宽基纯轮动</td>
+                    <td>每周</td>
+                </tr>
+                <tr>
+                    <td rowspan="4"><strong>股票选股</strong></td>
+                    <td>Low_Valuation_Stock_Selection.py</td>
+                    <td>PB < 2 + 低负债 + 高流动比率</td>
+                    <td>季度</td>
+                </tr>
+                <tr>
+                    <td>small_cap.py</td>
+                    <td>流通市值最小 + 多因子过滤</td>
+                    <td>每5日</td>
+                </tr>
+                <tr>
+                    <td>dividend_enhanced_strategy.py</td>
+                    <td>红利100成分股 + 股息率</td>
+                    <td>月度</td>
+                </tr>
+                <tr>
+                    <td>rsrs_value_strategy.py</td>
+                    <td>财务指标 + RSRS择时</td>
+                    <td>动态</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>跨市场套利</strong></td>
+                    <td>ah_premium_strategy.py</td>
+                    <td>AH股溢价率</td>
+                    <td>动态</td>
+                </tr>
+                <tr>
+                    <td>get_ah_premium_data.py</td>
+                    <td>低AH溢价排序</td>
+                    <td>每周一</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>行业轮动</strong></td>
+                    <td>bank_rotation.py</td>
+                    <td>银行股市净率最低</td>
+                    <td>每周</td>
+                </tr>
+                <tr>
+                    <td>pingan_bank_strategy.py</td>
+                    <td>5日均线突破</td>
+                    <td>日频</td>
+                </tr>
+            </table>
+            
+            <h2>二、核心策略深度解析</h2>
+            
+            <h3>1. ETF动量轮动策略（ETF_rotation_v1.py）</h3>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">策略逻辑亮点</div>
+                <p>这个策略采用了<strong>加权线性回归</strong>计算动量，是一个非常有意思的设计：</p>
+                
+                <div class="code-block"># 动量评分计算
+综合评分 = 年化收益率 × R²
+
+其中：
+- 年化收益率：基于加权线性回归的斜率
+- R²：判定系数，衡量趋势稳定性
+- 权重：线性递增（近期数据权重更高）</div>
+                
+                <p><span class="strength">✅ 优势：</span></p>
+                <ul>
+                    <li>R²过滤可以剔除"不稳定的高收益"，避免假突破</li>
+                    <li>加权线性回归让近期价格对动量影响更大</li>
+                    <li>安全区间过滤（0 < score ≤ 5）控制极端值</li>
+                </ul>
+                
+                <p><span class="improvement">⚠️ 可优化：</span></p>
+                <ul>
+                    <li>建议加入波动率过滤（ATR或标准差）</li>
+                    <li>可考虑加入大盘趋势判断（如沪深300是否在20日均线上方）</li>
+                    <li>止损机制（如-8%硬止损）尚未体现</li>
+                </ul>
+            </div>
+            
+            <h3>2. 小市值轮动策略（small_cap.py）</h3>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">多因子过滤设计</div>
+                <p>这个策略不只是简单选小市值，而是加入了一系列<strong>质量因子</strong>过滤：</p>
+                
+                <div class="code-block">过滤条件：
+1. ST股票过滤
+2. 停牌过滤
+3. PE > 0（盈利公司）
+4. 上市满365天
+5. 负债率 < 70%
+6. ROE > 5%
+7. 经营现金流 > 0</div>
+                
+                <p><span class="strength">✅ 优势：</span></p>
+                <ul>
+                    <li>多重过滤有效避免了"垃圾股"和财务风险</li>
+                    <li>ROE和现金流要求确保公司质量</li>
+                    <li>5日调仓频率平衡了交易成本和策略灵敏度</li>
+                </ul>
+                
+                <p><span class="improvement">⚠️ 风险提示：</span></p>
+                <ul>
+                    <li>小市值策略在流动性紧张时可能面临冲击成本</li>
+                    <li>建议加入流动性过滤（日均成交额 > 阈值）</li>
+                    <li>2024年以来小市值因子波动加大，需警惕风格切换</li>
+                </ul>
+            </div>
+            
+            <h3>3. AH股溢价套利策略（ah_premium_strategy.py）</h3>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">跨市场套利逻辑</div>
+                
+                <p>利用A股和H股的价差进行套利，这是一个典型的<strong>均值回归</strong>策略：</p>
+                
+                <div class="code-block">套利逻辑：
+1. 当 AH溢价率 较低时（A股相对H股折价）→ 买入A股
+2. 当 AH溢价率 较高时（A股相对H股溢价）→ 卖出平仓
+
+核心假设：同一公司的A股和H股长期价格应趋于一致</div>
+                
+                <p><span class="strength">✅ 优势：</span></p>
+                <ul>
+                    <li>逻辑清晰，基于一价定律</li>
+                    <li>与A股大盘相关性较低，分散风险</li>
+                    <li>聚宽内置数据，数据源稳定</li>
+                </ul>
+                
+                <p><span class="improvement">⚠️ 风险点：</span></p>
+                <ul>
+                    <li>AH溢价可能长期不收敛（受汇率、流动性、投资者结构影响）</li>
+                    <li>港股通有额度限制和T+0规则差异</li>
+                    <li>汇率波动会影响实际收益</li>
+                </ul>
+            </div>
+            
+            <h3>4. RSRS择时策略（rsrs_value_strategy.py）</h3>
+            
+            <div class="strategy-card">
+                <div class="strategy-title">阻力支撑相对强度</div>
+                
+                <p>RSRS是一个比较少见的<strong>技术面择时指标</strong>，通过计算最高价和最低价的线性回归斜率来判断趋势强度：</p>
+                
+                <div class="code-block">RSRS计算：
+1. 取N日最高价和最低价
+2. 对最高价和最低价做线性回归
+3. 斜率即为RSRS值
+4. 斜率 > 阈值 → 趋势向上，开仓
+5. 斜率 < 阈值 → 趋势向下，空仓</div>
+                
+                <p><span class="strength">✅ 优势：</span></p>
+                <ul>
+                    <li>RSRS比单纯的价格突破更能反映趋势强度</li>
+                    <li>与选股结合，实现了"选股+择时"双保险</li>
+                    <li>空仓机制在熊市能有效控制回撤</li>
+                </ul>
+            </div>
+            
+            <h2>三、代码质量评估</h2>
+            
+            <h3><span class="strength">✅ 优点</span></h3>
+            
+            <ol>
+                <li><strong>文档完善</strong> - README.md详细说明了每个策略的逻辑、参数和风险</li>
+                <li><strong>结构清晰</strong> - 策略按类型分类，命名规范</li>
+                <li><strong>风险控制意识</strong> - 大部分策略有过滤条件（ST、停牌、负债率等）</li>
+                <li><strong>交易成本考虑</strong> - 设置了合理的佣金和滑点</li>
+                <li><strong>多策略覆盖</strong> - 轮动、选股、套利、择时多维度布局</li>
+            </ol>
+            
+            <h3><span class="improvement">⚠️ 可改进点</span></h3>
+            
+            <ol>
+                <li><strong>缺乏止损机制</strong> - 大部分策略没有硬止损或移动止损</li>
+                <li><strong>回测报告缺失</strong> - 没有附带历史回测结果（收益率、回撤、夏普等）</li>
+                <li><strong>参数优化不足</strong> - 参数设置偏经验值，缺乏敏感性分析</li>
+                <li><strong>实盘对接</strong> - 注释掉的 redistrade 导入说明有实盘计划，但未完整实现</li>
+                <li><strong>测试覆盖</strong> - 没有单元测试，策略正确性依赖手动验证</li>
+            </ol>
+            
+            <h2>四、策略组合建议</h2>
+            
+            <p>基于这些策略，建议构建一个<strong>多策略组合</strong>：</p>
+            
+            <table>
+                <tr>
+                    <th>仓位分配</th>
+                    <th>策略</th>
+                    <th>作用</th>
+                </tr>
+                <tr>
+                    <td>30%</td>
+                    <td>ETF动量轮动</td>
+                    <td>获取大盘beta收益</td>
+                </tr>
+                <tr>
+                    <td>25%</td>
+                    <td>小市值轮动</td>
+                    <td>获取小盘alpha收益</td>
+                </tr>
+                <tr>
+                    <td>20%</td>
+                    <td>低估值选股</td>
+                    <td>价值因子暴露</td>
+                </tr>
+                <tr>
+                    <td>15%</td>
+                    <td>AH溢价套利</td>
+                    <td>低风险套利收益</td>
+                </tr>
+                <tr>
+                    <td>10%</td>
+                    <td>现金/货币基金</td>
+                    <td>流动性缓冲</td>
+                </tr>
+            </table>
+            
+            <div class="highlight">
+                <strong>组合优势：</stronge><br>
+                • ETF轮动提供大盘敞口，避免踏空<br>
+                • 小市值+低估值双因子选股，分散风格风险<br>
+                • AH套利提供与A股低相关的收益<br>
+                • 整体回撤可控（各策略相关性较低）
+            </div>
+            
+            <h2>五、下一步行动建议</h2>
+            
+            <ol>
+                <li><strong>补充止损机制</stronge><br>
+                给每个策略加入-8%硬止损或移动止损，控制单笔亏损。
+                </li>
+                
+                <li><strong>生成回测报告</stronge><br>
+                在聚宽平台上运行完整回测，记录年化收益、最大回撤、夏普比率等核心指标。
+                </li>
+                
+                <li><strong>参数敏感性分析</stronge><br>
+                对关键参数（如动量天数、持仓数量）做网格搜索，找到稳健区间。
+                </li>
+                
+                <li><strong>实盘模拟</stronge><br>
+                使用聚宽模拟交易功能，观察策略在实盘环境中的表现。
+                </li>
+                
+                <li><strong>迁移到vn.py</stronge><br>
+                当策略验证成熟后，考虑迁移到vn.py进行实盘交易。
+                </li>
+            </ol>
+            
+            <h2>六、总结</h2>
+            
+            <p>python_jointquant 是一个<strong>策略思路清晰、代码结构良好</strong>的量化策略库。覆盖了ETF轮动、因子选股、跨市场套利等主要量化方向，体现了作者对量化投资的系统性思考。</p>
+            
+            <div class="highlight">
+                <strong>核心评价：</stronge><br>
+                • 策略逻辑：⭐⭐⭐⭐⭐ 多维度覆盖，逻辑清晰<br>
+                • 代码质量：⭐⭐⭐⭐ 结构规范，文档完善<br>
+                • 风控体系：⭐⭐⭐ 有过滤条件，但缺乏止损<br>
+                • 实盘准备：⭐⭐ 有实盘接口规划，待完善
+            </div>
+            
+            <p>建议优先完善<strong>止损机制</strong>和<strong>回测报告</strong>，这将是策略从"研究"走向"实战"的关键一步。</p>
+            
+            <div class="back">
+                <a href="../index.html">← 返回随笔列表</a>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
