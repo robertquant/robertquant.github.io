@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码库调研 #005 - GitHub量化代码库调研：量化交易回测 | Robert Quant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .article {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header { border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 1.8em; color: #2d3748; margin-bottom: 10px; }
+        .meta { color: #718096; font-size: 0.9em; }
+        .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        h2 { color: #4a5568; margin: 30px 0 15px; font-size: 1.3em; }
+        p { margin: 15px 0; }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .repo-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+        .repo-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .repo-rank {
+            background: #667eea;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .repo-name {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        .repo-name:hover { text-decoration: underline; }
+        .repo-desc { color: #4a5568; margin: 10px 0; }
+        .repo-stats {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .repo-stats .stat {
+            color: #718096;
+            font-size: 0.9em;
+        }
+        .back { margin-top: 40px; }
+        .back a { color: #667eea; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <article class="article">
+            <div class="header">
+                <h1>代码库调研 #005</h1>
+                <div class="meta">
+                    <span class="tag">技术调研</span>
+                    <span>2026-03-23</span>
+                </div>
+            </div>
+            
+            <h2>GitHub量化代码库调研：量化交易回测</h2>
+            
+            <p>本次调研通过GitHub API搜索了相关的量化交易开源项目，从stars数量、代码活跃度、功能完整性等维度进行筛选。</p>
+            
+            <div class="highlight">
+                <strong>调研方法：</strong>使用 GitHub CLI (gh) 搜索API，按stars排序，筛选近期有更新的活跃仓库。
+            </div>
+            
+            <h2>值得关注的仓库</h2>
+            
+            
+            <div class="repo-card">
+                <div class="repo-header">
+                    <span class="repo-rank">#1</span>
+                    <a href="https://github.com/ccxt/ccxt" target="_blank" class="repo-name">ccxt/ccxt</a>
+                </div>
+                <p class="repo-desc">A cryptocurrency trading API with more than 100 exchanges in JavaScript / TypeScript / Python / C# / PHP / Go </p>
+                <div class="repo-stats">
+                    <span class="stat">⭐ 41472</span>
+                    <span class="stat">🍴 8556</span>
+                    <span class="stat">🔤 Python</span>
+                </div>
+            </div>
+        
+            <div class="repo-card">
+                <div class="repo-header">
+                    <span class="repo-rank">#2</span>
+                    <a href="https://github.com/vnpy/vnpy" target="_blank" class="repo-name">vnpy/vnpy</a>
+                </div>
+                <p class="repo-desc">基于Python的开源量化交易平台开发框架</p>
+                <div class="repo-stats">
+                    <span class="stat">⭐ 38222</span>
+                    <span class="stat">🍴 11173</span>
+                    <span class="stat">🔤 Python</span>
+                </div>
+            </div>
+        
+            <div class="repo-card">
+                <div class="repo-header">
+                    <span class="repo-rank">#3</span>
+                    <a href="https://github.com/nautechsystems/nautilus_trader" target="_blank" class="repo-name">nautechsystems/nautilus_trader</a>
+                </div>
+                <p class="repo-desc">Production-grade Rust-native trading engine with deterministic event-driven architecture</p>
+                <div class="repo-stats">
+                    <span class="stat">⭐ 21369</span>
+                    <span class="stat">🍴 2535</span>
+                    <span class="stat">🔤 Rust</span>
+                </div>
+            </div>
+        
+            <div class="repo-card">
+                <div class="repo-header">
+                    <span class="repo-rank">#4</span>
+                    <a href="https://github.com/mementum/backtrader" target="_blank" class="repo-name">mementum/backtrader</a>
+                </div>
+                <p class="repo-desc">Python Backtesting library for trading strategies</p>
+                <div class="repo-stats">
+                    <span class="stat">⭐ 20883</span>
+                    <span class="stat">🍴 4967</span>
+                    <span class="stat">🔤 Python</span>
+                </div>
+            </div>
+        
+            <div class="repo-card">
+                <div class="repo-header">
+                    <span class="repo-rank">#5</span>
+                    <a href="https://github.com/quantopian/zipline" target="_blank" class="repo-name">quantopian/zipline</a>
+                </div>
+                <p class="repo-desc">Zipline, a Pythonic Algorithmic Trading Library</p>
+                <div class="repo-stats">
+                    <span class="stat">⭐ 19541</span>
+                    <span class="stat">🍴 4949</span>
+                    <span class="stat">🔤 Python</span>
+                </div>
+            </div>
+        
+            
+            <div class="highlight">
+                <strong>下一步计划：</strong><br>
+                1. 深入研读排名靠前的仓库源码<br>
+                2. 提取可复用的策略逻辑和工具函数<br>
+                3. 评估是否可以集成到现有量化体系中
+            </div>
+            
+            <div class="back">
+                <a href="../index.html">← 返回随笔列表</a>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
