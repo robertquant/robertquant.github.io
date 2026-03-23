@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>框架深度调研 #002 - vn.py：中国量化交易领域的"国产之光" | Robert Quant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .article {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header { border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 1.8em; color: #2d3748; margin-bottom: 10px; }
+        .meta { color: #718096; font-size: 0.9em; }
+        .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        h2 { color: #4a5568; margin: 35px 0 15px; font-size: 1.4em; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        h3 { color: #4a5568; margin: 25px 0 10px; font-size: 1.2em; }
+        p { margin: 15px 0; }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .feature-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+        .feature-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        ul, ol { margin: 15px 0; padding-left: 25px; }
+        li { margin: 8px 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        th { background: #f7fafc; font-weight: 600; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            font-size: 0.85em;
+            color: #718096;
+            margin-top: 5px;
+        }
+        .back { margin-top: 40px; }
+        .back a { color: #667eea; text-decoration: none; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <article class="article">
+            <div class="header">
+                <h1>框架深度调研 #002</h1>
+                <div class="meta">
+                    <span class="tag">技术调研</span>
+                    <span>2026-03-23</span>
+                </div>
+            </div>
+            
+            <h2>vn.py：中国量化交易领域的"国产之光"</h2>
+            
+            <p>在GitHub量化框架的调研中，vn.py无疑是最值得深入研究的项目之一。作为<strong>中国本土开发、全球广泛使用</strong>的开源量化交易平台，vn.py在功能和生态上都达到了企业级水准。</p>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">27.8k+</div>
+                    <div class="stat-label">GitHub Stars</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">8.5k+</div>
+                    <div class="stat-label">Forks</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">600+</div>
+                    <div class="stat-label">金融机构用户</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">40+</div>
+                    <div class="stat-label">交易接口</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2015</div>
+                    <div class="stat-label">首次发布</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2025</div>
+                    <div class="stat-label">持续更新</div>
+                </div>
+            </div>
+            
+            <p><strong>仓库地址：</strong> <a href="https://github.com/vnpy/vnpy" target="_blank">https://github.com/vnpy/vnpy</a></p>
+            
+            <h2>一、核心定位与设计理念</h2>
+            
+            <div class="highlight">
+                <strong>设计目标：</strong>提供从<strong>策略开发、回测验证到实盘交易</strong>的全流程支持，让量化交易者只需关注策略逻辑，无需操心底层交易接口。
+            </div>
+            
+            <p>vn.py最大的特点是<strong>"开箱即用"</strong>的实盘交易能力。与Backtrader等纯回测框架不同，vn.py从设计之初就考虑了实盘对接，这也是它在中国市场广受欢迎的原因。</p>
+            
+            <h2>二、功能模块详解</h2>
+            
+            <div class="feature-box">
+                <div class="feature-title">📈 cta_strategy - CTA策略引擎</div>
+                <p>针对CTA类策略设计的引擎模块，支持：</p>
+                <ul>
+                    <li>多合约组合交易</li>
+                    <li>委托报撤的细粒度控制（降低滑点）</li>
+                    <li>高频策略支持</li>
+                    <li>策略级别的风险控制</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <div class="feature-title">🔄 cta_backtester - CTA回测模块</div>
+                <p>图形化回测工具，无需Jupyter Notebook：</p>
+                <ul>
+                    <li>交互式K线图表（基于PyQtGraph）</li>
+                    <li>参数优化（遗传算法+穷举法）</li>
+                    <li>回测结果可视化分析</li>
+                    <li>多进程并行回测</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <div class="feature-title">📊 spread_trading - 价差交易模块</div>
+                <p>专为套利策略设计：</p>
+                <ul>
+                    <li>自定义价差合约</li>
+                    <li>实时价差行情计算</li>
+                    <li>价差算法交易</li>
+                    <li>自动价差策略模式</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <div class="feature-title">💼 portfolio_strategy - 组合策略模块</div>
+                <p>面向多合约量化策略（Alpha、期权套利等）：</p>
+                <ul>
+                    <li>支持同时交易多合约</li>
+                    <li>组合级别风险管理</li>
+                    <li>历史数据回测</li>
+                    <li>实盘自动交易</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <div class="feature-title">⚡ option_master - 期权交易模块</div>
+                <p>针对国内期权市场设计：</p>
+                <ul>
+                    <li>多种期权定价模型（BS、二叉树、蒙特卡洛）</li>
+                    <li>隐含波动率曲面计算</li>
+                    <li>希腊值风险跟踪（Delta/Gamma/Vega/Theta）</li>
+                    <li>期权组合策略支持</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <div class="feature-title">🤖 algo_trading - 算法交易模块</div>
+                <p>提供多种智能交易算法：</p>
+                <ul>
+                    <li><strong>TWAP</strong> - 时间加权平均价</li>
+                    <li><strong>Sniper</strong> - 狙击单</li>
+                    <li><strong>Iceberg</strong> - 冰山单</li>
+                    <li><strong>BestLimit</strong> - 最优限价</li>
+                </ul>
+            </div>
+            
+            <h2>三、交易接口支持（40+）</h2>
+            
+            <table>
+                <tr>
+                    <th>市场类型</th>
+                    <th>接口名称</th>
+                    <th>适用品种</th>
+                </tr>
+                <tr>
+                    <td rowspan="5"><strong>国内期货</strong></td>
+                    <td>CTP</td>
+                    <td>上期所、大商所、郑商所、中金所</td>
+                </tr>
+                <tr>
+                    <td>CTP Mini</td>
+                    <td>能源中心（原油期货）</td>
+                </tr>
+                <tr>
+                    <td>飞马(Femas)</td>
+                    <td>大商所、郑商所</td>
+                </tr>
+                <tr>
+                    <td>易盛(Esunny)</td>
+                    <td>外盘期货</td>
+                </tr>
+                <tr>
+                    <td>XTP</td>
+                    <td>中泰证券（股票）</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>国内股票</strong></td>
+                    <td>证券柜台</td>
+                    <td>A股、ETF、可转债</td>
+                </tr>
+                <tr>
+                    <td>恒生UFT</td>
+                    <td>券商极速柜台</td>
+                </tr>
+                <tr>
+                    <td><strong>加密货币</strong></td>
+                    <td>币安(Binance)、OKX、火币</td>
+                    <td>现货、合约、期权</td>
+                </tr>
+                <tr>
+                    <td><strong>国际市场</strong></td>
+                    <td>Interactive Brokers</td>
+                    <td>美股、港股、期货、外汇</td>
+                </tr>
+            </table>
+            
+            <h2>四、架构设计亮点</h2>
+            
+            <h3>1. 事件驱动引擎（Event Engine）</h3>
+            
+            <p>vn.py的核心是一个<strong>高性能的事件驱动引擎</strong>：</p>
+            
+            <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;">事件流：行情推送 → 事件引擎 → 策略处理 → 交易下单 → 成交回报
+                         ↑                                    ↓
+                         └──────── 数据持久化/日志记录 ←───────┘</pre>
+            
+            <p><strong>优势：</stronge</p>
+            <ul>
+                <li><strong>异步处理</strong> - 行情、交易、策略解耦，互不阻塞</li>
+                <li><strong>低延迟</strong> - 毫秒级响应，支持高频策略</li>
+                <li><strong>可扩展</strong> - 支持多进程分布式架构</li>
+            </ul>
+            
+            <h3>2. 统一的Gateway接口</h3>
+            
+            <p>所有交易接口都遵循统一的<code>BaseGateway</code>抽象类：</p>
+            
+            <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;">class BaseGateway:
+    def connect(self, setting: dict) > None: ...
+    def subscribe(self, req: SubscribeRequest) > None: ...
+    def send_order(self, req: OrderRequest) > str: ...
+    def cancel_order(self, req: CancelRequest) > None: ...
+    def query_account(self) > None: ...
+    def query_position(self) > None: ...</pre>
+            
+            <p><strong>好处：</stronge></p>
+            <ul>
+                <li>切换交易所只需改配置，策略代码零改动</li>
+                <li>支持多账户、多市场同时交易</li>
+                <li>统一的错误处理和日志记录</li>
+            </ul>
+            
+            <h2>五、与Backtrader的对比</h2>
+            
+            <table>
+                <tr>
+                    <th>维度</th>
+                    <th>vn.py</th>
+                    <th>Backtrader</th>
+                </tr>
+                <tr>
+                    <td><strong>定位</strong></td>
+                    <td>实盘交易为主</td>
+                    <td>回测研究为主</td>
+                </tr>
+                <tr>
+                    <td><strong>实盘支持</strong></td>
+                    <td>⭐⭐⭐⭐⭐ 40+交易所原生支持</td>
+                    <td>⭐⭐⭐ 需第三方扩展</td>
+                </tr>
+                <tr>
+                    <td><strong>回测功能</strong></td>
+                    <td>⭐⭐⭐ 图形化界面，但速度较慢</td>
+                    <td>⭐⭐⭐⭐⭐ 功能丰富，更灵活</td>
+                </tr>
+                <tr>
+                    <td><strong>中国市场</strong></td>
+                    <td>⭐⭐⭐⭐⭐ CTP、证券柜台原生支持</td>
+                    <td>⭐⭐ 需自行对接</td>
+                </tr>
+                <tr>
+                    <td><strong>GUI界面</strong></td>
+                    <td>⭐⭐⭐⭐⭐ PyQt5完整界面</td>
+                    <td>⭐⭐ Matplotlib绘图</td>
+                </tr>
+                <tr>
+                    <td><strong>学习曲线</strong></td>
+                    <td>中等（中文文档完善）</td>
+                    <td>较陡（英文文档为主）</td>
+                </tr>
+                <tr>
+                    <td><strong>社区活跃度</strong></td>
+                    <td>⭐⭐⭐⭐⭐ 600+机构，活跃更新</td>
+                    <td>⭐⭐ 已停止维护</td>
+                </tr>
+            </table>
+            
+            <h2>六、适用场景评估</h2>
+            
+            <div class="highlight">
+                <strong>✅ 强烈推荐使用 vn.py：</stronge><br>
+                • 需要对接国内期货/股票实盘<br>
+                • 需要图形化界面监控交易<br>
+                • 需要完整的期权、套利工具<br>
+                • 团队以中文沟通为主
+            </div>
+            
+            <div class="highlight"
+                style="background: linear-gradient(120deg, #ffeaa7 0%, #fab1a0 100%);">
+                <strong>⚠️ 可能不适合 vn.py：</stronge><br>
+                • 只做纯研究，不需要实盘<br>
+                • 需要超大规模回测（可用VectorBT替代）<br>
+                • 策略极其简单，不想引入复杂度
+            </div>
+            
+            <h2>七、我们的接入方案</h2>
+            
+            <div class="highlight">
+                <strong>建议的渐进式接入路径：</stronge><br><br>
+                <strong>阶段1（验证期）</stronge>：使用现有 quant-trading 快速验证策略逻辑<br>
+                ⬇️<br>
+                <strong>阶段2（回测期）</stronge>：用 vn.py 的 cta_backtester 做详细回测和参数优化<br>
+                ⬇️<br>
+                <strong>阶段3（模拟期）</stronge>：用 vn.py 的 paper_account 模块做仿真交易<br>
+                ⬇️<br>
+                <strong>阶段4（实盘期）</stronge>：对接 CTP/证券柜台 实盘交易
+            </div>
+            
+            <h2>八、关键资源</h2>
+            
+            <ul>
+                <li><strong>官方文档</strong>：https://www.vnpy.com/docs/cn/index.html</li>
+                <li><strong>社区论坛</strong>：https://www.vnpy.com/forum</li>
+                <li><strong>GitHub仓库</strong>：https://github.com/vnpy/vnpy</li>
+                <li><strong>示例策略</strong>：https://github.com/vnpy/vnpy/tree/master/examples</li>
+                <li><strong>Docker镜像</strong>：docker pull vnpy/vnpy</li>
+            </ul>
+            
+            <h2>九、总结</h2>
+            
+            <p>vn.py是中国量化交易领域的<strong>"国产之光"</strong>，在以下方面具有不可替代的优势：</p>
+            
+            <ol>
+                <li><strong>本土化程度最高</strong> - 对国内交易所支持最完善</li>
+                <li><strong>实盘能力最强</strong> - 40+交易接口开箱即用</li>
+                <li><strong>生态最活跃</strong> - 600+机构用户，持续更新维护</li>
+                <li><strong>中文支持最好</strong> - 文档、社区、教程全中文</li>
+            </ol>
+            
+            <div class="highlight">
+                <strong>核心结论：</stronge>对于A股/期货实盘交易，vn.py是目前最优选择。建议在我们的ETF轮动和小市值因子策略验证成熟后，使用vn.py进行实盘部署。
+            </div>
+            
+            <div class="back">
+                <a href="../index.html">← 返回随笔列表</a>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
