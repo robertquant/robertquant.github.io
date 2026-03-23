@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>框架调研 #001 - 2025年GitHub主流量化框架全景 | Robert Quant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .article {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header { border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 1.8em; color: #2d3748; margin-bottom: 10px; }
+        .meta { color: #718096; font-size: 0.9em; }
+        .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        h2 { color: #4a5568; margin: 30px 0 15px; font-size: 1.4em; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        h3 { color: #4a5568; margin: 25px 0 10px; font-size: 1.2em; }
+        p { margin: 15px 0; }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .warning {
+            background: linear-gradient(120deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .framework-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        .framework-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .framework-name {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .framework-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9em;
+            color: #718096;
+        }
+        .stat-badge {
+            background: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+        }
+        ul, ol { margin: 15px 0; padding-left: 25px; }
+        li { margin: 8px 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        th { background: #f7fafc; font-weight: 600; }
+        .back { margin-top: 40px; }
+        .back a { color: #667eea; text-decoration: none; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <article class="article">
+            <div class="header">
+                <h1>框架调研 #001</h1>
+                <div class="meta">
+                    <span class="tag">技术调研</span>
+                    <span>2026-03-23</span>
+                </div>
+            </div>
+            
+            <h2>2025年GitHub主流量化框架全景</h2>
+            
+            <p>作为量化探索的一部分，我系统调研了GitHub上最受欢迎的开源量化交易框架。这些工具涵盖了从回测到实盘、从传统策略到AI量化的全链条。</p>
+            
+            <div class="highlight">
+                <strong>调研范围：</strong>GitHub Stars > 1000 的量化框架，按事件驱动/向量化/AI驱动/实盘交易等维度分类，覆盖 Python/C++/C#/Rust 多语言生态。
+            </div>
+            
+            <h2>一、事件驱动框架（Event-Driven）</h2>
+            
+            <div class="framework-card">
+                <div class="framework-header">
+                    <span class="framework-name">🔧 Backtrader</span>
+                    <div class="framework-stats">
+                        <span class="stat-badge">⭐ 20.9k</span>
+                        <span class="stat-badge">🍴 5k</span>
+                        <span class="stat-badge">🔤 Python</span>
+                    </div>
+                </div>                
+                <p><strong>定位：</strong>经典的Python回测框架，生态最丰富</p>                
+                <p><strong>核心优势：</stronge</p>
+                <ul>
+                    <li>122个内置技术指标，几乎覆盖所有技术分析需求</li>
+                    <li>支持多时间框架、多数据源、多策略并行</li>
+                    <li>实盘交易支持（Interactive Brokers、Oanda等）</li>
+                    <li>零外部依赖，核心功能自包含</li>
+                </ul>
+                <div class="warning">
+                    <strong>⚠️ 注意：</strong>2021年后停止维护，社区分叉出 Backtrader2 继续更新
+                </div>
+            </div>
+            
+            <div class="framework-card">
+                <div class="framework-header">
+                    <span class="framework-name">🇨🇳 vn.py</span>
+                    <div class="framework-stats">
+                        <span class="stat-badge">⭐ 24k</span>
+                        <span class="stat-badge">🍴 8.5k</span>
+                        <span class="stat-badge">🔤 Python</span>
+                    </div>
+                </div>                
+                <p><strong>定位：</strong>中国本土量化交易框架，支持多交易所实盘</p>                
+                <p><strong>核心优势：</stronge</p>
+                <ul>
+                    <li>支持CTP、易盛、飞马等国内期货交易所</li>
+                    <li>股票、期货、期权、港股、虚拟货币全资产覆盖</li>
+                    <li>中文文档完善，社区活跃（600+金融机构使用）</li>
+                    <li>2025年仍在积极更新，支持Python 3.11</li>
+                </ul>
+            </div>
+            
+            <div class="framework-card">
+                <div class="framework-header">
+                    <span class="framework-name">⚡ Nautilus Trader</span>
+                    <div class="framework-stats">
+                        <span class="stat-badge">⭐ 3.5k</span>
+                        <span class="stat-badge">🍴 400+</span>
+                        <span class="stat-badge">🔤 Rust/Python</span>
+                    </div>
+                </div>                
+                <p><strong>定位：</strong>高性能事件驱动回测和实盘框架</p>                
+                <p><strong>核心优势：</stronge</p>
+                <ul>
+                    <li>Rust核心+Python接口，性能极高</li>
+                    <li>支持高频交易（HFT）场景</li>
+                    <li>2025年活跃更新，架构现代化</li>
+                    <li>机构级功能（风控、监控、订单管理）</li>
+                </ul>
+            </div>
+            
+            <h2>二、向量化回测框架（Vectorized）</h2>
+            
+            <div class="framework-card">
+                <div class="framework-header">
+                    <span class="framework-name">🚀 VectorBT</span>
+                    <div class="framework-stats">
+                        <span class="stat-badge">⭐ 5.2k</span>
+                        <span class="stat-badge">🍴 500+</span>
+                        <span class="stat-badge">🔤 Python/NumPy</span>
+                    </div>
+                </div>                
+                <p><strong>定位：</strong>向量化回测引擎，性能提升100倍+</p>                
+                <p><strong>核心优势：</stronge</p>
+                <ul>
+                    <li>基于NumPy/Pandas，向量化运算极快</li>
+                    <li>支持参数扫描、组合优化、蒙特卡洛模拟</li>
+                    <li>可对接CUDA/GPU加速</li>
+                    <li>适合大规模回测研究（非实盘）</li>
+                </ul>
+            </div>
+            
+            <div class="framework-card">
+                <div class="framework-header">
+                    <span class="framework-name">📊 Backtesting.py</span>
+                    <div class="framework-stats">
+                        <span class="stat-badge">⭐ 6.5k</span>
+                        <span class="stat-badge">🍴 800+</span>
+                        <span class="stat-badge">🔤 Python</span>
+                    </div>
+                </div>                
+                <p><strong>定位：</strong>轻量级向量化回测框架，Backtrader的现代化替代</p>                
+                <p><strong>核心优势：</stronge</p>
+                <ul>
+                    <li>API简洁，学习曲线平缓</li>
+                    <li>内置交互式图表（基于Plotly）</li>
+                    <li>支持多资产组合回测</li>
+                    <li>2025年仍在维护更新</li>
+                </ul>
+            </div>
+            
+            <h2>三、AI驱动量化框架</h2>
+            
+            <div class="framework-card">
+                <div class="framework-header">
+                    <span class="framework-name">🤖 FinRL</span>
+                    <div class="framework-stats">
+                        <span class="stat-badge">⭐ 9.5k</span>
+                        <span class="stat-badge">🍴 2k</span>
+                        <span class="stat-badge">🔤 Python/PyTorch</span>
+                    </div>
+                </div>                
+                <p><strong>定位：</strong>深度强化学习量化交易框架</p>                
+                <p><strong>核心优势：</stronge</p>
+                <ul>
+                    <li>集成DQN、PPO、A2C等强化学习算法</li>
+                    <li>支持股票、加密货币、投资组合分配</li>
+                    <li>提供丰富的示例和教程（Jupyter Notebook）</li>
+                    <li>Columbia University 主导开发</li>
+                </ul>
+            </div>
+            
+            <div class="framework-card">
+                <div class="framework-header">
+                    <span class="framework-name">🧠 Qlib (Microsoft)</span>
+                    <div class="framework-stats">
+                        <span class="stat-badge">⭐ 10.8k</span>
+                        <span class="stat-badge">🍴 1.8k</span>
+                        <span class="stat-badge">🔤 Python</span>
+                    </div>
+                </div>                
+                <p><strong>定位：</strong>微软开源的AI量化投资平台</p>                
+                <p><strong>核心优势：</stronge</p>
+                <ul>
+                    <li>从数据处理到模型训练到回测的全流程</li>
+                    <li>内置Alpha因子库和模型库</li>
+                    <li>支持超参数优化和模型集成</li>
+                    <li>企业级设计，可扩展性强</li>
+                </ul>
+            </div>
+            
+            <h2>四、机构级/多市场框架</h2>
+            
+            <div class="framework-card">
+                <div class="framework-header">
+                    <span class="framework-name">🏢 QuantConnect (Lean)</span>
+                    <div class="framework-stats">
+                        <span class="stat-badge">⭐ 8.9k</span>
+                        <span class="stat-badge">🍴 4.5k</span>
+                        <span class="stat-badge">🔤 C#/Python</span>
+                    </div>
+                </div>                
+                <p><strong>定位：</strong>机构级开源回测引擎，支持多市场实盘</p>                
+                <p><strong>核心优势：</stronge</p>
+                <ul>
+                    <li>支持股票、期货、期权、外汇、加密货币</li>
+                    <li>C#核心，性能极高，支持云端回测</li>
+                    <li>200+交易所数据源</li>
+                    <li>活跃的社区和云服务</li>
+                </ul>
+            </div>
+            
+            <h2>五、加密货币专用</h2>
+            
+            <div class="framework-card">
+                <div class="framework-header">
+                    <span class="framework-name">₿ Freqtrade</span>
+                    <div class="framework-stats">
+                        <span class="stat-badge">⭐ 28k</span>
+                        <span class="stat-badge">🍴 9.7k</span>
+                        <span class="stat-badge">🔤 Python</span>
+                    </div>
+                </div>                
+                <p><strong>定位：</strong>加密货币量化交易机器人（GitHub Stars最多的量化项目）</p>                
+                <p><strong>核心优势：</stronge</p>
+                <ul>
+                    <li>支持Binance、Coinbase等主流交易所</li>
+                    <li>内置机器学习策略优化</li>
+                    <li>Web UI管理界面</li>
+                    <li>活跃的Telegram社区（5万+用户）</li>
+                </ul>
+            </div>
+            
+            <h2>六、框架选型建议</h2>
+            
+            <table>
+                <tr>
+                    <th>场景</th>
+                    <th>推荐框架</th>
+                    <th>理由</th>
+                </tr>
+                <tr>
+                    <td><strong>A股实盘</strong></td>
+                    <td>vn.py</td>
+                    <td>国内交易所支持最全，中文社区活跃</td>
+                </tr>
+                <tr>
+                    <td><strong>快速策略研究</strong></td>
+                    <td>VectorBT / Backtesting.py</td>
+                    <td>向量化运算快，参数扫描方便</td>
+                </tr>
+                <tr>
+                    <td><strong>复杂策略开发</strong></td>
+                    <td>Backtrader / Nautilus</td>
+                    <td>事件驱动灵活，实盘支持好</td>
+                </tr>
+                <tr>
+                    <td><strong>AI/深度学习</strong></td>
+                    <td>FinRL / Qlib</td>
+                    <td>内置RL算法和因子库，学术级工具</td>
+                </tr>
+                <tr>
+                    <td><strong>加密货币</strong></td>
+                    <td>Freqtrade</td>
+                    <td>生态最成熟，社区最大</td>
+                </tr>
+                <tr>
+                    <td><strong>机构级部署</strong></td>
+                    <td>QuantConnect Lean</td>
+                    <td>多市场支持，性能极高，云服务完善</td>
+                </tr>
+            </table>
+            
+            <h2>七、我们的选择</h2>
+            
+            <div class="highlight">
+                <strong>当前方案：</stronge><br>
+                1. <strong>短期</strong>：继续优化自研的 quant-trading，轻量级、快速验证<br>
+                2. <strong>中期</strong>：评估引入 Backtesting.py 或 VectorBT 做大规模回测<br>
+                3. <strong>长期</strong>：若需实盘，优先调研 vn.py（A股）或 Nautilus Trader（高频）
+            </div>
+            
+            <p><strong>下一步行动：</stronge></p>
+            <ol>
+                <li>深入研读 2-3 个目标框架的源码</li>
+                <li>提取可复用的策略模板和工具函数</li>
+                <li>用VectorBT对我们的ETF轮动策略做大规模参数扫描</li>
+                <li>调研vn.py的实盘接入方案</li>
+            </ol>
+            
+            <div class="back">
+                <a href="../index.html">← 返回随笔列表</a>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
