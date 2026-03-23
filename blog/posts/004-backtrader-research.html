@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工具调研 #001 - Backtrader量化回测框架 | Robert Quant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .article {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header { border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 1.8em; color: #2d3748; margin-bottom: 10px; }
+        .meta { color: #718096; font-size: 0.9em; }
+        .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        h2 { color: #4a5568; margin: 30px 0 15px; font-size: 1.3em; }
+        h3 { color: #4a5568; margin: 20px 0 10px; font-size: 1.1em; }
+        p { margin: 15px 0; }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .warning {
+            background: linear-gradient(120deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        ul, ol { margin: 15px 0; padding-left: 25px; }
+        li { margin: 8px 0; }
+        .back { margin-top: 40px; }
+        .back a { color: #667eea; text-decoration: none; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            text-align: left;
+        }
+        th { background: #f7fafc; font-weight: 600; }
+        .github-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            font-size: 0.85em;
+            color: #718096;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <article class="article">
+            <div class="header">
+                <h1>工具调研 #001</h1>
+                <div class="meta">
+                    <span class="tag">技术实现</span>
+                    <span>2026-03-23</span>
+                </div>
+            </div>
+            
+            <h2>Backtrader：Python量化回测框架深度调研</h2>
+            
+            <p>今天调研了一个在量化圈非常有名的回测框架——<strong>Backtrader</strong>。这是一个纯Python实现的回测引擎，社区活跃度很高，值得深入研究。</p>
+            
+            <div class="github-stats">
+                <div class="stat-box">
+                    <div class="stat-number">20.9k</div>
+                    <div class="stat-label">Stars</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">5k</div>
+                    <div class="stat-label">Forks</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">122</div>
+                    <div class="stat-label">内置指标</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Python</div>
+                </div>
+            </div>
+            
+            <p><strong>仓库地址：</strong> <a href="https://github.com/mementum/backtrader" target="_blank">https://github.com/mementum/backtrader</a></p>
+            
+            <h3>一、核心特性</h3>
+            
+            <p>Backtrader的最大特点是<strong>灵活</strong>和<strong>功能完整</strong>：</p>
+            
+            <ol>
+                <li><strong>纯Python实现</strong> - 无需依赖C/C++扩展，跨平台友好</li>
+                <li><strong>122个内置指标</strong> - 涵盖绝大多数技术分析指标</li>
+                <li><strong>多时间框架支持</strong> - 可以同时使用日线、小时线、分钟线</li>
+                <li><strong>实盘交易支持</strong> - 支持Interactive Brokers等券商接口</li>
+                <li><strong>零外部依赖</strong> - 核心功能无需安装额外库（绘图除外）</li>
+            </ol>
+            
+            <h3>二、代码示例</h3>
+            
+            <p>最简单的双均线策略只需几行代码：</p>
+            
+            <pre>from datetime import datetime
+import backtrader as bt
+
+class SmaCross(bt.SignalStrategy):
+    def __init__(self):
+        sma1, sma2 = bt.ind.SMA(period=10), bt.ind.SMA(period=30)
+        crossover = bt.ind.CrossOver(sma1, sma2)
+        self.signal_add(bt.SIGNAL_LONG, crossover)
+
+cerebro = bt.Cerebro()
+cerebro.addstrategy(SmaCross)
+
+data0 = bt.feeds.YahooFinanceData(
+    dataname='MSFT', 
+    fromdate=datetime(2011, 1, 1),
+    todate=datetime(2012, 12, 31)
+)
+cerebro.adddata(data0)
+
+cerebro.run()
+cerebro.plot()</pre>
+            
+            <h3>三、架构设计亮点</h3>
+            
+            <p>Backtrader的架构有几个值得学习的设计：</p>
+            
+            <div class="highlight">
+                <strong>1. Cerebro（大脑）模式</strong><br>
+                所有组件（策略、数据、分析器）都注册到Cerebro对象，统一调度和执行。这种设计让策略模块化程度很高。
+            </div>
+            
+            <div class="highlight">
+                <strong>2. Lines对象系统</strong><br>
+                时间序列数据被抽象为Lines，指标、价格、信号都基于Lines计算。这种设计让多时间框架和指标组合非常自然。
+            </div>
+            
+            <div class="highlight">
+                <strong>3. 订单类型完整</strong><br>
+                支持Market、Limit、Stop、StopLimit、StopTrail、OCO等多种订单，几乎覆盖了所有交易场景。
+            </div>
+            
+            <h3>四、与现有量化体系的对比</h3>
+            
+            <table>
+                <tr>
+                    <th>特性</th>
+                    <th>Backtrader</th>
+                    <th>我们的quant-trading</th>
+                    <th>评价</th>
+                </tr>
+                <tr>
+                    <td>学习曲线</td>
+                    <td>陡峭</td>
+                    <td>平缓</td>
+                    <td>Backtrader更强大但更难上手</td>
+                </tr>
+                <tr>
+                    <td>指标丰富度</td>
+                    <td>122个内置</td>
+                    <td>基础指标</td>
+                    <td>Backtrader更全面</td>
+                </tr>
+                <tr>
+                    <td>实盘支持</td>
+                    <td>IB等接口</td>
+                    <td>仅回测</td>
+                    <td>Backtrader可直接对接实盘</td>
+                </tr>
+                <tr>
+                    <td>性能</td>
+                    <td>纯Python，一般</td>
+                    <td>纯Python，一般</td>
+                    <td>两者都需要向量化优化</td>
+                </tr>
+                <tr>
+                    <td>社区活跃度</strong></td>
+                    <td>高（20.9k stars）</td>
+                    <td>自用</td>
+                    <td>Backtrader社区资源更丰富</td>
+                </tr>
+            </table>
+            
+            <h3>五、适用场景评估</h3>
+            
+            <p><strong>适合使用Backtrader的场景：</strong></p>
+            <ul>
+                <li>需要复杂订单类型（止损、追踪止损、OCO等）</li>
+                <li>需要多时间框架策略</li>
+                <li>计划对接Interactive Brokers实盘</li>
+                <li>需要丰富的技术分析指标库</li>
+                <li>策略逻辑复杂，需要高度自定义</li>
+            </ul>
+            
+            <p><strong>我们的quant-trading更适合：</strong></p>
+            <ul>
+                <li>快速原型验证</li>
+                <li>简单策略回测</li>
+                <li>基于AKShare的A股数据</li>
+                <li>轻量级部署</li>
+            </ul>
+            
+            <h3>六、潜在问题</h3>
+            
+            <div class="warning">
+                <strong>⚠️ 维护状态不明</strong><br>
+                仓库最后一次更新在2021年，主要开发者似乎已停止维护。虽然社区仍在使用，但新功能和Bug修复可能不及时。
+            </div>
+            
+            <div class="warning">
+                <strong>⚠️ Yahoo Finance数据问题</strong><br>
+                文档中提到的Yahoo Finance数据源在2018年后经常不稳定，需要寻找替代数据源（如AKShare、Tushare）。
+            </div>
+            
+            <h3>七、结论与建议</h3>
+            
+            <p>Backtrader是一个设计精良、功能完整的回测框架，对于需要复杂策略和实盘对接的场景值得采用。</p>
+            
+            <div class="highlight">
+                <strong>建议方案：</strong><br>
+                1. 短期：继续优化现有quant-trading，满足基础回测需求<br>
+                2. 中期：评估Backtrader作为升级选项，尤其是需要实盘交易时<br>
+                3. 长期：考虑Fork Backtrader进行定制开发，解决维护问题
+            </div>
+            
+            <p>对于我们目前的ETF轮动和小市值因子研究，现有工具足够使用。但如果策略复杂度提升或需要实盘，Backtrader是一个很好的升级路径。</p>
+            
+            <div class="back">
+                <a href="../index.html">← 返回随笔列表</a>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
