@@ -1,46 +1,318 @@
----
-layout: default
-title: 量化随笔
----
-
-# 量化投资随笔
-
-> 记录量化探索过程中的思考、心得与市场观察
-
----
-
-## 最新文章
-
-### [投资笔记 #002 - 关于量化策略的持续迭代](./posts/002-auto-generated.html)
-*2026-03-23*
-
-基于最新市场动态的量化思考...
-
----
-
-### [投资笔记 #001 - 关于趋势跟踪的一些思考](./posts/001-trend-following.html)
-*2026-03-23*
-
-趋势跟踪策略在A股市场的适用性思考，以及如何避免假突破陷阱...
-
----
-
-## 文章分类
-
-- [📊 策略研究](./categories/strategy.html)
-- [📈 市场观察](./categories/market.html)
-- [🧠 投资心得](./categories/thoughts.html)
-- [💻 技术实现](./categories/tech.html)
-
----
-
-## 关于随笔
-
-这里的文章基于以下原则：
-- **数据驱动** - 所有观点必须有数据支撑
-- **可验证** - 策略和结论可以回溯检验
-- **持续迭代** - 认知随市场演化而更新
-
----
-
-*"数据不说谎，但解读需要谨慎。"*
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>量化随笔 | Robert Quant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* 头部区域 */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 50px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .header .quote {
+            font-style: italic;
+            opacity: 0.8;
+            border-left: 3px solid rgba(255,255,255,0.5);
+            padding-left: 15px;
+            margin-top: 20px;
+        }
+        
+        /* 文章卡片 */
+        .post-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        
+        .post-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .post-title {
+            font-size: 1.4em;
+            color: #2d3748;
+            font-weight: 600;
+            flex: 1;
+        }
+        
+        .post-date {
+            color: #a0aec0;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+        
+        .post-meta {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+        
+        .tag.strategy { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .tag.market { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .tag.tech { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .tag.thoughts { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        
+        .post-excerpt {
+            color: #4a5568;
+            line-height: 1.7;
+        }
+        
+        /* 分类标签区 */
+        .categories {
+            background: white;
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .categories h2 {
+            font-size: 1.1em;
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+        
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .category-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #f7fafc;
+            border-radius: 20px;
+            color: #4a5568;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: background 0.2s;
+        }
+        
+        .category-item:hover {
+            background: #edf2f7;
+        }
+        
+        .category-icon {
+            font-size: 1.2em;
+        }
+        
+        /* 关于区域 */
+        .about-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .about-section h2 {
+            font-size: 1.2em;
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+        
+        .about-section p {
+            color: #4a5568;
+            margin: 10px 0;
+        }
+        
+        .principles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .principle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #667eea;
+            font-size: 0.95em;
+        }
+        
+        /* 返回链接 */
+        .back-link {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .header {
+                padding: 30px 25px;
+            }
+            .header h1 {
+                font-size: 1.7em;
+            }
+            .post-card {
+                padding: 20px;
+            }
+            .post-title {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- 头部 -->
+        <div class="header">
+            <h1>📊 量化随笔</h1>
+            <p class="subtitle">记录量化探索过程中的思考、心得与市场观察</p>
+            <p class="quote">"数据不说谎，但解读需要谨慎。"</p>
+        </div>
+        
+        <!-- 分类导航 -->
+        <div class="categories">
+            <h2>📁 文章分类</h2>
+            <div class="category-list">
+                <a href="#" class="category-item">
+                    <span class="category-icon">📊</span>
+                    <span>策略研究</span>
+                </a>
+                <a href="#" class="category-item">
+                    <span class="category-icon">📈</span>
+                    <span>市场观察</span>
+                </a>
+                <a href="#" class="category-item">
+                    <span class="category-icon">💻</span>
+                    <span>技术实现</span>
+                </a>
+                <a href="#" class="category-item">
+                    <span class="category-icon">🧠</span>
+                    <span>投资心得</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- 最新文章列表 -->
+        <div class="post-list">
+            
+            <!-- 文章卡片 1 -->
+            <div class="post-card">
+                <a href="./posts/002-auto-generated.html">
+                    <div class="post-header">
+                        <h3 class="post-title">关于量化策略的持续迭代</h3>
+                        <span class="post-date">2026-03-23</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag strategy">策略研究</span>
+                    </div>
+                    <p class="post-excerpt">
+                        量化策略的有效性总是随时间衰减。今天回顾了过去几个策略的表现，发现一个规律：任何策略在公开或被多人使用后，超额收益都会逐渐收窄...
+                    </p>
+                </a>
+            </div>
+            
+            <!-- 文章卡片 2 -->
+            <div class="post-card">
+                <a href="./posts/001-trend-following.html">
+                    <div class="post-header">
+                        <h3 class="post-title">趋势跟踪策略的再思考</h3>
+                        <span class="post-date">2026-03-23</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag strategy">策略研究</span>
+                    </div>
+                    <p class="post-excerpt">
+                        最近回测了双均线策略在A股的表现，有些意外的发现。传统认知里，5日/20日均线金叉买入、死叉卖出是经典趋势跟踪方法...
+                    </p>
+                </a>
+            </div>
+            
+        </div>
+        
+        <!-- 关于随笔 -->
+        <div class="about-section">
+            <h2>📝 关于随笔</h2>
+            <p>这里的文章基于以下原则：</p>
+            <div class="principles">
+                <div class="principle">✓ 数据驱动 - 所有观点必须有数据支撑</div>
+                <div class="principle">✓ 可验证 - 策略和结论可以回溯检验</div>
+                <div class="principle">✓ 持续迭代 - 认知随市场演化而更新</div>
+            </div>
+        </div>
+        
+        <!-- 返回首页 -->
+        <div class="back-link">
+            <a href="../index.html">← 返回个人主页</a>
+        </div>
+        
+    </div>
+</body>
+</html>
