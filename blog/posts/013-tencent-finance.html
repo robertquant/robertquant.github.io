@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投资笔记 #013 - 腾讯财经：被忽视的免费量化数据源 | Robert Quant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .article {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header { border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 1.8em; color: #2d3748; margin-bottom: 10px; }
+        .meta { color: #718096; font-size: 0.9em; }
+        .tag {
+            display: inline-block;
+            background: #edf2f7;
+            color: #4a5568;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        h2 { color: #4a5568; margin: 30px 0 15px; font-size: 1.3em; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        h3 { color: #667eea; margin: 25px 0 10px; font-size: 1.1em; }
+        p { margin: 15px 0; }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .code-block {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background: #f7fafc;
+            font-weight: 600;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f7fafc;
+        }
+        .back { margin-top: 40px; }
+        .back a { color: #667eea; text-decoration: none; }
+        ul, ol { margin: 15px 0; padding-left: 25px; }
+        li { margin: 8px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <article class="article">
+            <div class="header">
+                <h1>投资笔记 #013</h1>
+                <div class="meta">
+                    <span class="tag">技术调研</span>
+                    <span>2026-03-24</span>
+                </div>
+            </div>
+            
+            <h2>腾讯财经：被忽视的免费量化数据源</h2>
+            
+            <p>在量化投资的数据获取环节，Tushare、AKShare 往往是最先被提及的工具。但在今天的 ETF 策略开发中，我发现了一个更稳定、更简单的选择——<strong>腾讯财经</strong>。</p>
+            
+            <h3>🔍 为什么选择腾讯财经</h3>
+            
+            <p>事情要从 AKShare 的连接失败说起。当我尝试使用 AKShare 获取 ETF 历史数据时，频繁遇到 RemoteDisconnected 错误。调研后发现，东方财富服务器对爬虫请求有严格的 IP 风控策略。</p>
+            
+            <p>转而测试腾讯财经接口时，却出乎意料地顺利：<strong>无认证、无限制、秒级响应</strong>。</p>
+            
+            <h3>📊 数据覆盖能力</h3>
+            
+            <p>经过系统测试，腾讯财经的数据覆盖情况如下：</p>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>数据类型</th>
+                    <th>覆盖范围</th>
+                    <th>起始时间</th>
+                    <th>质量</th>
+                </tr>
+                <tr>
+                    <td>A股股票</td>
+                    <td>全部沪深股票</td>
+                    <td>上市至今</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                </tr>
+                <tr>
+                    <td>ETF基金</td>
+                    <td>全部场内ETF</td>
+                    <td>2015年起</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                </tr>
+                <tr>
+                    <td>LOF基金</td>
+                    <td>全部场内LOF</td>
+                    <td>上市至今</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                </tr>
+                <tr>
+                    <td>指数数据</td>
+                    <td>主要宽基指数</td>
+                    <td>2015年起</td>
+                    <td>⭐⭐⭐⭐</td>
+                </tr>
+                <tr>
+                    <td>实时行情</td>
+                    <td>延迟15分钟</td>
+                    <td>-</td>
+                    <td>⭐⭐⭐⭐</td>
+                </tr>
+            </table>
+            
+            <div class="highlight">
+                <strong>关键发现</strong>：ETF数据可追溯至2015年，覆盖完整的牛熊周期。对于策略回测而言，10年历史数据已足够验证策略稳健性。
+            </div>
+            
+            <h3>🔧 接口技术解析</h3>
+            
+            <p>腾讯财经提供的是 HTTP JSON 接口，无需注册、无需 Token，直接用：</p>
+            
+            <div class="code-block">
+http://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=CODE,PERIOD,START,END,COUNT,ADJUST
+            </div>
+            
+            <p>参数说明：</p>
+            <ul>
+                <li><strong>CODE</strong>：股票代码（如 sh510300、sz159915）</li>
+                <li><strong>PERIOD</strong>：周期（day/min）</li>
+                <li><strong>START/END</strong>：起止日期（YYYY-MM-DD）</li>
+                <li><strong>COUNT</strong>：最大返回条数（最大500）</li>
+                <li><strong>ADJUST</strong>：复权类型（qfq前复权/hfq后复权）</li>
+            </ul>
+            
+            <h3>💻 使用示例</h3>
+            
+            <div class="code-block">
+import requests
+import pandas as pd
+
+# 获取沪深300ETF历史数据
+code = 'sh510300'
+url = f'http://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param={code},day,2015-01-01,2024-12-31,500,qfq'
+
+r = requests.get(url)
+data = r.json()
+
+# 解析数据
+kline = data['data'][code]['qfqday']
+df = pd.DataFrame(kline, columns=['date', 'open', 'close', 'low', 'high', 'volume'])
+df['date'] = pd.to_datetime(df['date'])
+df.set_index('date', inplace=True)
+
+print(f"获取到 {len(df)} 条数据")
+print(df.head())
+            </div>
+            
+            <h3>⚖️ 与其他数据源对比</h3>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>特性</th>
+                    <th>腾讯财经</th>
+                    <th>Tushare Pro</th>
+                    <th>AKShare</th>
+                </tr>
+                <tr>
+                    <td>认证要求</td>
+                    <td>无需认证</td>
+                    <td>需要Token</td>
+                    <td>无需认证</td>
+                </tr>
+                <tr>
+                    <td>调用限制</td>
+                    <td>无明确限制</td>
+                    <td>积分制</td>
+                    <td>易被风控</td>
+                </tr>
+                <tr>
+                    <td>数据延迟</td>
+                    <td>15分钟</td>
+                    <td>实时/延迟</td>
+                    <td>15分钟</td>
+                </tr>
+                <tr>
+                    <td>A股覆盖</td>
+                    <td>股票/ETF/LOF</td>
+                    <td>全品类</td>
+                    <td>全品类</td>
+                </tr>
+                <tr>
+                    <td>期货/期权</td>
+                    <td>❌</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                </tr>
+                <tr>
+                    <td>稳定性</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐</td>
+                </tr>
+            </table>
+            
+            <h3>✅ 优点总结</h3>
+            
+            <ol>
+                <li><strong>零门槛</strong>：无需注册、无需 Token，开箱即用</li>
+                <li><strong>高稳定</strong>：相比 AKShare 的频繁风控，腾讯财经连接更稳定</li>
+                <li><strong>免费</strong>：完全免费，无调用次数限制（合理范围内）</li>
+                <li><strong>数据质量</strong>：前复权数据已处理分红送股，直接可用</li>
+                <li><strong>历史悠久</strong>：ETF数据从2015年开始，满足回测需求</li>
+            </ol>
+            
+            <h3>❌ 局限性</h3>
+            
+            <ol>
+                <li><strong>功能单一</strong>：仅提供行情数据，无财务数据、无宏观数据</li>
+                <li><strong>无期货期权</strong>：不覆盖衍生品市场</li>
+                <li><strong>无资金流</strong>：不提供北向资金、主力资金等资金流向数据</li>
+                <li><strong>接口未文档化</strong>：非官方 API，存在变更风险</li>
+                <li><strong>单次限制</strong>：单次最多返回500条数据，长周期需分多次获取</li>
+            </ol>
+            
+            <h3>🎯 适用场景</h3>
+            
+            <div class="highlight">
+                <strong>推荐使用</strong>：<br>
+                • ETF/股票策略回测（需要历史K线）<br>
+                • 简单的量化策略验证<br>
+                • 个人研究，非高频调用<br><br>
+                
+                <strong>不推荐</strong>：<br>
+                • 需要期货/期权数据<br>
+                • 需要实时资金流数据<br>
+                • 生产环境高频调用
+            </div>
+            
+            <h3>📝 总结</h3>
+            
+            <p>腾讯财经是一个<strong>被严重低估的免费数据源</strong>。它没有 Tushare 的功能全面，没有 AKShare 的数据丰富，但在"获取 A股/ETF 历史行情"这个单一需求上，它是最简单、最稳定的选择。</p>
+            
+            <p>对于刚入门的量化研究者，或者只需要基础行情数据的策略，腾讯财经足以支撑从学习到实盘的全流程。当策略需要更丰富的数据（期货、资金流、财务数据）时，再考虑接入 Tushare Pro 等付费数据源。</p>
+            
+            <div class="highlight">
+                <strong>核心观点</strong>：技术选型没有最好，只有最合适。在数据获取环节，"够用且稳定"比"功能丰富但经常失效"更有价值。
+            </div>
+            
+            <div class="highlight">
+                <strong>相关链接</strong>：<br>
+                • 腾讯财经：https://finance.qq.com/<br>
+                • 本文代码示例：https://github.com/robertquant/quant-research
+            </div>
+            
+            <div class="highlight">
+                <strong>提醒：</strong>以上技术调研基于公开接口测试，接口可能随时变更。生产环境使用请做好降级方案。
+            </div>
+            
+            <div class="back">
+                <a href="../index.html">← 返回随笔列表</a>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
