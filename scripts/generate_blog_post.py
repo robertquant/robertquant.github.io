@@ -5,6 +5,7 @@
 1. 搜索量化/投资相关新闻
 2. 基于市场动态生成投资思考
 3. 自动推送到 GitHub Pages
+4. 自动更新博客首页索引
 """
 
 import os
@@ -109,29 +110,42 @@ def generate_post_content(topic, thoughts):
     return html, post_num
 
 def update_blog_index(new_post_num, topic):
-    """更新博客首页索引"""
+    """更新博客首页索引 - 插入HTML格式的文章卡片"""
     index_path = BLOG_DIR / "index.html"
-    date_str = datetime.now().strftime("%Y-%m-%d")
+    date_str = datetime.now().strftime('%Y-%m-%d')
     
     # 读取现有内容
     content = index_path.read_text(encoding='utf-8')
     
-    # 在 "最新文章" 部分插入新文章链接
-    new_entry = f'''### [投资笔记 #{new_post_num:03d} - {topic}](./posts/{new_post_num:03d}-auto-generated.html)
-*{date_str}*
-
-基于最新市场动态的量化思考...
-
----
-
+    # 生成新的文章卡片HTML
+    new_card = f'''            
+            <!-- 文章卡片 -->
+            <div class="post-card">
+                <a href="./posts/{new_post_num:03d}-auto-generated.html">
+                    <div class="post-header">
+                        <h3 class="post-title">{topic}</h3>
+                        <span class="post-date">{date_str}</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag strategy">策略研究</span>
+                    </div>
+                    <p class="post-excerpt">
+                        基于最新市场动态的量化思考与策略研究...
+                    </p>
+                </a>
+            </div>
+            
 '''
     
-    # 在 "## 最新文章" 后面插入
-    marker = "## 最新文章\n\n"
+    # 在 "<div class=\"post-list\">" 后面插入新卡片
+    marker = '<div class="post-list">\n'
     if marker in content:
-        content = content.replace(marker, marker + new_entry)
+        # 找到 post-list div 的位置，在后面插入新卡片
+        content = content.replace(marker, marker + '\n' + new_card)
         index_path.write_text(content, encoding='utf-8')
         return True
+    
+    print("⚠️ 未找到 post-list 标记，跳过索引更新")
     return False
 
 def main():
