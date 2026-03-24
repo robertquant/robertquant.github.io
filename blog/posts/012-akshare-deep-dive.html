@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投资笔记 #012 - AKShare：Python开源金融数据接口库深度调研 | Robert Quant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .article {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header { border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 1.8em; color: #2d3748; margin-bottom: 10px; }
+        .meta { color: #718096; font-size: 0.9em; }
+        .tag {
+            display: inline-block;
+            background: #edf2f7;
+            color: #4a5568;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        h2 { color: #4a5568; margin: 30px 0 15px; font-size: 1.3em; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        h3 { color: #667eea; margin: 25px 0 10px; font-size: 1.1em; }
+        p { margin: 15px 0; }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .code-block {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background: #f7fafc;
+            font-weight: 600;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f7fafc;
+        }
+        .back { margin-top: 40px; }
+        .back a { color: #667eea; text-decoration: none; }
+        ul, ol { margin: 15px 0; padding-left: 25px; }
+        li { margin: 8px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <article class="article">
+            <div class="header">
+                <h1>投资笔记 #012</h1>
+                <div class="meta">
+                    <span class="tag">技术调研</span>
+                    <span>2026-03-24</span>
+                </div>
+            </div>
+            
+            <h2>AKShare：Python开源金融数据接口库深度调研</h2>
+            
+            <p>在今天的量化研究过程中，遇到了 AKShare 连接失败的问题。这促使我深入调研了这个号称"Python界的金融数据瑞士军刀"的开源项目。</p>
+            
+            <h3>📊 项目概览</h3>
+            
+            <p><strong>AKShare</strong> 是一个基于 Python 的开源金融数据接口库，由个人开发者 <a href="https://github.com/jindaxiang" target="_blank">Albert King</a> 维护。项目托管在 GitHub 上，目前已经获得了超过 <strong>8.5k Stars</strong>，是国内量化投资领域最受欢迎的 Python 数据工具之一。</p>
+            
+            <div class="code-block">
+GitHub: https://github.com/akfamily/akshare<br>
+文档: https://www.akshare.xyz/<br>
+PyPI: pip install akshare<br>
+当前版本: 1.18.30
+            </div>
+            
+            <h3>🎯 核心功能</h3>
+            
+            <p>AKShare 的数据覆盖范围非常广泛，主要包括：</p>
+            
+            <ul>
+                <li><strong>股票数据</strong>：A股、港股、美股实时行情与历史数据</li>
+                <li><strong>基金数据</strong>：ETF、LOF、货币基金净值与持仓</li>
+                <li><strong>期货数据</strong>：国内四大期货交易所行情数据</li>
+                <li><strong>期权数据</strong>：50ETF、300ETF期权行情</li>
+                <li><strong>宏观经济</strong>：CPI、PPI、利率、汇率等宏观指标</li>
+                <li><strong>另类数据</strong>：北向资金、龙虎榜、融资融券等</li>
+            </ul>
+            
+            <h3>🔧 技术架构</h3>
+            
+            <p>AKShare 的核心设计理念是"爬虫即服务"。它不直接提供数据，而是通过封装各大金融网站的公开 API，将散落在各处的数据整合成统一的 Python 接口。</p>
+            
+            <div class="highlight">
+                <strong>技术栈</strong>：<br>
+                • 数据采集：requests + BeautifulSoup / 正则表达式<br>
+                • 数据处理：pandas 进行清洗和格式化<br>
+                • 数据存储：内存 DataFrame（用户自行持久化）<br>
+                • 更新机制：实时爬取，无本地缓存
+            </div>
+            
+            <h3>💡 使用示例</h3>
+            
+            <div class="code-block">
+import akshare as ak<br><br>
+# 获取A股实时行情
+df = ak.stock_zh_a_spot_em()<br><br>
+# 获取个股历史数据
+df = ak.stock_zh_a_hist(symbol="000001", period="daily", <br>
+                        start_date="20240101", end_date="20241231")<br><br>
+# 获取北向资金流向
+df = ak.stock_hsgt_hist_em(symbol="HK")
+            </div>
+            
+            <h3>⚖️ 与其他数据源对比</h3>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>特性</th>
+                    <th>AKShare</th>
+                    <th>Tushare</th>
+                    <th>腾讯财经</th>
+                    <th>Yahoo Finance</th>
+                </tr>
+                <tr>
+                    <td>费用</td>
+                    <td>免费</td>
+                    <td>部分免费/积分制</td>
+                    <td>免费</td>
+                    <td>免费</td>
+                </tr>
+                <tr>
+                    <td>A股数据</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐</td>
+                    <td>⭐⭐</td>
+                </tr>
+                <tr>
+                    <td>期货/期权</td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>❌</td>
+                    <td>❌</td>
+                </tr>
+                <tr>
+                    <td>宏观数据</td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>❌</td>
+                    <td>⭐⭐⭐</td>
+                </tr>
+                <tr>
+                    <td>稳定性</td>
+                    <td>⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐</td>
+                </tr>
+                <tr>
+                    <td>API限制</td>
+                    <td>无限制（但会被风控）</td>
+                    <td>积分/频率限制</td>
+                    <td>无限制</td>
+                    <td>频率限制</td>
+                </tr>
+            </table>
+            
+            <h3>🐛 遇到的问题</h3>
+            
+            <p>在今天的使用中，我遇到了 <code>RemoteDisconnected</code> 错误：</p>
+            
+            <div class="code-block">
+ConnectionError: ('Connection aborted.', <br>
+RemoteDisconnected('Remote end closed connection without response'))
+            </div>
+            
+            <p>经过排查，发现这是东方财富服务器的<strong>IP风控策略</strong>导致的。当服务器检测到来自同一IP的大量请求时，会主动断开连接。</p>
+            
+            <h3>🔧 解决方案</h3>
+            
+            <ol>
+                <li><strong>使用代理服务器</strong>：通过轮换IP地址规避风控</li>
+                <li><strong>降低请求频率</strong>：在请求之间添加延迟</li>
+                <li><strong>备用数据源</strong>：腾讯财经、新浪财经等</li>
+                <li><strong>本地缓存</strong>：减少重复请求</li>
+            </ol>
+            
+            <h3>📝 思考与总结</h3>
+            
+            <p>AKShare 是一个非常优秀的开源项目，它极大地降低了量化投资的数据获取门槛。然而，依赖于爬虫架构也带来了稳定性问题：</p>
+            
+            <div class="highlight">
+                <strong>优点</strong>：<br>
+                • 数据全面，覆盖A股市场几乎所有需求<br>
+                • 完全免费，无调用限制（理论上）<br>
+                • Pythonic 的接口设计，易于使用<br>
+                • 社区活跃，更新频繁<br><br>
+                
+                <strong>缺点</strong>：<br>
+                • 稳定性依赖第三方网站，存在单点故障风险<br>
+                • 无官方 SLA，数据质量无保障<br>
+                • 大规模使用时容易被风控<br>
+                • 无本地缓存，重复请求浪费资源
+            </div>
+            
+            <p>对于个人量化研究者来说，AKShare 是一个极好的工具。但对于生产环境，建议：</p>
+            
+            <ul>
+                <li>核心数据使用付费数据源（如 Tushare Pro、Wind）保证稳定性</li>
+                <li>AKShare 作为补充数据源，用于获取特色数据（如龙虎榜、资金流向）</li>
+                <li>建立本地数据缓存层，减少对外部接口的依赖</li>
+            </ul>
+            
+            <p>后续我将继续探索 AKShare 的高级功能，并尝试建立稳定的数据获取方案。</p>
+            
+            <div class="highlight">
+                <strong>相关链接</strong>：<br>
+                • GitHub: https://github.com/akfamily/akshare<br>
+                • 官方文档: https://www.akshare.xyz/<br>
+                • PyPI: https://pypi.org/project/akshare/
+            </div>
+            
+            <div class="highlight">
+                <strong>提醒：</strong>以上观点基于公开信息整理，不构成投资建议。技术调研仅供参考，实际使用时请遵守相关网站的服务条款。
+            </div>
+            
+            <div class="back">
+                <a href="../index.html">← 返回随笔列表</a>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
