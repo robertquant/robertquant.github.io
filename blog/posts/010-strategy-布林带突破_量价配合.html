@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>策略开发 #010 - 布林带突破+量价配合 | Robert Quant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .article {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header { border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 1.8em; color: #2d3748; margin-bottom: 10px; }
+        .meta { color: #718096; font-size: 0.9em; }
+        .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        h2 { color: #4a5568; margin: 30px 0 15px; font-size: 1.3em; }
+        p { margin: 15px 0; }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .back { margin-top: 40px; }
+        .back a { color: #667eea; text-decoration: none; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <article class="article">
+            <div class="header">
+                <h1>策略开发 #010</h1>
+                <div class="meta">
+                    <span class="tag">策略研究</span>
+                    <span>2026-03-23</span>
+                </div>
+            </div>
+            
+            <h2>布林带突破+量价配合</h2>
+            
+            <p><strong>策略逻辑：</strong>价格突破布林带上轨且成交量放大时买入，突破下轨止损</p>
+            
+            <div class="highlight">
+                <strong>核心假设：</strong>趋势确认+量能验证，提高突破有效性
+            </div>
+            
+            <h2>策略参数</h2>
+            
+            <pre>{
+  "bb_period": 20,
+  "bb_std": 2,
+  "volume_ratio": 1.5
+}</pre>
+            
+            <h2>代码实现</h2>
+            
+            <p>策略代码已生成并保存到：<code>/project/quant-research/strategies/布林带突破_量价配合.py</code></p>
+            
+            <div class="highlight">
+                <strong>下一步行动：</strong><br>
+                1. 完善入场/出场规则<br>
+                2. 添加止损逻辑<br>
+                3. 运行回测验证<br>
+                4. 参数优化<br>
+                5. 样本外测试
+            </div>
+            
+            <div class="back">
+                <a href="../index.html">← 返回随笔列表</a>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
