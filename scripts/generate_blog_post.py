@@ -109,7 +109,7 @@ def generate_post_content(topic, thoughts):
     
     return html, post_num
 
-def update_blog_index(new_post_num, topic):
+def update_blog_index(new_post_num, topic, slug):
     """更新博客首页索引 - 插入HTML格式的文章卡片"""
     index_path = BLOG_DIR / "index.html"
     date_str = datetime.now().strftime('%Y-%m-%d')
@@ -117,11 +117,14 @@ def update_blog_index(new_post_num, topic):
     # 读取现有内容
     content = index_path.read_text(encoding='utf-8')
     
+    # 生成有意义的文件名
+    filename = f"{new_post_num:03d}-{slug}.html"
+    
     # 生成新的文章卡片HTML
     new_card = f'''            
             <!-- 文章卡片 -->
             <div class="post-card">
-                <a href="./posts/{new_post_num:03d}-auto-generated.html">
+                <a href="./posts/{filename}">
                     <div class="post-header">
                         <h3 class="post-title">{topic}</h3>
                         <span class="post-date">{date_str}</span>
@@ -148,6 +151,26 @@ def update_blog_index(new_post_num, topic):
     print("⚠️ 未找到 post-list 标记，跳过索引更新")
     return False
 
+def topic_to_slug(topic):
+    """将中文主题转换为URL友好的slug"""
+    # 主题映射表
+    topic_map = {
+        "关于量化策略的持续迭代": "celue_die_dai",
+        "市场波动与情绪指标": "shichang_bodong",
+        "A股散户行为与量化机会": "sanhu_xingwei",
+        "ETF轮动策略实践": "etf_lun_dong",
+        "小市值因子初探": "xiaoshizhi_yinzi",
+        "可转债双低策略": "kezhuanzhai_shuangdi",
+    }
+    
+    # 如果有映射，使用映射；否则生成通用slug
+    if topic in topic_map:
+        return topic_map[topic]
+    
+    # 简单的拼音转换（对于未映射的主题）
+    # 这里简化处理，实际可以使用pypinyin库
+    return "quant_research"
+
 def main():
     """主函数 - 模拟生成一篇随笔"""
     POSTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -156,7 +179,7 @@ def main():
     hour = datetime.now().hour
     
     topics_and_thoughts = [
-        ("关于量化策略的持续迭代", """
+        ("关于量化策略的持续迭代", "celue_die_dai", """
             <p>量化策略的有效性总是随时间衰减。今天回顾了过去几个策略的表现，发现一个规律：</p>
             
             <p>任何策略在公开或被多人使用后，超额收益都会逐渐收窄。这不仅仅是市场有效性的体现，更是因为市场参与者的学习效应。</p>
@@ -167,7 +190,7 @@ def main():
             
             <p>接下来需要建立一个策略监控框架，及时发现策略失效的信号。</p>
         """),
-        ("市场波动与情绪指标", """
+        ("市场波动与情绪指标", "shichang_bodong", """
             <p>今天观察到一个有趣的现象：当VIX（波动率指数）处于低位时，趋势跟踪策略的胜率明显下降。</p>
             
             <p>这可能是因为低波动环境下，市场缺乏明确方向，均线交叉信号更容易产生假突破。</p>
@@ -178,7 +201,7 @@ def main():
             
             <p>需要用历史数据验证这个假设的有效性。</p>
         """),
-        ("A股散户行为与量化机会", """
+        ("A股散户行为与量化机会", "sanhu_xingwei", """
             <p>A股市场的参与者结构与美股有显著差异。散户占比高意味着情绪波动更大，但也可能带来套利机会。</p>
             
             <p>观察到一个现象：在涨停板上，经常出现封单不稳定的情况，这可能反映了散户的跟风心理。</p>
@@ -189,25 +212,58 @@ def main():
             
             <p>下一步：收集情绪指标数据，与价格走势做相关性分析。</p>
         """),
+        ("ETF轮动策略实践", "etf_lun_dong", """
+            <p>ETF轮动是量化投资中最经典的策略之一。最近回测了几种不同的轮动方法，包括波动率过滤、大盘趋势过滤等优化手段。</p>
+            
+            <p>核心发现：加入大盘趋势过滤后，策略在熊市中的回撤明显降低，但牛市中的收益也有所减少。</p>
+            
+            <div class="highlight">
+                <strong>结论：</strong>任何优化都有代价，关键是找到适合自己风险偏好的平衡点。
+            </div>
+            
+            <p>下一步：测试不同参数组合，寻找稳健性更好的配置。</p>
+        """),
+        ("小市值因子初探", "xiaoshizhi_yinzi", """
+            <p>小市值因子在A股市场长期有效，但近年来波动加大。今天回测了2015-2024年的数据，验证其有效性。</p>
+            
+            <p>关键发现：小市值因子在牛市中表现优异，但在熊市中回撤巨大，需要配合止损机制。</p>
+            
+            <div class="highlight">
+                <strong>启示：</strong>单一因子风险高，需要多因子组合和严格的风控。
+            </div>
+            
+            <p>下一步：研究小市值+低PE的组合策略，降低波动。</p>
+        """),
+        ("可转债双低策略", "kezhuanzhai_shuangdi", """
+            <p>可转债双低策略（低价+低溢价率）是低风险投资者的最爱。今天分析了当前市场的可转债标的。</p>
+            
+            <p>当前市场环境：债底保护明显，但转股溢价率普遍较高，双低标的稀缺。</p>
+            
+            <div class="highlight">
+                <strong>策略：</strong>放宽价格标准到115元以下，溢价率20%以下，增加可选标的。
+            </div>
+            
+            <p>风险提示：可转债信用风险不可忽视，需分散持仓。</p>
+        """),
     ]
     
-    # 根据时间选择主题，或者生成新的
+    # 根据时间选择主题
     topic_idx = hour % len(topics_and_thoughts)
-    topic, thoughts = topics_and_thoughts[topic_idx]
+    topic, slug, thoughts = topics_and_thoughts[topic_idx]
     
     # 生成文章
     html, post_num = generate_post_content(topic, thoughts)
     
-    # 保存文件
-    filename = f"{post_num:03d}-auto-generated.html"
+    # 生成有意义的文件名
+    filename = f"{post_num:03d}-{slug}.html"
     filepath = POSTS_DIR / filename
     filepath.write_text(html, encoding='utf-8')
     
     print(f"✅ 生成文章: {filename}")
     print(f"   主题: {topic}")
     
-    # 更新索引
-    if update_blog_index(post_num, topic):
+    # 更新索引（使用新的文件名格式）
+    if update_blog_index(post_num, topic, slug):
         print(f"✅ 更新首页索引")
     
     # 推送到 GitHub
