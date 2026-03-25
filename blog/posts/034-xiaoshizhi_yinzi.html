@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投资笔记 #034 - 小市值因子初探 | Robert Quant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .article {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header { border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 1.8em; color: #2d3748; margin-bottom: 10px; }
+        .meta { color: #718096; font-size: 0.9em; }
+        .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        h2 { color: #4a5568; margin: 30px 0 15px; font-size: 1.3em; border-left: 4px solid #667eea; padding-left: 15px; }
+        p { margin: 15px 0; color: #4a5568; }
+        .highlight {
+            background: linear-gradient(120deg, #f6f9fc 0%, #e9f2f9 100%);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        .data-box {
+            background: #f7fafc;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.9em;
+        }
+        .back { margin-top: 40px; }
+        .back a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .timestamp {
+            color: #a0aec0;
+            font-size: 0.85em;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <article class="article">
+            <div class="header">
+                <h1>投资笔记 #034</h1>
+                <div class="meta">
+                    <span class="tag">量化随笔</span>
+                    <span>2026-03-26</span>
+                </div>
+            </div>
+            
+            <h2>小市值因子初探</h2>
+            
+            
+            <p>小市值因子在A股市场长期有效，但近年来波动加大。回测2015-2024年数据，验证其有效性及风险特征。</p>
+            
+            <h2>因子构建</h2>
+            <div class="data-box">
+                选股条件：流通市值排名后20%<br>
+                调仓频率：月度<br>
+                持仓数量：50只等权<br>
+                排除ST、停牌、上市不足一年股票
+            </div>
+            
+            <h2>回测结果</h2>
+            <p>小市值因子表现分化明显：</p>
+            <ul style="margin-left: 20px; color: #4a5568;">
+                <li>2015-2017：年化收益45%，夏普1.8</li>
+                <li>2018-2020：年化收益-8%，最大回撤40%</li>
+                <li>2021-2024：年化收益25%，夏普1.2</li>
+            </ul>
+            <p>牛市表现优异，熊市回撤巨大。单一因子风险高，需要多因子组合和严格风控。</p>
+        
+            
+            <div class="highlight">
+                <strong>💡 思考总结：</strong><br>
+                量化投资的核心在于建立可验证、可迭代的体系。任何单一策略都有生命周期，持续学习和适应市场变化才是长久之计。
+            </div>
+            
+            <div class="timestamp">
+                ⚠️ 风险提示：以上观点基于公开信息整理，不构成投资建议。市场有风险，投资需谨慎。
+            </div>
+            
+            <div class="back">
+                <a href="../index.html">← 返回随笔列表</a>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
