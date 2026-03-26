@@ -6,655 +6,113 @@
     <title>量化随笔 | Robert Quant</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             line-height: 1.8;
             color: #333;
             background: #f5f7fa;
         }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
-        /* 头部区域 */
-        .header {
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 16px;
-            padding: 50px 40px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
             color: white;
+            padding: 60px 40px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            text-align: center;
         }
-        
-        .header h1 {
-            font-size: 2.2em;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .header .subtitle {
-            font-size: 1.1em;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-        
-        .header .quote {
-            font-style: italic;
-            opacity: 0.8;
-            border-left: 3px solid rgba(255,255,255,0.5);
-            padding-left: 15px;
-            margin-top: 20px;
-        }
-        
-        /* 文章卡片 */
+        header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.9; }
+        .post-list { display: grid; gap: 20px; }
         .post-card {
             background: white;
             border-radius: 12px;
             padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
             transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
         }
-        
         .post-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
-        
-        .post-card a {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        
+        .post-card a { text-decoration: none; color: inherit; }
         .post-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: start;
             margin-bottom: 12px;
-            flex-wrap: wrap;
-            gap: 10px;
         }
-        
         .post-title {
-            font-size: 1.4em;
+            font-size: 1.3em;
             color: #2d3748;
             font-weight: 600;
-            flex: 1;
         }
-        
-        .post-date {
-            color: #a0aec0;
-            font-size: 0.9em;
-            white-space: nowrap;
-        }
-        
-        .post-meta {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-        
+        .post-date { color: #a0aec0; font-size: 0.9em; }
+        .post-meta { margin-bottom: 10px; }
         .tag {
             display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 4px 12px;
-            border-radius: 15px;
+            padding: 3px 12px;
+            border-radius: 12px;
             font-size: 0.8em;
-            font-weight: 500;
+            margin-right: 8px;
         }
-        
-        .tag.strategy { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .tag.market { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .tag.tech { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
-        .tag.thoughts { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
-        .tag.resources { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
-        
         .post-excerpt {
-            color: #4a5568;
-            line-height: 1.7;
-        }
-        
-        /* 分类标签区 */
-        .categories {
-            background: white;
-            border-radius: 12px;
-            padding: 25px 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        }
-        
-        .categories h2 {
-            font-size: 1.1em;
-            color: #4a5568;
-            margin-bottom: 15px;
-        }
-        
-        .category-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        
-        .category-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: #f7fafc;
-            border-radius: 20px;
-            color: #4a5568;
-            text-decoration: none;
+            color: #718096;
             font-size: 0.95em;
-            transition: background 0.2s;
+            line-height: 1.6;
         }
-        
-        .category-item:hover {
-            background: #edf2f7;
-        }
-        
-        .category-icon {
-            font-size: 1.2em;
-        }
-        
-        /* 关于区域 */
-        .about-section {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin-top: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        }
-        
-        .about-section h2 {
-            font-size: 1.2em;
-            color: #4a5568;
-            margin-bottom: 15px;
-        }
-        
-        .about-section p {
-            color: #4a5568;
-            margin: 10px 0;
-        }
-        
-        .principles {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .principle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #667eea;
-            font-size: 0.95em;
-        }
-        
-        /* 返回链接 */
-        .back-link {
-            margin-top: 30px;
+        .nav {
+            margin-top: 40px;
             text-align: center;
         }
-        
-        .back-link a {
+        .nav a {
             color: #667eea;
             text-decoration: none;
-            font-weight: 500;
+            margin: 0 15px;
         }
-        
-        /* 响应式 */
-        @media (max-width: 600px) {
-            .header {
-                padding: 30px 25px;
-            }
-            .header h1 {
-                font-size: 1.7em;
-            }
-            .post-card {
-                padding: 20px;
-            }
-            .post-title {
-                font-size: 1.2em;
-            }
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .category-nav a {
+            padding: 8px 20px;
+            background: white;
+            border-radius: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .category-nav a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        
-        <!-- 头部 -->
-        <div class="header">
+        <header>
             <h1>📊 量化随笔</h1>
-            <p class="subtitle">记录量化探索过程中的思考、心得与市场观察</p>
-            <p class="quote">"数据不说谎，但解读需要谨慎。"</p>
-        </div>
-        
-        <!-- 分类导航 -->
-        <div class="categories">
-            <h2>📁 文章分类</h2>
-            <div class="category-list">
-                <span class="category-item">
-                    <span class="category-icon">📊</span>
-                    <span>策略研究</span>
-                </span>
-                <span class="category-item">
-                    <span class="category-icon">📈</span>
-                    <span>市场观察</span>
-                </span>
-                <span class="category-item">
-                    <span class="category-icon">💻</span>
-                    <span>技术实现</span>
-                </span>
-                <span class="category-item">
-                    <span class="category-icon">🧠</span>
-                    <span>投资心得</span>
-                </span>
-                <span class="category-item">
-                    <span class="category-icon">📚</span>
-                    <span>资源推荐</span>
-                </span>
-            </div>
-        </div>
-        
-        <!-- 最新文章列表 -->
+            <p>记录量化投资研究的点滴思考</p>
+        </header>
+
+        <nav class="category-nav">
+            <a href="#">全部</a>
+            <a href="#">策略研究</a>
+            <a href="#">技术实现</a>
+            <a href="#">市场观察</a>
+            <a href="../index.html">← 返回首页</a>
+        </nav>
+
         <div class="post-list">
-
+            <!-- 文章列表 -->
             
-            <!-- 文章卡片 037 - 量化交易系统设计 -->
-            <div class="post-card">
-                <a href="./posts/037-jiaoyi_xitong.html">
-                    <div class="post-header">
-                        <h3 class="post-title">量化交易系统设计</h3>
-                        <span class="post-date">2026-03-26</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于最新市场动态的量化思考与策略研究，探索数据驱动的投资决策方法...
-                    </p>
-                </a>
-            </div>
-            
-
-            
-            <!-- 文章卡片 036 - 趋势跟踪策略优化 -->
-            <div class="post-card">
-                <a href="./posts/036-qushi_genzong.html">
-                    <div class="post-header">
-                        <h3 class="post-title">趋势跟踪策略优化</h3>
-                        <span class="post-date">2026-03-26</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于最新市场动态的量化思考与策略研究，探索数据驱动的投资决策方法...
-                    </p>
-                </a>
-            </div>
-            
-
-            
-            <!-- 文章卡片 035 - 趋势跟踪策略优化 -->
-            <div class="post-card">
-                <a href="./posts/035-qushi_genzong.html">
-                    <div class="post-header">
-                        <h3 class="post-title">趋势跟踪策略优化</h3>
-                        <span class="post-date">2026-03-26</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于最新市场动态的量化思考与策略研究，探索数据驱动的投资决策方法...
-                    </p>
-                </a>
-            </div>
-            
-
-            
-            <!-- 文章卡片 034 - 小市值因子初探 -->
-            <div class="post-card">
-                <a href="./posts/034-xiaoshizhi_yinzi.html">
-                    <div class="post-header">
-                        <h3 class="post-title">小市值因子初探</h3>
-                        <span class="post-date">2026-03-26</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于最新市场动态的量化思考与策略研究，探索数据驱动的投资决策方法...
-                    </p>
-                </a>
-            </div>
-            
-
-            
-            <!-- 文章卡片 033 - A股散户行为与量化机会 -->
-            <div class="post-card">
-                <a href="./posts/033-sanhu_xingwei.html">
-                    <div class="post-header">
-                        <h3 class="post-title">A股散户行为与量化机会</h3>
-                        <span class="post-date">2026-03-26</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于最新市场动态的量化思考与策略研究，探索数据驱动的投资决策方法...
-                    </p>
-                </a>
-            </div>
-            
-
-            
-            <!-- 文章卡片 032 - A股散户行为与量化机会 -->
-            <div class="post-card">
-                <a href="./posts/032-sanhu_xingwei.html">
-                    <div class="post-header">
-                        <h3 class="post-title">A股散户行为与量化机会</h3>
-                        <span class="post-date">2026-03-26</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于最新市场动态的量化思考与策略研究，探索数据驱动的投资决策方法...
-                    </p>
-                </a>
-            </div>
-            
-
-            
-            <!-- 文章卡片 031 - 关于量化策略的持续迭代 -->
-            <div class="post-card">
-                <a href="./posts/031-celue_die_dai.html">
-                    <div class="post-header">
-                        <h3 class="post-title">关于量化策略的持续迭代</h3>
-                        <span class="post-date">2026-03-26</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于最新市场动态的量化思考与策略研究，探索数据驱动的投资决策方法...
-                    </p>
-                </a>
-            </div>
-            
-
-            
-            <!-- 文章卡片 030 - 市场波动与情绪指标 -->
-            <div class="post-card">
-                <a href="./posts/030-shichang_bodong.html">
-                    <div class="post-header">
-                        <h3 class="post-title">市场波动与情绪指标</h3>
-                        <span class="post-date">2026-03-25</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于最新市场动态的量化思考与策略研究，探索数据驱动的投资决策方法...
-                    </p>
-                </a>
-            </div>
-            
-
-            
-            <!-- 文章卡片 029 - 风险控制与仓位管理 -->
-            <div class="post-card">
-                <a href="./posts/029-fengxian_kongzhi.html">
-                    <div class="post-header">
-                        <h3 class="post-title">风险控制与仓位管理</h3>
-                        <span class="post-date">2026-03-25</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于最新市场动态的量化思考与策略研究，探索数据驱动的投资决策方法...
-                    </p>
-                </a>
-            </div>
-            
-            
-            <!-- 文章卡片 028 - 最新自动生成 -->
-            <div class="post-card">
-                <a href="./posts/028-sanhu_xingwei.html">
-                    <div class="post-header">
-                        <h3 class="post-title">A股散户行为与量化机会</h3>
-                        <span class="post-date">2026-03-25</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于最新市场动态的量化思考与策略研究...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 027 - 最新自动生成 -->
-            <div class="post-card">
-                <a href="./posts/027-celue_die_dai.html">
-                    <div class="post-header">
-                        <h3 class="post-title">关于量化策略的持续迭代</h3>
-                        <span class="post-date">2026-03-25</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于最新市场动态的量化思考与策略研究...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 024 - 最新自动生成 -->
-            <div class="post-card">
-                <a href="./posts/024-xiaoshizhi_yinzi.html">
-                    <div class="post-header">
-                        <h3 class="post-title">小市值因子初探</h3>
-                        <span class="post-date">2026-03-24</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于最新市场动态的量化思考与策略研究...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 013 - 腾讯财经调研 -->
-            <div class="post-card">
-                <a href="./posts/013-tencent-finance.html">
-                    <div class="post-header">
-                        <h3 class="post-title">腾讯财经：被忽视的免费量化数据源</h3>
-                        <span class="post-date">2026-03-24</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag tech">技术调研</span>
-                    </div>
-                    <p class="post-excerpt">
-                        深入调研腾讯财经接口，分析其数据覆盖能力、技术特点，并与Tushare、AKShare进行对比...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 012 - AKShare调研 -->
-            <div class="post-card">
-                <a href="./posts/012-akshare-deep-dive.html">
-                    <div class="post-header">
-                        <h3 class="post-title">AKShare：Python开源金融数据接口库深度调研</h3>
-                        <span class="post-date">2026-03-24</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag tech">技术调研</span>
-                    </div>
-                    <p class="post-excerpt">
-                        深入调研AKShare开源项目，分析其功能特点、技术架构，并与Tushare、腾讯财经等数据源进行对比...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 010 - 策略开发 -->
-            <div class="post-card">
-                <a href="./posts/010-strategy-布林带突破_量价配合.html">
-                    <div class="post-header">
-                        <h3 class="post-title">策略开发 #010 - 布林带突破+量价配合</h3>
-                        <span class="post-date">2026-03-23</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        基于布林带突破和成交量配合的技术分析策略，探索震荡市中的 breakout 交易机会...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 009 - 大V图谱 -->
-            <div class="post-card">
-                <a href="./posts/009-chinese-quant-experts.html">
-                    <div class="post-header">
-                        <h3 class="post-title">国内量化投资大V全景图谱</h3>
-                        <span class="post-date">2026-03-23</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag resources">资源推荐</span>
-                    </div>
-                    <p class="post-excerpt">
-                        系统梳理国内量化投资领域最具影响力的8位大V，涵盖ETF轮动、可转债套利、价值投资等领域，包括E大、yyb凌波、孟岩等...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 008 - python_jointquant -->
-            <div class="post-card">
-                <a href="./posts/008-python-jointquant-analysis.html">
-                    <div class="post-header">
-                        <h3 class="post-title">python_jointquant 策略库深度解析</h3>
-                        <span class="post-date">2026-03-23</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag tech">代码分析</span>
-                    </div>
-                    <p class="post-excerpt">
-                        深度分析Robert开发的10个聚宽策略，涵盖ETF轮动、小市值、AH套利等。策略逻辑清晰，但建议补充止损机制和回测报告...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 007 - vn.py -->
-            <div class="post-card">
-                <a href="./posts/007-vnpy-deep-dive.html">
-                    <div class="post-header">
-                        <h3 class="post-title">vn.py：中国量化交易领域的"国产之光"</h3>
-                        <span class="post-date">2026-03-23</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag tech">技术调研</span>
-                    </div>
-                    <p class="post-excerpt">
-                        深度调研vn.py框架，27.8k+ Stars，40+交易接口，600+金融机构用户。从CTA策略到期权交易，从回测到实盘的全方位解析...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 006 - 框架全景 -->
-            <div class="post-card">
-                <a href="./posts/006-framework-landscape.html">
-                    <div class="post-header">
-                        <h3 class="post-title">2025年GitHub主流量化框架全景</h3>
-                        <span class="post-date">2026-03-23</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag tech">技术调研</span>
-                    </div>
-                    <p class="post-excerpt">
-                        系统调研了GitHub上20+个主流量化框架，涵盖Backtrader、vn.py、VectorBT、FinRL、Qlib等，从事件驱动到AI驱动全覆盖...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 005 - GitHub调研 -->
-            <div class="post-card">
-                <a href="./posts/005-github-research.html">
-                    <div class="post-header">
-                        <h3 class="post-title">GitHub量化代码库调研：量化交易回测</h3>
-                        <span class="post-date">2026-03-23</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag tech">技术调研</span>
-                    </div>
-                    <p class="post-excerpt">
-                        GitHub量化代码库自动调研报告，发现值得关注的开源项目...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 004 - Backtrader -->
-            <div class="post-card">
-                <a href="./posts/004-backtrader-research.html">
-                    <div class="post-header">
-                        <h3 class="post-title">Backtrader量化回测框架深度调研</h3>
-                        <span class="post-date">2026-03-23</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag tech">技术实现</span>
-                    </div>
-                    <p class="post-excerpt">
-                        调研了GitHub上20.9k stars的Backtrader框架，纯Python实现，122个内置指标，支持实盘交易。对比了我们现有的quant-trading体系...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 003 - ETF轮动 -->
-            <div class="post-card">
-                <a href="./posts/003-etf-rotation.html">
-                    <div class="post-header">
-                        <h3 class="post-title">ETF轮动策略实践与优化</h3>
-                        <span class="post-date">2026-03-23</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        ETF轮动是量化投资中最经典的策略之一。最近回测了几种不同的轮动方法，包括波动率过滤、大盘趋势过滤等优化手段...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 002 - 策略迭代 -->
-            <div class="post-card">
-                <a href="./posts/002-auto-generated.html">
-                    <div class="post-header">
-                        <h3 class="post-title">关于量化策略的持续迭代</h3>
-                        <span class="post-date">2026-03-23</span>
-                    </div>
-                    <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
-                    </div>
-                    <p class="post-excerpt">
-                        量化策略的有效性总是随时间衰减。今天回顾了过去几个策略的表现，发现一个规律：任何策略在公开或被多人使用后，超额收益都会逐渐收窄...
-                    </p>
-                </a>
-            </div>
-            
-            <!-- 文章卡片 001 - 趋势跟踪 -->
+            <!-- 001 - 趋势跟踪策略 -->
             <div class="post-card">
                 <a href="./posts/001-trend-following.html">
                     <div class="post-header">
@@ -662,32 +120,269 @@
                         <span class="post-date">2026-03-23</span>
                     </div>
                     <div class="post-meta">
-                        <span class="tag strategy">策略研究</span>
+                        <span class="tag">策略研究</span>
                     </div>
-                    <p class="post-excerpt">
-                        最近回测了双均线策略在A股的表现，有些意外的发现。传统认知里，5日/20日均线金叉买入、死叉卖出是经典趋势跟踪方法...
-                    </p>
+                    <p class="post-excerpt">从海龟交易法则到现代趋势跟踪，探讨趋势策略的演化与优化...</p>
                 </a>
             </div>
-            
-        </div>
-        
-        <!-- 关于随笔 -->
-        <div class="about-section">
-            <h2>📝 关于随笔</h2>
-            <p>这里的文章基于以下原则：</p>
-            <div class="principles">
-                <div class="principle">✓ 数据驱动 - 所有观点必须有数据支撑</div>
-                <div class="principle">✓ 可验证 - 策略和结论可以回溯检验</div>
-                <div class="principle">✓ 持续迭代 - 认知随市场演化而更新</div>
+
+            <!-- 002 - 策略迭代 -->
+            <div class="post-card">
+                <a href="./posts/002-auto-generated.html">
+                    <div class="post-header">
+                        <h3 class="post-title">关于量化策略的持续迭代</h3>
+                        <span class="post-date">2026-03-23</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">策略研究</span>
+                    </div>
+                    <p class="post-excerpt">策略有效性随时间衰减的规律，以及如何建立持续迭代的机制...</p>
+                </a>
             </div>
+
+            <!-- 003 - ETF轮动 -->
+            <div class="post-card">
+                <a href="./posts/003-etf-rotation.html">
+                    <div class="post-header">
+                        <h3 class="post-title">ETF轮动策略实践与优化</h3>
+                        <span class="post-date">2026-03-23</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">策略研究</span>
+                    </div>
+                    <p class="post-excerpt">基于动量的ETF轮动策略回测与参数优化探索...</p>
+                </a>
+            </div>
+
+            <!-- 004 - Backtrader -->
+            <div class="post-card">
+                <a href="./posts/004-backtrader-research.html">
+                    <div class="post-header">
+                        <h3 class="post-title">Backtrader：Python量化回测框架深度调研</h3>
+                        <span class="post-date">2026-03-23</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">技术实现</span>
+                    </div>
+                    <p class="post-excerpt">开源回测框架Backtrader的功能特性与代码结构分析...</p>
+                </a>
+            </div>
+
+            <!-- 005 - GitHub调研 -->
+            <div class="post-card">
+                <a href="./posts/005-github-research.html">
+                    <div class="post-header">
+                        <h3 class="post-title">GitHub量化代码库调研：量化交易回测</h3>
+                        <span class="post-date">2026-03-23</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">技术实现</span>
+                    </div>
+                    <p class="post-excerpt">GitHub上热门的量化交易开源项目分析与对比...</p>
+                </a>
+            </div>
+
+            <!-- 006 - 框架全景 -->
+            <div class="post-card">
+                <a href="./posts/006-framework-landscape.html">
+                    <div class="post-header">
+                        <h3 class="post-title">2025年GitHub主流量化框架全景</h3>
+                        <span class="post-date">2026-03-23</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">技术实现</span>
+                    </div>
+                    <p class="post-excerpt">国内外主流量化回测框架的全面对比与选型建议...</p>
+                </a>
+            </div>
+
+            <!-- 007 - vn.py -->
+            <div class="post-card">
+                <a href="./posts/007-vnpy-deep-dive.html">
+                    <div class="post-header">
+                        <h3 class="post-title">vn.py：中国量化交易领域的"国产之光"</h3>
+                        <span class="post-date">2026-03-23</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">技术实现</span>
+                    </div>
+                    <p class="post-excerpt">国产量化框架vn.py的架构设计与实盘交易能力分析...</p>
+                </a>
+            </div>
+
+            <!-- 008 - python_jointquant -->
+            <div class="post-card">
+                <a href="./posts/008-python-jointquant-analysis.html">
+                    <div class="post-header">
+                        <h3 class="post-title">python_jointquant 策略库深度解析</h3>
+                        <span class="post-date">2026-03-23</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">技术实现</span>
+                    </div>
+                    <p class="post-excerpt">聚宽Python策略库的量化投资应用与实践...</p>
+                </a>
+            </div>
+
+            <!-- 009 - 量化大V -->
+            <div class="post-card">
+                <a href="./posts/009-chinese-quant-experts.html">
+                    <div class="post-header">
+                        <h3 class="post-title">国内量化投资大V全景图谱</h3>
+                        <span class="post-date">2026-03-23</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">市场观察</span>
+                    </div>
+                    <p class="post-excerpt">雪球、知乎等平台的量化投资意见领袖整理...</p>
+                </a>
+            </div>
+
+            <!-- 010 - 布林带突破 -->
+            <div class="post-card">
+                <a href="./posts/010-strategy-布林带突破_量价配合.html">
+                    <div class="post-header">
+                        <h3 class="post-title">布林带突破+量价配合</h3>
+                        <span class="post-date">2026-03-23</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">策略研究</span>
+                    </div>
+                    <p class="post-excerpt">技术分析策略的回测验证与参数优化...</p>
+                </a>
+            </div>
+
+            <!-- 012 - AKShare -->
+            <div class="post-card">
+                <a href="./posts/012-akshare-deep-dive.html">
+                    <div class="post-header">
+                        <h3 class="post-title">AKShare：Python开源金融数据接口库深度调研</h3>
+                        <span class="post-date">2026-03-24</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">技术实现</span>
+                    </div>
+                    <p class="post-excerpt">免费开源的Python金融数据获取工具全面评测...</p>
+                </a>
+            </div>
+
+            <!-- 013 - 腾讯财经 -->
+            <div class="post-card">
+                <a href="./posts/013-tencent-finance.html">
+                    <div class="post-header">
+                        <h3 class="post-title">腾讯财经：被忽视的免费量化数据源</h3>
+                        <span class="post-date">2026-03-24</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">技术实现</span>
+                    </div>
+                    <p class="post-excerpt">腾讯财经API的数据覆盖范围与使用技巧...</p>
+                </a>
+            </div>
+
+            <!-- 024 - 小市值因子 -->
+            <div class="post-card">
+                <a href="./posts/024-xiaoshizhi_yinzi.html">
+                    <div class="post-header">
+                        <h3 class="post-title">小市值因子初探</h3>
+                        <span class="post-date">2026-03-25</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">策略研究</span>
+                    </div>
+                    <p class="post-excerpt">小市值因子在A股市场的历史表现与有效性检验...</p>
+                </a>
+            </div>
+
+            <!-- 027 - 策略迭代 -->
+            <div class="post-card">
+                <a href="./posts/027-celue_die_dai.html">
+                    <div class="post-header">
+                        <h3 class="post-title">关于量化策略的持续迭代</h3>
+                        <span class="post-date">2026-03-25</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">策略研究</span>
+                    </div>
+                    <p class="post-excerpt">策略生命周期管理与持续优化方法论...</p>
+                </a>
+            </div>
+
+            <!-- 028 - 散户行为 -->
+            <div class="post-card">
+                <a href="./posts/028-sanhu_xingwei.html">
+                    <div class="post-header">
+                        <h3 class="post-title">A股散户行为与量化机会</h3>
+                        <span class="post-date">2026-03-25</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">市场观察</span>
+                    </div>
+                    <p class="post-excerpt">散户情绪指标构建与量化套利机会识别...</p>
+                </a>
+            </div>
+
+            <!-- 029 - 风险控制 -->
+            <div class="post-card">
+                <a href="./posts/029-fengxian_kongzhi.html">
+                    <div class="post-header">
+                        <h3 class="post-title">风险控制与仓位管理</h3>
+                        <span class="post-date">2026-03-25</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">策略研究</span>
+                    </div>
+                    <p class="post-excerpt">量化投资中的三层风控体系与Kelly公式应用...</p>
+                </a>
+            </div>
+
+            <!-- 030 - 市场波动 -->
+            <div class="post-card">
+                <a href="./posts/030-shichang_bodong.html">
+                    <div class="post-header">
+                        <h3 class="post-title">市场波动与情绪指标</h3>
+                        <span class="post-date">2026-03-25</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">市场观察</span>
+                    </div>
+                    <p class="post-excerpt">基于ATR的波动率过滤器构建与回测验证...</p>
+                </a>
+            </div>
+
+            <!-- 035 - 趋势跟踪优化 -->
+            <div class="post-card">
+                <a href="./posts/035-qushi_genzong.html">
+                    <div class="post-header">
+                        <h3 class="post-title">趋势跟踪策略优化</h3>
+                        <span class="post-date">2026-03-26</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">策略研究</span>
+                    </div>
+                    <p class="post-excerpt">双均线策略参数扫描与最优组合选择...</p>
+                </a>
+            </div>
+
+            <!-- 037 - 交易系统 -->
+            <div class="post-card">
+                <a href="./posts/037-jiaoyi_xitong.html">
+                    <div class="post-header">
+                        <h3 class="post-title">量化交易系统设计</h3>
+                        <span class="post-date">2026-03-26</span>
+                    </div>
+                    <div class="post-meta">
+                        <span class="tag">技术实现</span>
+                    </div>
+                    <p class="post-excerpt">从想法到实盘的完整系统架构设计...</p>
+                </a>
+            </div>
+
         </div>
-        
-        <!-- 返回首页 -->
-        <div class="back-link">
-            <a href="../index.html">← 返回个人主页</a>
-        </div>
-        
+
+        <nav class="nav">
+            <a href="../index.html">← 返回首页</a>
+        </nav>
     </div>
 </body>
 </html>

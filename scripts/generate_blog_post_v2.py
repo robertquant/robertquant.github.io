@@ -47,45 +47,21 @@ class BlogPostGenerator:
         
         # 1. 获取自选股价格
         try:
-            import requests
+            from get_stock_price import get_realtime_quotes
+            stocks = ['600519', '000001', '002594', '300750']
+            quotes = get_realtime_quotes(stocks)
             
-            # 腾讯财经API查询
-            stocks = {
-                'sh600519': '贵州茅台',
-                'sz000001': '平安银行', 
-                'sz002594': '比亚迪',
-                'sz300750': '宁德时代'
-            }
-            
-            codes = ','.join(stocks.keys())
-            url = f"http://qt.gtimg.cn/q={codes}"
-            response = requests.get(url, timeout=10)
-            response.encoding = 'gb2312'
-            
+            # 检查是否有异常波动（涨跌幅>5%）
             abnormal_moves = []
-            for line in response.text.strip().split(';'):
-                if not line.strip():
-                    continue
-                try:
-                    # 解析 v_code="data~data~..." 格式
-                    match = re.search(r'v_(\w+)="([^"]*)"', line)
-                    if match:
-                        code = match.group(1)
-                        data = match.group(2).split('~')
-                        if len(data) > 32:
-                            name = data[1]
-                            price = float(data[3])
-                            change_pct = float(data[32])
-                            
-                            if abs(change_pct) > 5:
-                                abnormal_moves.append({
-                                    'code': code,
-                                    'name': name,
-                                    'price': price,
-                                    'change': change_pct
-                                })
-                except:
-                    continue
+            for code, data in quotes.items():
+                change_pct = data.get('涨跌幅', 0)
+                if abs(change_pct) > 5:
+                    abnormal_moves.append({
+                        'code': code,
+                        'name': data.get('名称', code),
+                        'price': data.get('最新价', 0),
+                        'change': change_pct
+                    })
             
             if abnormal_moves:
                 self.has_content = True
