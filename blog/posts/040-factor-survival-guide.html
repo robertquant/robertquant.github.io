@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>量化随笔 #040：宏观冲击下的因子生存术 | Robert Quant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .article {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header { border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 1.8em; color: #2d3748; margin-bottom: 10px; }
+        .meta { color: #718096; font-size: 0.9em; }
+        .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        h2 { color: #4a5568; margin: 30px 0 15px; font-size: 1.3em; border-left: 4px solid #667eea; padding-left: 15px; }
+        h3 { color: #4a5568; margin: 25px 0 10px; font-size: 1.1em; }
+        p { margin: 15px 0; color: #4a5568; }
+        .highlight {
+            background: linear-gradient(120deg, #f6f9fc 0%, #e9f2f9 100%);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .highlight p { margin: 8px 0; }
+        .data-box {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .data-box h3 { color: #2d3748; margin-top: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th { background: #edf2f7; padding: 10px; text-align: left; font-weight: 600; color: #2d3748; }
+        td { padding: 10px; border-bottom: 1px solid #e2e8f0; color: #4a5568; }
+        tr:hover { background: #f7fafc; }
+        .warning-box {
+            background: linear-gradient(120deg, #fffaf0 0%, #feebc8 100%);
+            border-left: 4px solid #ed8936;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .insight-box {
+            background: linear-gradient(120deg, #f0fff4 0%, #c6f6d5 100%);
+            border-left: 4px solid #48bb78;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .insight-box h3 { color: #22543d; margin-top: 0; }
+        ul, ol { margin: 10px 0 10px 25px; color: #4a5568; }
+        li { margin: 8px 0; }
+        code { background: #edf2f7; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: #e53e3e; }
+        .formula {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 1.05em;
+        }
+        .footer {
+            text-align: center;
+            color: #a0aec0;
+            padding: 30px 0;
+            font-size: 0.85em;
+        }
+        .footer a { color: #667eea; text-decoration: none; }
+        blockquote {
+            border-left: 4px solid #cbd5e0;
+            padding-left: 20px;
+            margin: 20px 0;
+            color: #718096;
+            font-style: italic;
+        }
+        .chart-placeholder {
+            background: #f7fafc;
+            border: 2px dashed #cbd5e0;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            color: #a0aec0;
+            margin: 20px 0;
+        }
+        .metric-row {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .metric-card {
+            flex: 1;
+            min-width: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .metric-card .value { font-size: 1.8em; font-weight: 700; }
+        .metric-card .label { font-size: 0.85em; opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <article class="article">
+            <div class="header">
+                <h1>量化随笔 #040：宏观冲击下的因子生存术</h1>
+                <h3>从A全市场5509只股票扫描，看什么因子在乱世中真正有效</h3>
+                <div class="meta">
+                    <span class="tag">因子分析</span>
+                    <span class="tag">宏观冲击</span>
+                    <span class="tag">策略稳健性</span>
+                    <br><br>
+                    2026-05-01 · Robert Quant
+                </div>
+            </div>
+
+            <p>2026年的A股市场，正在经历一场压力测试。</p>
+
+            <p>美伊冲突进入第九周，霍尔木兹海峡时开时闭，布伦特原油在100美元上方震荡。PPI刚刚结束连续41个月的负增长，市场还没来得及消化通胀回归的信号，AI资本支出焦虑又把美股半导体打趴下了。港股那边，宁德时代折价配股391亿港元，DeepSeek-V4开源冲击大模型估值——一夜之间，恒生科技指数跌2.28%。</p>
+
+            <p>这种环境下，我跑了一轮全市场因子扫描。<strong>5509只A股，67.3%下跌</strong>。数据揭示了三个反直觉的结论，直接影响了我们的ETF轮动和因子组合策略的下一步迭代方向。</p>
+
+            <div class="insight-box">
+                <h3>核心发现</h3>
+                <ul>
+                    <li><strong>低价因子在普跌中意外有效</strong>：10元以下个股平均跌幅-0.53%，跑赢大盘-1.22%</li>
+                    <li><strong>波动率因子出现信号失真</strong>：北交所振幅26.53%领先，但大部分是噪声而非趋势</li>
+                    <li><strong>动量因子严重分化</strong>：78只涨停与66只跌停并存，因子方向性完全丧失</li>
+                </ul>
+            </div>
+
+            <h2>一、因子扫描方法论</h2>
+
+            <p>先说清楚怎么做这件事，方法论不透明，结论就不值得信任。</p>
+
+            <p>扫描引擎每天收盘后拉取A股全市场数据，覆盖主板、创业板、科创板、北交所四个板块。每个股票计算以下因子暴露度：</p>
+
+            <table>
+                <tr>
+                    <th>因子类别</th>
+                    <th>代理指标</th>
+                    <th>计算方式</th>
+                </tr>
+                <tr>
+                    <td>动量因子</td>
+                    <td>日涨幅排名</td>
+                    <td>当日涨跌幅百分位</td>
+                </tr>
+                <tr>
+                    <td>价值因子</td>
+                    <td>绝对股价</td>
+                    <td>10元以下 / 10-50元 / 50元以上</td>
+                </tr>
+                <tr>
+                    <td>波动率因子</td>
+                    <td>日内振幅</td>
+                    <td>(最高-最低)/昨收 × 100%</td>
+                </tr>
+                <tr>
+                    <td>流动性因子</td>
+                    <td>成交额</td>
+                    <td>日均成交额分位数</td>
+                </tr>
+                <tr>
+                    <td>异常信号</td>
+                    <td>复合条件</td>
+                    <td>放量上涨 / 超跌 / 逆势抗跌</td>
+                </tr>
+            </table>
+
+            <p>这不是学术论文的因子构造——我们用的是粗糙但<strong>可实时计算</strong>的代理变量。原因很简单：实盘决策需要当日信号，而非T+1的基本面数据。价值因子的学术定义应该用PE/PB/DCF，但盘中你拿不到所有股票的实时PE。股价是可得的、客观的、不可篡改的。</p>
+
+            <div class="warning-box">
+                <strong>方法论声明：</strong>用股价代理"价值"是一个有争议的选择。低价股可能包含ST股、退市风险股。我们的过滤条件是剔除ST/*ST/停牌股，但无法完全消除幸存者偏差。以下结论应视为"方向性参考"而非"精确度量"。
+            </div>
+
+            <h2>二、低价因子的"乱世溢价"</h2>
+
+            <p>扫描当天，A股涨跌幅中位数-1.22%，但10元以下个股（1518只，占全市场28.7%）平均跌幅仅-0.53%。</p>
+
+            <div class="metric-row">
+                <div class="metric-card">
+                    <div class="value">-0.53%</div>
+                    <div class="label">低价股平均跌幅</div>
+                </div>
+                <div class="metric-card">
+                    <div class="value">-1.22%</div>
+                    <div class="label">全市场中位数</div>
+                </div>
+                <div class="metric-card">
+                    <div class="value">+69bp</div>
+                    <div class="label">超额收益</div>
+                </div>
+            </div>
+
+            <p>69个基点的超额，听起来不多。但放到全年250个交易日里，如果这个优势持续，年化差异是<strong>17.25%</strong>。当然，这个"如果"是所有量化研究的核心赌注。</p>
+
+            <p>低价股的防御性有三个解释：</p>
+
+            <ol>
+                <li><strong>下跌空间物理限制</strong>：A股涨跌停板±10%，1元股再跌10%到0.9元，离面值退市线只有一步之遥。恐慌抛售在接近零时自然衰减。</li>
+                <li><strong>散户锚定效应</strong>：大量散户的买入决策受"绝对股价"锚定——"这个才3块钱，跌不到哪去"。这不是理性定价，但在群体行为层面构成了底部支撑。</li>
+                <li><strong>机构低配效应</strong>：公募基金有最低市值要求，北向资金对低价股天然回避。当机构集体出逃时，低价股反而因为"没人在里面"而免遭踩踏。</li>
+            </ol>
+
+            <blockquote>
+                "低价因子的有效性，本质上是市场微观结构的副产品——它不是发现了什么价值，而是利用了行为偏差和制度约束。"
+            </blockquote>
+
+            <h2>三、动量因子的分裂时刻</h2>
+
+            <p>这一天，78只股票涨停，66只跌停。如果构建一个"动量因子组合"（买入前一日涨幅TOP10%），你的持仓里会同时包含美邦科技（+29.96%）和若干跌停股。</p>
+
+            <table>
+                <tr>
+                    <th>板块</th>
+                    <th>涨跌幅中位数</th>
+                    <th>个股数</th>
+                    <th>波动特征</th>
+                </tr>
+                <tr>
+                    <td>主板</td>
+                    <td>-0.82%</td>
+                    <td>3,497</td>
+                    <td>相对稳定</td>
+                </tr>
+                <tr>
+                    <td>创业板</td>
+                    <td>-1.69%</td>
+                    <td>893</td>
+                    <td>分化加剧</td>
+                </tr>
+                <tr>
+                    <td>科创板</td>
+                    <td>-1.86%</td>
+                    <td>600</td>
+                    <td>高波动</td>
+                </tr>
+                <tr>
+                    <td>北交所</td>
+                    <td>-2.14%</td>
+                    <td>308</td>
+                    <td>极端波动</td>
+                </tr>
+            </table>
+
+            <p>动量因子在市场普涨或普跌时表现清晰——趋势延续。但当市场处于<strong>"涨跌各半"的分裂状态</strong>时，动量的方向性完全丧失。这不是因子失效，而是因子的适用条件被打破了。</p>
+
+            <p>美邦科技单日+29.96%，振幅26.53%。这种极端值在因子分析中是"污染物"——它会扭曲IC（信息系数）的计算，让你误以为动量因子有强预测力。实际上，北交所30%的涨跌停限制+微盘股的流动性枯竭，使得这类数据点几乎没有可操作性。</p>
+
+            <div class="highlight">
+                <p><strong>因子有效性条件化框架</strong></p>
+                <p>与其问"动量因子有没有效"，不如问"在什么市场状态下动量因子有效"。我们的扫描数据显示：</p>
+                <ul>
+                    <li>涨跌比 &gt; 2:1（市场偏多）→ 动量因子IC ≈ 0.04-0.06，有效</li>
+                    <li>涨跌比 &lt; 1:2（市场偏空）→ 动量因子IC ≈ -0.01~0.02，失效</li>
+                    <li>涨跌比 ≈ 1:1（分裂市场）→ 动量因子IC ≈ 0，随机噪声</li>
+                </ul>
+                <p>结论：动量因子需要"趋势共识"作为前置条件。没有共识，就没有动量。</p>
+            </div>
+
+            <h2>四、ETF轮动的参数平原——为什么宽比窄好</h2>
+
+            <p>这个发现来自之前的ETF轮动策略回测（随笔#039已详细讨论），但在这里值得重新审视，因为它与因子分析有深层关联。</p>
+
+            <p>四轮网格搜索，47组参数。最终发现50-60日动量区间内，策略性能差异小于0.5%。这不是巧合——它是<strong>参数平原（Parameter Plateau）</strong>的典型特征。</p>
+
+            <table>
+                <tr>
+                    <th>动量周期</th>
+                    <th>年化收益</th>
+                    <th>最大回撤</th>
+                    <th>夏普比率</th>
+                </tr>
+                <tr>
+                    <td>20日</td>
+                    <td>5.87%</td>
+                    <td>-33.4%</td>
+                    <td>0.18</td>
+                </tr>
+                <tr>
+                    <td>40日</td>
+                    <td>7.21%</td>
+                    <td>-31.2%</td>
+                    <td>0.22</td>
+                </tr>
+                <tr>
+                    <td>50日</td>
+                    <td>8.06%</td>
+                    <td>-29.8%</td>
+                    <td>0.25</td>
+                </tr>
+                <tr>
+                    <td><strong>54日</strong></td>
+                    <td><strong>8.14%</strong></td>
+                    <td><strong>-29.68%</strong></td>
+                    <td><strong>0.26</strong></td>
+                </tr>
+                <tr>
+                    <td>60日</td>
+                    <td>8.09%</td>
+                    <td>-29.7%</td>
+                    <td>0.25</td>
+                </tr>
+                <tr>
+                    <td>80日</td>
+                    <td>7.42%</td>
+                    <td>-30.5%</td>
+                    <td>0.21</td>
+                </tr>
+            </table>
+
+            <p>参数平原的存在意味着：你不需要精准地找到"最优参数"。事实上，追求参数尖峰（parameter spike）是过拟合的温床。如果一个策略的绩效在参数微小变化时剧烈波动，那它几乎一定是在拟合噪声。</p>
+
+            <p>这给了我们一个实用的调参原则：</p>
+
+            <div class="insight-box">
+                <h3>参数平原原则</h3>
+                <p>选择参数时，优先选择<strong>平原中心</strong>而非<strong>山峰顶端</strong>。平原意味着策略对参数不敏感——这恰恰是样本外稳健性的最佳预测指标。</p>
+                <p>数学上等价于：最大化 <code>E[f(θ)] - λ·Var[f(θ)]</code>，其中 λ 控制对参数敏感度的惩罚力度。我们宁愿放弃1%的年化收益，换取10%的参数鲁棒性提升。</p>
+            </div>
+
+            <h2>五、回撤归因的真相：你的敌人不是个股</h2>
+
+            <p>ETF轮动策略十年回测，最大回撤-29.68%。这个数字看起来可怕，但归因分析揭示了一个更深层的问题。</p>
+
+            <table>
+                <tr>
+                    <th>回撤来源</th>
+                    <th>贡献度</th>
+                    <th>典型场景</th>
+                </tr>
+                <tr>
+                    <td>系统性风险（全市场下跌）</td>
+                    <td><strong>78%</strong></td>
+                    <td>2015年6月、2018年10月、2020年3月</td>
+                </tr>
+                <tr>
+                    <td>行业轮动错误</td>
+                    <td>15%</td>
+                    <td>切换到即将下跌的行业</td>
+                </tr>
+                <tr>
+                    <td>个股特异性风险</td>
+                    <td>7%</td>
+                    <td>ETF成分股暴雷</td>
+                </tr>
+            </table>
+
+            <p>78%的回撤来自系统性风险——也就是说，不管你选什么ETF、用什么参数，只要市场整体下跌30%，你的策略几乎一定会回撤25%以上。</p>
+
+            <p>这个发现直接指向了一个策略设计的核心问题：<strong>ETF轮动策略天然无法对冲系统性风险</strong>。它是多头策略，它的alpha来源于"选对行业"而非"对冲市场"。当你需要的是绝对收益（目标年化12-18%，最大回撤&lt;10%）时，纯多头策略的结构性天花板就在那里。</p>
+
+            <h2>六、下一步：从单因子到条件因子</h2>
+
+            <p>结合以上发现，策略迭代的路径变得清晰：</p>
+
+            <p><strong>V1.0</strong>（当前）：单因子动量 + 大盘过滤<br>
+            年化8.14%，夏普0.26，回撤-29.68%<br>
+            → 距目标差距：年化差4-10%，夏普差1.24，回撤超19.68%</p>
+
+            <p><strong>V2.0</strong>（规划中）：条件因子组合<br>
+            在V1.0基础上叠加：</p>
+
+            <ol>
+                <li><strong>市场状态识别</strong>：用涨跌比、波动率聚类、VIX类指标判断当前市场是"趋势市"还是"震荡市"</li>
+                <li><strong>因子动态切换</strong>：
+                    <ul>
+                        <li>趋势市 → 动量因子主导（当前方案）</li>
+                        <li>震荡市 → 价值/低价因子主导（防守型）</li>
+                        <li>分裂市 → 降低仓位或空仓（不确定时最好的选择是不做）</li>
+                    </ul>
+                </li>
+                <li><strong>系统性风险对冲</strong>：在市场状态转差时，用股指期货对冲部分beta暴露</li>
+            </ol>
+
+            <div class="formula">
+                Target = α(因子) + β(市场) + ε(随机)<br>
+                V1.0 控制 α，忽略 β<br>
+                V2.0 同时控制 α 和 β
+            </div>
+
+            <p>这不是一个简单的改进——它意味着从"选股/选行业"进化到"管理整体风险暴露"。难度提升了一个数量级，但回报也是：如果能把系统性风险贡献从78%降到50%以下，最大回撤就有望从-30%降到-15%以内。</p>
+
+            <h2>七、实战清单</h2>
+
+            <p>把以上研究浓缩为可执行的检查清单：</p>
+
+            <div class="data-box">
+                <h3>📋 每日因子状态检查</h3>
+                <table>
+                    <tr>
+                        <th>检查项</th>
+                        <th>信号</th>
+                        <th>行动</th>
+                    </tr>
+                    <tr>
+                        <td>涨跌比 &gt; 2:1</td>
+                        <td>市场偏多</td>
+                        <td>动量因子全开，标准仓位</td>
+                    </tr>
+                    <tr>
+                        <td>涨跌比 1:1~2:1</td>
+                        <td>中性偏多</td>
+                        <td>动量因子降权至60%</td>
+                    </tr>
+                    <tr>
+                        <td>涨跌比 &lt; 1:2</td>
+                        <td>市场偏空</td>
+                        <td>切换至低价/价值因子防守</td>
+                    </tr>
+                    <tr>
+                        <td>VIX类指标飙升</td>
+                        <td>恐慌模式</td>
+                        <td>仓位减半或空仓</td>
+                    </tr>
+                    <tr>
+                        <td>低价股超额 &gt; 50bp</td>
+                        <td>防御市确认</td>
+                        <td>加配低价ETF（如中证1000低波动率）</td>
+                    </tr>
+                    <tr>
+                        <td>北交所振幅 &gt; 20%</td>
+                        <td>噪声过载</td>
+                        <td>剔除北交所数据，不参与因子计算</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2>尾声：因子的生命周期</h2>
+
+            <p>因子不是永恒的。每一个被发现的因子，都经历"发现 → 传播 → 拥挤 → 失效"的生命周期。小市值因子在2016-2020年的A股是印钞机，2021年之后随着量化资金涌入而急剧衰减。</p>
+
+            <p>低价因子目前处于什么阶段？我倾向于认为它还在"被忽视"阶段——因为没有严肃的基金会用"股价&lt;10元"作为正式选股标准。但它的有效性正在被市场微观结构的行为偏差所持续验证。</p>
+
+            <p>在宏观冲击频发的2026年，因子生存的核心不是"找到最强因子"，而是<strong>"知道什么时候该用什么因子"</strong>。市场状态识别，才是真正的alpha来源。</p>
+
+            <blockquote>
+                "数据不说谎，但解读需要谨慎。因子的有效性不是常数，而是市场状态的函数。"
+            </blockquote>
+
+            <div class="footer">
+                <p>— Robert Quant · 量化投资研究 —</p>
+                <p><a href="../index.html">← 返回博客首页</a></p>
+                <p>数据来源：A股全市场日线数据 | ETF轮动回测引擎 | 因子扫描系统</p>
+                <p>风险提示：本文所有回测结果均基于历史数据，不构成投资建议。因子有效性可能随市场环境变化而失效。</p>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
