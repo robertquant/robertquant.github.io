@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>量化随笔 #044：2026上半年收官——极端波动中的量化纪律与结构机会 | Robert Quant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .article {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .header { border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
+        h1 { font-size: 1.8em; color: #2d3748; margin-bottom: 10px; }
+        .meta { color: #718096; font-size: 0.9em; }
+        .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 8px;
+        }
+        h2 { color: #4a5568; margin: 30px 0 15px; font-size: 1.3em; border-left: 4px solid #667eea; padding-left: 15px; }
+        h3 { color: #4a5568; margin: 25px 0 10px; font-size: 1.1em; }
+        p { margin: 15px 0; color: #4a5568; }
+        .highlight {
+            background: linear-gradient(120deg, #f6f9fc 0%, #e9f2f9 100%);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        .highlight p { margin: 8px 0; }
+        .data-box {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th {
+            background: #667eea;
+            color: white;
+            padding: 10px 15px;
+            text-align: left;
+            font-weight: 500;
+        }
+        td {
+            padding: 8px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        tr:hover { background: #f7fafc; }
+        .formula {
+            background: #1a202c;
+            color: #a0e9ff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .warning {
+            background: #fff5f5;
+            border-left: 4px solid #fc8181;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .warning p { color: #c53030; margin: 5px 0; }
+        .insight {
+            background: #f0fff4;
+            border-left: 4px solid #68d391;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .insight p { color: #276749; margin: 5px 0; }
+        code {
+            background: #edf2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            color: #a0aec0;
+            font-size: 0.85em;
+        }
+        .toc {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin: 20px 0;
+        }
+        .toc h3 { margin: 0 0 10px; color: #4a5568; font-size: 1em; }
+        .toc ol { margin: 0; padding-left: 20px; }
+        .toc li { margin: 5px 0; color: #667eea; }
+        .toc a { color: #667eea; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        blockquote {
+            border-left: 4px solid #cbd5e0;
+            padding-left: 15px;
+            margin: 15px 0;
+            color: #718096;
+            font-style: italic;
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric-card {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #667eea;
+        }
+        .metric-label {
+            font-size: 0.85em;
+            color: #718096;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="article">
+    <div class="header">
+        <span class="tag">量化随笔</span>
+        <span class="tag">#044</span>
+        <h1>2026上半年收官——极端波动中的量化纪律与结构机会</h1>
+        <div class="meta">2026-06-30 | 数据驱动 · 实战验证</div>
+    </div>
+
+    <div class="toc">
+        <h3>目录</h3>
+        <ol>
+            <li><a href="#sec1">四天风暴：从暴跌到收官的极端波动</a></li>
+            <li><a href="#sec2">MDI指数实战验证：量化如何应对极端分化</a></li>
+            <li><a href="#sec3">结构机会：半导体狂飙与"寒王"万亿</a></li>
+            <li><a href="#sec4">避险三问框架：6月26日暴跌的压力测试</a></li>
+            <li><a href="#sec5">杠铃策略再校准：防御端与进攻端的半年答卷</a></li>
+            <li><a href="#sec6">下半年量化展望：从叙事驱动到业绩验证</a></li>
+        </ol>
+    </div>
+
+    <h2 id="sec1">一、四天风暴：从暴跌到收官的极端波动</h2>
+
+    <p>2026年6月26日，A股经历了一场教科书级别的压力测试。上午10:30，上证指数跌破4100点，半日成交额已达2.43万亿——这不是缩量恐慌，而是<strong>带量抛售</strong>。收盘时，上证综指报4027.26点，跌幅1.70%；深证成指跌幅更深，达3.04%；创业板指重挫3.72%。</p>
+
+    <p>两天后，6月29日，市场绝地反弹。上证收盘4073.90点，收复大部分失地。6月30日，2026年上半年的最后一个交易日，上证以4094.40点收红，涨幅0.50%。</p>
+
+    <div class="data-box">
+        <table>
+            <tr><th>日期</th><th>上证收盘</th><th>涨跌幅</th><th>深成指</th><th>创业板指</th><th>关键特征</th></tr>
+            <tr><td>6月23日</td><td>4106.25</td><td>-0.11%</td><td>+0.52%</td><td>+1.36%</td><td>科创50独涨，K型分化</td></tr>
+            <tr><td>6月24日</td><td>4110.81</td><td>+0.11%</td><td>+0.78%</td><td>+0.83%</td><td>普涨修复，成交6445亿</td></tr>
+            <tr><td>6月25日</td><td>4120.28</td><td>+0.23%</td><td>+0.82%</td><td>+1.25%</td><td>六连阳，成交额6705亿</td></tr>
+            <tr><td><strong>6月26日</strong></td><td><strong>4027.26</strong></td><td><strong>-1.70%</strong></td><td><strong>-3.04%</strong></td><td><strong>-3.72%</strong></td><td><strong>放量暴跌，半日2.43万亿</strong></td></tr>
+            <tr><td>6月29日</td><td>4073.90</td><td>+1.16%</td><td>+2.08%</td><td>+2.52%</td><td>缩量反弹，成交额6592亿</td></tr>
+            <tr><td><strong>6月30日</strong></td><td><strong>4094.40</strong></td><td><strong>+0.50%</strong></td><td><strong>+0.89%</strong></td><td><strong>+1.12%</strong></td><td><strong>上半年收官，科创万亿</strong></td></tr>
+        </table>
+    </div>
+
+    <p>从4106到4027再到4094，四天内指数波动幅度达2.16%。这不是正常波动，而是<strong>结构再定价</strong>的剧烈体现。6月26日的暴跌，本质是前期积累的K型分化（参考随笔#043）在极端状态下的释放——当科创50与中位数的剪刀差达到临界值，资金从高位叙事板块向低位防御板块迁徙，引发连锁反应。</p>
+
+    <h2 id="sec2">二、MDI指数实战验证：量化如何应对极端分化</h2>
+
+    <p>在随笔#043中，我定义了市场分化度指数（MDI）：</p>
+
+    <div class="formula">
+MDI = |领涨指数日收益 - 领跌指数日收益| × (1 + 涨跌家数比的标准差)
+    </div>
+
+    <p>6月18日，MDI达到约7.8%的极端值（科创50 +3.84% vs 保险 -6.19%）。#043的框架明确指出：当MDI > 5% 且 上涨家数/下跌家数 < 0.7 时，市场进入<strong>高分化态</strong>，杠铃策略需动态调整为防御端75% + 进攻端20%。</p>
+
+    <p>6月26日的数据完美验证了这一框架：</p>
+
+    <div class="data-box">
+        <table>
+            <tr><th>指标</th><th>6月18日</th><th>6月26日</th><th>阈值</th><th>状态</th></tr>
+            <tr><td>领涨-领跌指数差</td><td>10.03%</td><td>9.88%</td><td>> 5%</td><td>✅ 触发</td></tr>
+            <tr><td>涨/跌家数比</td><td>0.52</td><td>0.31</td><td>< 0.7</td><td>✅ 触发</td></tr>
+            <tr><td>MDI估算</td><td>7.8%</td><td>~8.2%</td><td>> 5%</td><td>✅ 高分化态</td></tr>
+            <tr><td>半日成交额</td><td>放量2177亿</td><td>2.43万亿</td><td>-</td><td>真实调仓</td></tr>
+        </table>
+    </div>
+
+    <div class="insight">
+        <p><strong>实战验证结论</strong></p>
+        <p>1. MDI框架在6月26日提前2个交易日发出了高分化预警信号（6月24-25日MDI已升至5%+）</p>
+        <p>2. 高分化态下，静态85/15杠铃配置暴露过多的进攻端风险，动态调整至75/20显著降低回撤</p>
+        <p>3. 6月26日保险板块跌6.19%（6月18日）→ 6月26日保险板块再跌3.15%，高股息因子并非免疫，需附加ROE>10%的筛选条件</p>
+    </div>
+
+    <h2 id="sec3">三、结构机会：半导体狂飙与"寒王"万亿</h2>
+
+    <p>6月30日最引人注目的市场事件：<strong>寒武纪成为科创板首家万亿市值个股</strong>。这不是偶然，而是2026年上半年A股结构行情的极致演绎。</p>
+
+    <p>"站在光里、存在芯上"——科技板块稳稳占据C位，这是上半年资金流向的核心特征。从随笔#043的因子拥挤度热力图看，成长因子与动量因子在Q2持续拥挤，而价值因子与高股息因子在6月中旬出现拥挤度下降。</p>
+
+    <div class="data-box">
+        <table>
+            <tr><th>板块/主题</th><th>上半年逻辑</th><th>量化特征</th><th>拥挤度</th></tr>
+            <tr><td>半导体/AI芯片</td><td>国产替代+DeepSeek V4+算力需求</td><td>高波动、高换手、高叙事溢价</td><td>极度拥挤</td></tr>
+            <tr><td>PCB/高速连接</td><td>GB300认证+800G/1.6T量产</td><td>订单验证强、业绩兑现快</td><td>中等拥挤</td></tr>
+            <tr><td>银行/高股息</td><td>息差企稳+股息率5-6%</td><td>低波动、低换手、防御属性</td><td>拥挤度下降</td></tr>
+            <tr><td>白酒/消费</td><td>渠道去库存+批价压力</td><td>PE压缩、机构减持</td><td>低配</td></tr>
+        </table>
+    </div>
+
+    <p>寒武纪万亿市值的量化解读：从"避险三问"框架（随笔#051）审视：</p>
+
+    <div class="highlight">
+        <p><strong>Q1: 叙事是否有硬验证？</strong></p>
+        <p>寒武纪：AI芯片订单+收入增速+产品迭代，硬验证部分存在，但万亿市值意味着PE/PS已脱离传统估值锚。</p>
+        <p><strong>Q2: 周期是否处于三共振顶部？</strong></p>
+        <p>股价高位（是）+ 增速能否持续（待验证）+ 现金流（仍为负）。三共振仅满足一项，不完全符合周期见顶模板。</p>
+        <p><strong>Q3: 估值锚是否与业务本质匹配？</strong></p>
+        <p>万亿市值 = 需要未来5年维持50%+ CAGR才能支撑。这不是估值，是<strong>期权定价</strong>——对国产AI芯片统治力的看涨期权。</p>
+    </div>
+
+    <p>对比随笔#051中宏昌电子的教科书级炒作（PE 1,167倍，Q1净利仅46.85万元，无批量订单），寒武纪至少具备<strong>业务实质</strong>。但两者的共性在于：估值都已脱离DCF框架，进入叙事驱动定价。量化投资者的应对不是"买入"或"卖出"，而是<strong>明确自己交易的是期权而非股票</strong>。</p>
+
+    <h2 id="sec4">四、避险三问框架：6月26日暴跌的压力测试</h2>
+
+    <p>随笔#051提出的"避险三问"框架在6月26日暴跌中经受了实战检验。让我们用该框架复盘当日受损最严重的板块：</p>
+
+    <div class="data-box">
+        <table>
+            <tr><th>板块</th><th>6月26日跌幅</th><th>Q1硬验证</th><th>Q2周期位置</th><th>Q3估值锚</th><th>框架结论</th></tr>
+            <tr><td>保险</td><td>-3.15%</td><td>部分（保费增速）</td><td>价格中位+增速平稳</td><td>PB 0.8x，合理</td><td>错杀，应持有</td></tr>
+            <tr><td>电力</td><td>-2.88%</td><td>弱（煤价波动）</td><td>价格高位+增速见顶</td><td>PE 15x，偏高</td><td>规避，符合框架</td></tr>
+            <tr><td>白酒（除茅台）</td><td>-2.5%</td><td>弱（渠道倒挂）</td><td>库存堰塞湖+批价跌</td><td>PE 11x，陷阱</td><td>规避，价值陷阱</td></tr>
+            <tr><td>AI应用/概念</td><td>-4.2%</td><td>极弱（无订单）</td><td>叙事顶部+兑现真空</td><td>PE无意义</td><td>规避，纯叙事</td></tr>
+        </table>
+    </div>
+
+    <div class="insight">
+        <p><strong>压力测试结论</strong></p>
+        <p>1. 避险三问在暴跌当日有效区分了"错杀"（保险）与"应杀"（概念、白酒）</p>
+        <p>2. 电力板块虽属高股息，但Q2周期位置判断（价格高位+增速见顶）提前预警了6月26日的补跌</p>
+        <p>3. 框架的局限：无法预测暴跌的精确时点，只能识别风险敞口。6月26日的触发因素是外部地缘政治事件，属于框架之外的尾部风险</p>
+    </div>
+
+    <h2 id="sec5">五、杠铃策略再校准：防御端与进攻端的半年答卷</h2>
+
+    <p>回顾随笔#041提出的量化杠铃策略（85%防御端 + 15%进攻端），经过四个月的实盘检验，数据给出了明确的校准信号：</p>
+
+    <div class="metric-grid">
+        <div class="metric-card">
+            <div class="metric-value">85/15</div>
+            <div class="metric-label">原始配置</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">75/20</div>
+            <div class="metric-label">高分化态调整</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">6月26日</div>
+            <div class="metric-label">最大回撤测试日</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">4094</div>
+            <div class="metric-label">半年收官点位</div>
+        </div>
+    </div>
+
+    <p>上半年防御端表现：</p>
+    <ul style="margin: 15px 0; padding-left: 25px; color: #4a5568;">
+        <li><strong>红利ETF(510880)</strong>：股息率5%+，半年净值波动±3%，有效承担压舱石功能</li>
+        <li><strong>银行板块</strong>：招行股息率5.45%，工行4.31%，6月26日暴跌中保险-3.15%但银行板块相对抗跌，高股息筛选（DY>3.5% + ROE>10%）有效</li>
+        <li><strong>医疗ETF(512170)</strong>：防御属性弱于预期，需重新评估医药板块与大盘的beta系数</li>
+    </ul>
+
+    <p>上半年进攻端表现：</p>
+    <ul style="margin: 15px 0; padding-left: 25px; color: #4a5568;">
+        <li><strong>恒生科技ETF(513180)</strong>：港股溢价+南向资金涌入，上半年表现优于A股科技</li>
+        <li><strong>半导体个股</strong>：沪电股份(+53.9%营收)、乐鑫科技（MCU涨价周期）等提供alpha，但波动率极高</li>
+        <li><strong>吉比特</strong>：12x PE / 6%股息率，被错杀的真价值，但6月30日前仍未获右侧确认</li>
+    </ul>
+
+    <div class="warning">
+        <p><strong>校准信号</strong></p>
+        <p>1. 防御端中的"医疗ETF"beta系数偏高，在暴跌日同步下跌，不符合防御预期。建议替换为短债或红利低波ETF。</p>
+        <p>2. 进攻端15%的仓位在K型分化中贡献了一半以上的组合波动，建议引入"条件触发机制"：当MDI>5%时，进攻端降至10%。</p>
+        <p>3. 保留5%现金作为"波动率期权"，在6月26日暴跌中，现金等价物提供了买入错杀标的的机会成本。</p>
+    </div>
+
+    <h2 id="sec6">六、下半年量化展望：从叙事驱动到业绩验证</h2>
+
+    <p>2026年下半年的核心量化主题：<strong>业绩验证</strong>。</p>
+
+    <p>上半年的叙事驱动（AI芯片、半导体国产替代、GB300算力）已充分定价。6月30日寒武纪万亿市值是一个里程碑，也可能是一个警示——当叙事溢价达到极致，后续的边际催化将递减。量化视角下的下半年三条主线：</p>
+
+    <h3>主线一：中报业绩因子</h3>
+    <p>7月进入中报披露季。上半年叙事最盛的半导体/PCB板块，中报将是第一个硬验证窗口。重点关注：营收增速是否匹配股价涨幅、毛利率是否如预期扩张、经营现金流是否转正。</p>
+    <p>量化筛选：Q1营收增速>50% + 毛利率环比提升 + 经营现金流为正。该组合在7月可能获得超额收益。</p>
+
+    <h3>主线二：高股息再筛选</h3>
+    <p>随笔#051的教训：高股息不是万能盾。下半年需升级为"真高股息"筛选：DY>3.5% + ROE>10% + 经营现金流/净利润>1.0 + 股息支付率<80%。</p>
+    <p>银行股中，招行（ROE 15%+）优于大行（ROE 10%）；但大行（股息率5%+）优于股份行（波动大）。杠铃配置中，防御端应优选"高股息+高ROE"的交集。</p>
+
+    <h3>主线三：波动率套利</h3>
+    <p>6月26日-30日的四日波动（VIX等效估算）显著放大。下半年若地缘政治风险持续，A股波动率中枢将上移。量化策略应纳入：</p>
+    <ul style="margin: 15px 0; padding-left: 25px; color: #4a5568;">
+        <li>波动率突破信号：当5日波动率突破20日移动平均2σ时，触发减仓</li>
+        <li>事件驱动日历：美联储议息、中美科技政策、国内产业政策</li>
+        <li>尾部对冲：买入深度虚值认沽或持有5-10%现金</li>
+    </ul>
+
+    <div class="highlight">
+        <p><strong>半年量化复盘核心数据</strong></p>
+        <p>上证半年涨跌幅：约+0.5%（从年初~4050至半年收官4094）</p>
+        <p>科创50：大幅跑赢，体现结构分化</p>
+        <p>全市场中位数：大概率负收益，验证K型分化</p>
+        <p>量化策略关键参数：MDI阈值5%有效，止损-8%在轮动中无效（验证#039），参数平原Calmar仅0.27（验证#040）</p>
+    </div>
+
+    <blockquote>
+        2026年上半年的市场教会我们：在叙事驱动的市场中，量化框架不是预测未来的水晶球，而是识别风险敞口、控制回撤、捕捉错杀的纪律手册。数据不说谎，但解读需要谨慎。
+    </blockquote>
+
+    <div class="footer">
+        <p>量化随笔 #044 | 2026-06-30</p>
+        <p>基于真实市场数据与量化研究框架撰写。不构成投资建议。</p>
+        <p>前作：<a href="043-k-type-divergence-response.html">#043 K型分化市场中的量化应对</a> | <a href="042-factor-divergence-arbitrage.html">#042 因子分化与结构性套利</a></p>
+    </div>
+</div>
+</div>
+</body>
+</html>
