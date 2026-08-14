@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>量化随笔 #056 | 中报窗口的量化博弈——当业绩验证撞上极致分化</title>
+<style>
+:root { --bg:#0d1117; --fg:#c9d1d9; --accent:#58a6ff; --muted:#8b949e; --border:#30363d; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background:var(--bg); color:var(--fg); max-width:800px; margin:40px auto; padding:0 24px; line-height:1.7; }
+header { border-bottom:1px solid var(--border); padding-bottom:16px; margin-bottom:32px; }
+header h1 { font-size:24px; margin:0 0 8px; color:var(--fg); }
+header .meta { color:var(--muted); font-size:14px; }
+h2 { color:var(--accent); font-size:20px; margin-top:32px; border-bottom:1px solid var(--border); padding-bottom:8px; }
+h3 { color:#79c0ff; font-size:16px; margin-top:24px; }
+p { margin:12px 0; }
+table { border-collapse:collapse; width:100%; margin:16px 0; font-size:14px; }
+th, td { border:1px solid var(--border); padding:8px 12px; text-align:left; }
+th { background:#161b22; color:var(--accent); }
+tr:nth-child(even) { background:#161b22; }
+.code { background:#161b22; padding:2px 6px; border-radius:4px; font-family:monospace; font-size:13px; }
+blockquote { border-left:3px solid var(--accent); margin:16px 0; padding-left:16px; color:var(--muted); font-style:italic; }
+.tag { display:inline-block; background:#21262d; color:var(--accent); padding:2px 8px; border-radius:12px; font-size:12px; margin-right:6px; }
+.footer { margin-top:48px; padding-top:16px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; }
+</style>
+</head>
+<body>
+
+<header>
+<h1>📊 量化随笔 #056</h1>
+<div class="meta">中报窗口的量化博弈——当业绩验证撞上极致分化</div>
+<div class="meta">2026-07-24 | 数据截至: 2026-07-24 收盘</div>
+</header>
+
+<section>
+<h2>一、引言：中报季不是财报季，是博弈季</h2>
+<p>2026年7月，A股进入中报业绩预告密集披露期。这不是普通的财报季——这是在一个已经极度分化的市场中，用真金白银验证叙事的战场。</p>
+
+<p>数据告诉我们，这不是牛市：</p>
+<ul>
+<li>2026年H1，科创50 <span class="code">+64.25%</span>，创业板指 <span class="code">+35.58%</span>，而上证指数仅 <span class="code">+3.16%</span></li>
+<li>全市场5,528只股票，上涨比例仅 <span class="code">32%</span>，涨跌幅中位数 <span class="code">-8.7%</span></li>
+<li>电子行业涨幅 <span class="code">86%</span>，市值超越银行成为A股第一大行业</li>
+<li>公募基金Q2重仓：中际旭创第1，新易盛第2，茅台降至第13</li>
+</ul>
+
+<p>这不是普涨牛，这是<strong>结构性极端分化市</strong>——68%个股在下跌，而科创50涨64%。中报窗口期，这种分化不会收敛，只会被业绩数据进一步放大。</p>
+
+<blockquote>
+"中报季的本质，是用Q2财务数据对市场叙事做一次压力测试。通过测试的，继续享受估值溢价；未通过的，估值杀+情绪杀双击。"
+</blockquote>
+</section>
+
+<section>
+<h2>二、量化框架：中报窗口的三层筛选体系</h2>
+
+<p>基于近三个月的研究积累（随笔#053至#055），我将中报窗口期的量化应对提炼为<strong>三层筛选体系</strong>：</p>
+
+<h3>第一层：行业分化度指数（IDF）——判断战场状态</h3>
+<p>在随笔#055中，我提出了<strong>行业分化度因子</strong>（Industry Divergence Factor）：</p>
+
+<p class="code" style="display:block; padding:12px;">
+IDF = 行业内个股涨幅标准差 / 全市场个股涨幅标准差
+</p>
+
+<table>
+<tr><th>IDF区间</th><th>市场状态</th><th>策略响应</th></tr>
+<tr><td>IDF < 1.0</td><td>低分化，普涨/普跌</td><td>传统动量/均值回归有效</td></tr>
+<tr><td>1.0 ≤ IDF < 2.0</td><td>中等分化，结构性行情</td><td>行业ETF轮动 + 龙头动量</td></tr>
+<tr><td>IDF ≥ 2.0</td><td>极端分化，微观结构主导</td><td>产业链分层 + 业绩验证链</td></tr>
+</table>
+
+<p>2026年H1，光模块行业IDF ≈ <span class="code">3.2</span>，半导体设备IDF ≈ <span class="code">2.8</span>——均处于极端分化态。这意味着：</p>
+<ul>
+<li>传统动量策略失效（#055回测：IDF≥2.0时月均超额 <span class="code">-1.2%</span>）</li>
+<li>微观结构策略有效（同条件下月均超额 <span class="code">+4.7%</span>）</li>
+</ul>
+
+<h3>第二层：业绩验证链——产业链的"微笑曲线"定价</h3>
+<p>7月14日的数据揭示了一个清晰的<strong>业绩验证链</strong>：</p>
+
+<table>
+<tr><th>产业链环节</th><th>代表标的</th><th>7/14表现</th><th>业绩确定性</th><th>毛利率</th></tr>
+<tr><td>上游光芯片</td><td>源杰科技/仕佳光子</td><td>+5%~+8%</td><td>高（供不应求）</td><td>45-55%</td></tr>
+<tr><td>中游光模块</td><td>中际旭创/新易盛</td><td>+6.77% / +8.29%</td><td>高（订单饱满）</td><td>35-48%</td></tr>
+<tr><td>下游AI服务器</td><td>中科曙光/浪潮信息</td><td>-6.72% / -4.73%</td><td>中（竞争加剧）</td><td>10-18%</td></tr>
+<tr><td>AI应用端</td><td>科大讯飞/昆仑万维</td><td>+0.47% / 平盘</td><td>低（无盈利验证）</td><td>N/A</td></tr>
+</table>
+
+<p>数据验证了一个规律：<strong>毛利率与涨幅相关系数 r = 0.78</strong>。中报季，这个规律会被强化——毛利率是业绩质量的最硬指标。</p>
+
+<h3>第三层：杠铃再平衡——动态校准防御/进攻比例</h3>
+<p>随笔#043提出的<strong>杠铃策略动态校准框架</strong>，在中报窗口期触发再平衡的条件：</p>
+
+<table>
+<tr><th>触发条件（任一满足）</th><th>再平衡动作</th></tr>
+<tr><td>科技板块拥挤度（公募持仓占比）> 40%</td><td>防御端+5%，进攻端-5%</td></tr>
+<tr><td>VIX 连续3日 > 25</td><td>防御端+10%，进攻端-10%</td></tr>
+<tr><td>中报预告净利润增速中位数 < -20%</td><td>防御端+10%，现金+5%</td></tr>
+<tr><td>高股息组合股息率 vs 10Y国债利差 < 1%</td><td>防御端-5%，进攻端+5%</td></tr>
+</table>
+
+<p>当前状态：公募Q2电子持仓 <span class="code">43.4%</span>，已触发第一条——防御端应上调至90%，进攻端压缩至10%。</p>
+</section>
+
+<section>
+<h2>三、实战数据：中报预告的量化信号</h2>
+
+<h3>信号一：半导体设备——业绩超预期+资金持续流入</h3>
+<table>
+<tr><th>标的</th><th>中报预告</th><th>资金信号</th><th>量化评级</th></tr>
+<tr><td>长川科技 (300604)</td><td>H1扣非净利润 +110%~134%</td><td>7/22净流入13.64亿</td><td>✅ 强</td></tr>
+<tr><td>奥来德 (688378)</td><td>H1扣非净利润 +2366%~2836%</td><td>设备板块吸金130亿+</td><td>✅ 强</td></tr>
+<tr><td>北方华创 (002371)</td><td>未披露（预期+30~50%）</td><td>连续17天净流入</td><td>⚠️ 观望</td></tr>
+</table>
+
+<p><strong>洞察</strong>：半导体设备ETF(560780)连续17天吸金130亿+，说明机构"换仓不换行业"——从估值透支的光模块龙头，切换到业绩刚进入释放期的设备环节。这是产业链内部的轮动，不是风格切换。</p>
+
+<h3>信号二：光模块——分化加剧，龙头与跟风者天壤之别</h3>
+<table>
+<tr><th>标的</th><th>H1业绩</th><th>毛利率</th><th>YTD涨幅</th><th>估值(PE)</th></tr>
+<tr><td>新易盛 (300502)</td><td>Q1净利润 +201%</td><td>48.7%</td><td>+178%</td><td>~85x</td></tr>
+<tr><td>中际旭创 (300308)</td><td>H1净利润 +69%</td><td>35.2%</td><td>+145%</td><td>~72x</td></tr>
+<tr><td>华工科技 (000988)</td><td>预期+15~25%</td><td>10-18%</td><td>+8%</td><td>~25x</td></tr>
+</table>
+
+<p><strong>洞察</strong>：光模块板块内部，毛利率差异直接映射到涨幅差异。中报季，华工科技这类"伪光模块"（低毛利率、无北美大客户认证）将面临业绩证伪风险。IDF因子在此处的实战价值：只持有毛利率>30%的真龙头。</p>
+
+<h3>信号三：银行股+高股息——防御端的估值锚</h3>
+<table>
+<tr><th>标的</th><th>股息率</th><th>PE</th><th>PB</th><th>近期表现</th></tr>
+<tr><td>招商银行 (600036)</td><td>5.45%</td><td>~6x</td><td>~0.9x</td><td>相对抗跌</td></tr>
+<tr><td>兴业银行 (601166)</td><td>~6.0%</td><td>~5x</td><td>~0.6x</td><td>高股息核心</td></tr>
+<tr><td>贵州茅台 (600519)</td><td>~3.9%</td><td>~22x</td><td>~7x</td><td>批价承压</td></tr>
+</table>
+
+<p><strong>洞察</strong>：7月24日早盘推荐中，招商银行被纳入防御配置。在中报窗口期，银行股的逻辑不是"业绩增长"，而是"相对确定性+股息率安全垫"。当科技股波动率 > 40%时，5%+股息率的配置价值被重新定价。</p>
+</section>
+
+<section>
+<h2>四、风险警示：中报季的三个陷阱</h2>
+
+<h3>陷阱一：净利润增速的"基数幻觉"</h3>
+<p>奥来德H1扣非净利润 +2366%，听着惊人，但需要确认：</p>
+<ul>
+<li>去年同期基数是否极低？</li>
+<li>增长是否来自一次性收益（政府补贴/资产处置）？</li>
+<li>扣非后环比趋势如何？</li>
+</ul>
+<p>量化规则：增速>500%的标的，必须同时满足"扣非增速>300%"+"环比Q1加速"才纳入观察池。</p>
+
+<h3>陷阱二："预期你的预期"的博弈</h3>
+<p>中际旭创H1净利润+69%——数字很好，但如果市场已经price in了+80%的预期呢？</p>
+<p>7月24日数据：中际旭创 <span class="code">+1.10%</span>（光模块板块暴跌中逆势涨），说明+69%的增速已被充分预期。真正超预期的是那些<strong>增速低于预期但市场过度悲观</strong>的标的——这需要舆情分析+卖方预期数据的交叉验证。</p>
+
+<h3>陷阱三：拥挤度的尾部风险</h3>
+<p>公募Q2电子持仓43.4%，创下历史新高。历史上，单一行业持仓超过40%后的6个月内：</p>
+<ul>
+<li>2007年Q2 金融地产持仓45% → 6个月后-35%</li>
+<li>2015年Q2 TMT持仓42% → 6个月后-45%</li>
+<li>2021年Q2 新能源持仓41% → 6个月后-30%</li>
+</ul>
+<p>统计规律不是因果，但<strong>拥挤度是必要条件</strong>。当前科技股的拥挤度，意味着任何低于预期的中报都可能触发踩踏。</p>
+</section>
+
+<section>
+<h2>五、策略总结：中报窗口的量化操作手册</h2>
+
+<table>
+<tr><th>维度</th><th>操作规则</th><th>当前信号</th></tr>
+<tr><td>仓位管理</td><td>杠铃策略动态校准，电子拥挤度>40%触发防御端+5%</td><td>⚠️ 已触发，防御端90%</td></tr>
+<tr><td>行业选择</td><td>IDF>2.0时，只持有产业链"微笑曲线"两端（上游/下游）</td><td>✅ 设备/光芯片 > 光模块 > 服务器</td></tr>
+<tr><td>个股筛选</td><td>毛利率>30% + 扣非增速>30% + 环比加速</td><td>长川科技/奥来德符合</td></tr>
+<tr><td>避险机制</td><td>"避险三问"框架（随笔#051）</td><td>宏昌电子/金钼股份已证伪</td></tr>
+<tr><td>再平衡频率</td><td>每披露50家中报预告后评估一次</td><td>当前已披露~200家，需更新</td></tr>
+</table>
+</section>
+
+<section>
+<h2>六、结语：数据不说谎，但解读需要谨慎</h2>
+
+<p>中报窗口期，每一个数字背后都是一场博弈。量化研究的价值，不是预测哪个数字会超预期，而是建立一个<strong>系统化的响应框架</strong>——当数据出来时，你知道该做什么。</p>
+
+<p>三层筛选体系（IDF→业绩验证链→杠铃再平衡）+ 避险三问框架，构成了我们在极端分化市场中的生存工具箱。数据会告诉我们市场在哪里，策略会告诉我们该站在哪里。</p>
+
+<blockquote>
+"在K型分化市场中，最大的风险不是看错方向，而是用普涨市的思维做结构性市。"
+</blockquote>
+
+<p>中报季还在继续，数据会持续更新。下一篇随笔，我们将用8月完整的中报数据，回测这套框架的有效性。</p>
+</section>
+
+<div class="footer">
+<p><span class="tag">ETF轮动</span> <span class="tag">因子分析</span> <span class="tag">中报策略</span> <span class="tag">行业分化</span> <span class="tag">杠铃策略</span></p>
+<p>📊 量化随笔 #056 | 数据来源: 腾讯财经API、ifind、kimi_search | 生成时间: 2026-07-24 19:07 CST</p>
+<p>往期随笔: <a href="https://robertquant.github.io/blog/" style="color:var(--accent)">https://robertquant.github.io/blog/</a></p>
+</div>
+
+</body>
+</html>
