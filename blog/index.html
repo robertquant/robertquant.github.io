@@ -23,7 +23,7 @@
         }
         header h1 { font-size: 2.2em; margin-bottom: 10px; }
         header p { font-size: 1.1em; opacity: 0.9; }
-        
+
         .stats {
             display: flex;
             justify-content: center;
@@ -36,7 +36,7 @@
             padding: 5px 15px;
             border-radius: 20px;
         }
-        
+
         .post-list { display: grid; gap: 20px; }
         .post-card {
             background: white;
@@ -64,8 +64,8 @@
             font-weight: 600;
             flex: 1;
         }
-        .post-date { 
-            color: #a0aec0; 
+        .post-date {
+            color: #a0aec0;
             font-size: 0.9em;
             white-space: nowrap;
         }
@@ -84,7 +84,7 @@
             font-size: 0.95em;
             line-height: 1.6;
         }
-        
+
         /* 分页样式 */
         .pagination {
             display: flex;
@@ -133,7 +133,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
-        
+
         .nav {
             margin-top: 40px;
             text-align: center;
@@ -143,7 +143,7 @@
             text-decoration: none;
             margin: 0 15px;
         }
-        
+
         .category-nav {
             display: flex;
             justify-content: center;
@@ -200,20 +200,21 @@
     </div>
 
     <script>
-        // 文章数据（按时间倒序排列）
+        // 文章数据(按时间倒序排列)
         const posts = [
-            { id: 62, title: '地量、硬科技IPO与防御再校准——9月中旬量化观察手记', date: '2026-09-11', category: '市场观察', file: '062-low-volume-hardtech-ipo-defense-recalibration.html', excerpt: '成交额创下半年新低、燧原科技上市暴涨188%、科创50跌3%的冰火两重天。量化解剖“地量见地价”的历史胜率，防御体系秋季2.0版校准...' },
-            { id: 61, title: '从极致分化到均衡回归——9月初的市场微观结构观察与策略校准', date: '2026-09-04', category: '市场观察', file: '061-equilibrium-return-microstructure.html', excerpt: '8月下旬暴跌后的微观结构重建：IDF从2.8回落至1.5以下，市场从极致分化切换至均衡轮动，防御因子87%风险对冲效率验证...' },
-            { id: 58, title: '杠铃策略的量化执行框架——从资产配置到风险预算的完整表达', date: '2026-08-11', category: '策略研究', file: '058-barbell-strategy-quant-framework.html', excerpt: '杠铃策略的量化表达：安全端红利ETF/医疗ETF/消费ETF防守配置+投机端恒生科技/加密货币进攻配置，风险预算与动态再平衡...' },
-            { id: 57, title: '极端事件与微观结构重构——从千亿成交到中报验证的量化复盘', date: '2026-07-28', category: '市场观察', file: '057-extreme-event-microstructure.html', excerpt: '7月3日极端事件量化拆解：成交额从1.5万亿→2.8万亿→3.57万亿的微观结构变化，叙事溢价与周期陷阱的识别框架...' },
-            { id: 56, title: '中报窗口的量化博弈——当业绩验证撞上极致分化', date: '2026-07-24', category: '市场观察', file: '056-midyear-report-quant-game.html', excerpt: '中报窗口三层筛选体系：IDF行业分化度判断→业绩验证链→杠铃再平衡，毛利率与涨幅相关系数r=0.78...' },
-            { id: 46, title: '每日早盘推荐 | 2026-08-07：AI硬件主线精选', date: '2026-08-07', category: '早盘推荐', file: '046-morning-picks-20260807.html', excerpt: '海光信息（国产GPU龙头）、深南电路（AI服务器PCB核心）、澜起科技（内存接口芯片第一），AI硬件主线精选标的...' },
-            { id: 45, title: '中报窗口期的量化应对——当估值扩张遇上业绩验证', date: '2026-07-03', category: '市场观察', file: '045-earnings-window-quant-response.html', excerpt: '7月2日科技股雪崩量化拆解：沪指-2.03%、半导体-9.36%，中报窗口期因子切换规律、杠铃策略动态校准、错杀价值池筛选...' },
-            { id: 44, title: '2026上半年收官——极端波动中的量化纪律与结构机会', date: '2026-06-30', category: '市场观察', file: '044-half-year-wrapup.html', excerpt: '6月26日暴跌至6月30日收官的四天风暴：MDI指数验证、避险三问压力测试、寒武纪万亿市值的量化解读、杠铃策略半年校准...' },
-            { id: 43, title: 'K型分化市场中的量化应对——当科创50大涨与中位数下跌共存时', date: '2026-06-23', category: '市场观察', file: '043-k-type-divergence-response.html', excerpt: '6月18日A股极端K型分化量化拆解：科创50+3.84% vs 全市场中位数-0.7%，红利蓝筹集体回调，杠铃策略动态校准框架...' },
-            { id: 40, title: '宏观冲击下的因子生存术', date: '2026-05-01', category: '因子分析', file: '040-factor-survival-guide.html', excerpt: '从A股全市场5509只股票扫描，看低价因子在乱世中意外有效、动量因子在分裂市场中丧失方向性、参数平原原则...' },
-            { id: 39, title: '当止损失效时：ETF轮动研究的四个反直觉发现', date: '2026-04-28', category: '策略研究', file: '039-when-stop-loss-fails.html', excerpt: '-8%硬止损完全无效、60日过滤击败20日、参数平原揭示过拟合免疫、回撤78%来自系统性风险...' },
-            { id: 38, title: 'ETF轮动策略V3研究报告：从8%到25%的优化之路', date: '2026-03-26', category: '策略研究', file: '038-etf-rotation-v3-report.html', excerpt: '通过三阶段优化，将ETF轮动策略年化收益从8.14%提升至25.67%的完整研究报告...' },
+            { id: 63, title: '空仓的数学——当动量系统说"不"的三周实测与节前量化校准', date: '2026-09-29', category: '策略研究', file: '063-cash-position-quant-validation.html', excerpt: 'ETF轮动策略连续三周空仓净值0%变动，同期沪指-3.93%。9/28极端日拆解：放量下跌+主力净流出862.91亿+4607家下跌，空仓躲过暴跌...' },
+            { id: 62, title: '地量、硬科技IPO与防御再校准——9月中旬量化观察手记', date: '2026-09-11', category: '市场观察', file: '062-low-volume-hardtech-ipo-defense-recalibration.html', excerpt: '成交额创下半年新低、燧原科技上市暴涨188%、科创50跌3%的冰火两重天。量化解剖"地量见地价"的历史胜率，防御体系秋季2.0版校准...' },
+            { id: 61, title: '从极致分化到均衡回归--9月初的市场微观结构观察与策略校准', date: '2026-09-04', category: '市场观察', file: '061-equilibrium-return-microstructure.html', excerpt: '8月下旬暴跌后的微观结构重建:IDF从2.8回落至1.5以下,市场从极致分化切换至均衡轮动,防御因子87%风险对冲效率验证...' },
+            { id: 58, title: '杠铃策略的量化执行框架--从资产配置到风险预算的完整表达', date: '2026-08-11', category: '策略研究', file: '058-barbell-strategy-quant-framework.html', excerpt: '杠铃策略的量化表达:安全端红利ETF/医疗ETF/消费ETF防守配置+投机端恒生科技/加密货币进攻配置,风险预算与动态再平衡...' },
+            { id: 57, title: '极端事件与微观结构重构--从千亿成交到中报验证的量化复盘', date: '2026-07-28', category: '市场观察', file: '057-extreme-event-microstructure.html', excerpt: '7月3日极端事件量化拆解:成交额从1.5万亿→2.8万亿→3.57万亿的微观结构变化,叙事溢价与周期陷阱的识别框架...' },
+            { id: 56, title: '中报窗口的量化博弈--当业绩验证撞上极致分化', date: '2026-07-24', category: '市场观察', file: '056-midyear-report-quant-game.html', excerpt: '中报窗口三层筛选体系:IDF行业分化度判断→业绩验证链→杠铃再平衡,毛利率与涨幅相关系数r=0.78...' },
+            { id: 46, title: '每日早盘推荐 | 2026-08-07:AI硬件主线精选', date: '2026-08-07', category: '早盘推荐', file: '046-morning-picks-20260807.html', excerpt: '海光信息(国产GPU龙头)、深南电路(AI服务器PCB核心)、澜起科技(内存接口芯片第一),AI硬件主线精选标的...' },
+            { id: 45, title: '中报窗口期的量化应对--当估值扩张遇上业绩验证', date: '2026-07-03', category: '市场观察', file: '045-earnings-window-quant-response.html', excerpt: '7月2日科技股雪崩量化拆解:沪指-2.03%、半导体-9.36%,中报窗口期因子切换规律、杠铃策略动态校准、错杀价值池筛选...' },
+            { id: 44, title: '2026上半年收官--极端波动中的量化纪律与结构机会', date: '2026-06-30', category: '市场观察', file: '044-half-year-wrapup.html', excerpt: '6月26日暴跌至6月30日收官的四天风暴:MDI指数验证、避险三问压力测试、寒武纪万亿市值的量化解读、杠铃策略半年校准...' },
+            { id: 43, title: 'K型分化市场中的量化应对--当科创50大涨与中位数下跌共存时', date: '2026-06-23', category: '市场观察', file: '043-k-type-divergence-response.html', excerpt: '6月18日A股极端K型分化量化拆解:科创50+3.84% vs 全市场中位数-0.7%,红利蓝筹集体回调,杠铃策略动态校准框架...' },
+            { id: 40, title: '宏观冲击下的因子生存术', date: '2026-05-01', category: '因子分析', file: '040-factor-survival-guide.html', excerpt: '从A股全市场5509只股票扫描,看低价因子在乱世中意外有效、动量因子在分裂市场中丧失方向性、参数平原原则...' },
+            { id: 39, title: '当止损失效时:ETF轮动研究的四个反直觉发现', date: '2026-04-28', category: '策略研究', file: '039-when-stop-loss-fails.html', excerpt: '-8%硬止损完全无效、60日过滤击败20日、参数平原揭示过拟合免疫、回撤78%来自系统性风险...' },
+            { id: 38, title: 'ETF轮动策略V3研究报告:从8%到25%的优化之路', date: '2026-03-26', category: '策略研究', file: '038-etf-rotation-v3-report.html', excerpt: '通过三阶段优化,将ETF轮动策略年化收益从8.14%提升至25.67%的完整研究报告...' },
             { id: 37, title: '量化交易系统设计', date: '2026-03-26', category: '技术实现', file: '037-jiaoyi_xitong.html', excerpt: '从想法到实盘的完整系统架构设计...' },
             { id: 35, title: '趋势跟踪策略优化', date: '2026-03-26', category: '策略研究', file: '035-qushi_genzong.html', excerpt: '双均线策略参数扫描与最优组合选择...' },
             { id: 30, title: '市场波动与情绪指标', date: '2026-03-25', category: '市场观察', file: '030-shichang_bodong.html', excerpt: '基于ATR的波动率过滤器构建与回测验证...' },
@@ -221,18 +222,18 @@
             { id: 28, title: 'A股散户行为与量化机会', date: '2026-03-25', category: '市场观察', file: '028-sanhu_xingwei.html', excerpt: '散户情绪指标构建与量化套利机会识别...' },
             { id: 27, title: '关于量化策略的持续迭代', date: '2026-03-25', category: '策略研究', file: '027-celue_die_dai.html', excerpt: '策略生命周期管理与持续优化方法论...' },
             { id: 24, title: '小市值因子初探', date: '2026-03-25', category: '策略研究', file: '024-xiaoshizhi_yinzi.html', excerpt: '小市值因子在A股市场的历史表现与有效性检验...' },
-            { id: 13, title: '腾讯财经：被忽视的免费量化数据源', date: '2026-03-24', category: '技术实现', file: '013-tencent-finance.html', excerpt: '腾讯财经API的数据覆盖范围与使用技巧...' },
-            { id: 12, title: 'AKShare：Python开源金融数据接口库深度调研', date: '2026-03-24', category: '技术实现', file: '012-akshare-deep-dive.html', excerpt: '免费开源的Python金融数据获取工具全面评测...' },
+            { id: 13, title: '腾讯财经:被忽视的免费量化数据源', date: '2026-03-24', category: '技术实现', file: '013-tencent-finance.html', excerpt: '腾讯财经API的数据覆盖范围与使用技巧...' },
+            { id: 12, title: 'AKShare:Python开源金融数据接口库深度调研', date: '2026-03-24', category: '技术实现', file: '012-akshare-deep-dive.html', excerpt: '免费开源的Python金融数据获取工具全面评测...' },
             { id: 10, title: '布林带突破+量价配合', date: '2026-03-23', category: '策略研究', file: '010-strategy-布林带突破_量价配合.html', excerpt: '技术分析策略的回测验证与参数优化...' },
             { id: 9, title: '国内量化投资大V全景图谱', date: '2026-03-23', category: '市场观察', file: '009-chinese-quant-experts.html', excerpt: '雪球、知乎等平台的量化投资意见领袖整理...' },
             { id: 8, title: 'python_jointquant 策略库深度解析', date: '2026-03-23', category: '技术实现', file: '008-python-jointquant-analysis.html', excerpt: '聚宽Python策略库的量化投资应用与实践...' },
-            { id: 7, title: 'vn.py：中国量化交易领域的"国产之光"', date: '2026-03-23', category: '技术实现', file: '007-vnpy-deep-dive.html', excerpt: '国产量化框架vn.py的架构设计与实盘交易能力分析...' },
+            { id: 7, title: 'vn.py:中国量化交易领域的"国产之光"', date: '2026-03-23', category: '技术实现', file: '007-vnpy-deep-dive.html', excerpt: '国产量化框架vn.py的架构设计与实盘交易能力分析...' },
             { id: 6, title: '2025年GitHub主流量化框架全景', date: '2026-03-23', category: '技术实现', file: '006-framework-landscape.html', excerpt: '国内外主流量化回测框架的全面对比与选型建议...' },
-            { id: 5, title: 'GitHub量化代码库调研：量化交易回测', date: '2026-03-23', category: '技术实现', file: '005-github-research.html', excerpt: 'GitHub上热门的量化交易开源项目分析与对比...' },
-            { id: 4, title: 'Backtrader：Python量化回测框架深度调研', date: '2026-03-23', category: '技术实现', file: '004-backtrader-research.html', excerpt: '开源回测框架Backtrader的功能特性与代码结构分析...' },
+            { id: 5, title: 'GitHub量化代码库调研:量化交易回测', date: '2026-03-23', category: '技术实现', file: '005-github-research.html', excerpt: 'GitHub上热门的量化交易开源项目分析与对比...' },
+            { id: 4, title: 'Backtrader:Python量化回测框架深度调研', date: '2026-03-23', category: '技术实现', file: '004-backtrader-research.html', excerpt: '开源回测框架Backtrader的功能特性与代码结构分析...' },
             { id: 3, title: 'ETF轮动策略实践与优化', date: '2026-03-23', category: '策略研究', file: '003-etf-rotation.html', excerpt: '基于动量的ETF轮动策略回测与参数优化探索...' },
-            { id: 2, title: '关于量化策略的持续迭代', date: '2026-03-23', category: '策略研究', file: '002-auto-generated.html', excerpt: '策略有效性随时间衰减的规律，以及如何建立持续迭代的机制...' },
-            { id: 1, title: '趋势跟踪策略的再思考', date: '2026-03-23', category: '策略研究', file: '001-trend-following.html', excerpt: '从海龟交易法则到现代趋势跟踪，探讨趋势策略的演化与优化...' }
+            { id: 2, title: '关于量化策略的持续迭代', date: '2026-03-23', category: '策略研究', file: '002-auto-generated.html', excerpt: '策略有效性随时间衰减的规律,以及如何建立持续迭代的机制...' },
+            { id: 1, title: '趋势跟踪策略的再思考', date: '2026-03-23', category: '策略研究', file: '001-trend-following.html', excerpt: '从海龟交易法则到现代趋势跟踪,探讨趋势策略的演化与优化...' }
         ];
 
         // 分页配置
@@ -245,18 +246,18 @@
         function filterPosts(category, element) {
             currentCategory = category;
             currentPage = 1;
-            
+
             // 更新导航样式
             document.querySelectorAll('.category-nav a').forEach(a => a.classList.remove('active'));
             element.classList.add('active');
-            
+
             // 过滤文章
             if (category === 'all') {
                 filteredPosts = [...posts];
             } else {
                 filteredPosts = posts.filter(post => post.category === category);
             }
-            
+
             renderPosts();
             renderPagination();
             updateStats();
@@ -268,7 +269,7 @@
             const start = (currentPage - 1) * POSTS_PER_PAGE;
             const end = start + POSTS_PER_PAGE;
             const postsToShow = filteredPosts.slice(start, end);
-            
+
             postList.innerHTML = postsToShow.map(post => `
                 <div class="post-card">
                     <a href="./posts/${post.file}">
@@ -289,18 +290,18 @@
         function renderPagination() {
             const pagination = document.getElementById('pagination');
             const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
-            
+
             if (totalPages <= 1) {
                 pagination.innerHTML = '';
                 return;
             }
-            
+
             let html = `
                 <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>上一页</button>
                 <div class="page-info">第 ${currentPage} / ${totalPages} 页</div>
                 <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一页</button>
             `;
-            
+
             pagination.innerHTML = html;
         }
 
@@ -308,11 +309,11 @@
         function goToPage(page) {
             const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
             if (page < 1 || page > totalPages) return;
-            
+
             currentPage = page;
             renderPosts();
             renderPagination();
-            
+
             // 滚动到顶部
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
