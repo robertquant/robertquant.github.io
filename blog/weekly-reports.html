@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>量化策略周报归档 | QuantBot</title>
+<style>
+  :root { --blue:#0066cc; --ink:#1a1a1a; --sub:#666; --line:#e8e8e8; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif; line-height:1.75; max-width:960px; margin:0 auto; padding:24px 20px; color:var(--ink); background:#fafbfc; }
+  .hero { background:linear-gradient(135deg,#0d2b4e,#0066cc); color:#fff; border-radius:14px; padding:30px; margin-bottom:24px; }
+  .hero h1 { margin:0 0 6px; font-size:1.6em; border:none; }
+  .hero .sub { opacity:.85; font-size:.92em; }
+  h2 { font-size:1.2em; margin-top:32px; border-left:4px solid var(--blue); padding-left:12px; }
+  table { border-collapse:collapse; width:100%; margin:14px 0; font-size:.9em; background:#fff; }
+  th,td { border:1px solid var(--line); padding:7px 10px; text-align:center; }
+  th { background:#f2f6fb; font-weight:600; }
+  td.l { text-align:left; }
+  .box { background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin:16px 0; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-top:18px; }
+  .card { background:#ffffff18; border:1px solid #ffffff2e; border-radius:10px; padding:12px 14px; }
+  .card .v { font-size:1.4em; font-weight:700; }
+  .card .k { font-size:.78em; opacity:.8; margin-top:2px; }
+  .cmp { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; margin:12px 0; }
+  .cmp .item { background:#f6f9fd; border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .tag { display:inline-block; padding:1px 9px; border-radius:20px; font-size:.78em; font-weight:600; }
+  .on { background:#fff0f0; color:#cc0000; border:1px solid #cc000055; }
+  .ok { background:#f0fff4; color:#1a9c4b; border:1px solid #1a9c4b44; }
+  .highlight { background:#f0f7ff; border-left:3px solid var(--blue); padding:12px 16px; margin:14px 0; }
+  .warning { background:#fff8f0; border-left:3px solid #ff9900; padding:12px 16px; margin:14px 0; }
+  .pos { color:#1a9c4b; font-weight:600; } .neg { color:#cc0000; font-weight:600; }
+  .nav { margin:26px 0; }
+  .nav a { color:var(--blue); text-decoration:none; font-size:.9em; }
+  .footer { margin-top:40px; padding-top:16px; border-top:1px solid var(--line); color:#888; font-size:.82em; text-align:center; }
+  .issue { border:1px solid var(--line); border-radius:12px; margin:18px 0; overflow:hidden; }
+  .issue-h { background:#0d2b4e; color:#fff; padding:12px 18px; font-weight:600; }
+  .issue-b { padding:6px 18px 14px; background:#fff; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>📋 量化策略周报 · 归档</h1>
+  <div class="sub">ETF动量轮动策略的周度运行档案 · 每周六更新 · 与飞书周报同步发布 · 2026年10月创刊</div>
+  <div class="cards">
+    <div class="card"><div class="v" style="color:#7fd4ff">空仓</div><div class="k">当前仓位状态</div></div>
+    <div class="card"><div class="v">50日线</div><div class="k">大盘过滤线（实盘口径）</div></div>
+    <div class="card"><div class="v">54日</div><div class="k">动量计算周期</div></div>
+    <div class="card"><div class="v">12只</div><div class="k">ETF轮动池</div></div>
+  </div>
+</div>
+
+<div class="nav"><a href="index.html">← 返回随笔首页</a> · <a href="etf-rotation-backtest-report.html">📈 策略完整回测报告（2015-2026）</a></div>
+
+<h2>📑 归档索引</h2>
+<div class="box">
+<table>
+<tr><th>期号</th><th>交易周</th><th>沪指周涨跌</th><th>策略周收益</th><th>周超额</th><th>仓位状态</th><th>检查清单</th></tr>
+<tr><td>W001</td><td>10/12 – 10/16</td><td class="neg">-2.1%</td><td class="neg">-1.2%</td><td class="pos">+0.9pct</td><td><span class="tag on">过滤触发·空仓</span></td><td><span class="tag on">未通过</span></td></tr>
+</table>
+<div class="highlight" style="margin-bottom:4px"><b>归档说明：</b>每周六 10:15（北京时间）随飞书周报同步入库。每期的完整版含动量排名、过滤线状态、入场检查清单三条件与净值账本。策略规则与回测依据见 <a href="etf-rotation-backtest-report.html">《ETF动量轮动策略完整回测报告》</a>。</div>
+</div>
+
+<h2>📖 各期详情</h2>
+
+<div class="issue" id="w001">
+<div class="issue-h">W001 · 2026-10-17（交易周 10/12 – 10/16）</div>
+<div class="issue-b">
+
+<h3 style="margin-top:10px">一、市场全景</h3>
+<table>
+<tr><th>指数</th><th>收盘</th><th>本周</th><th>备注</th></tr>
+<tr><td>上证指数</td><td>3716.28</td><td class="neg">-2.1%</td><td class="l">周五弱企稳 +0.24%，3700 点一线多空拉锯</td></tr>
+<tr><td>创业板指</td><td>2772</td><td class="neg">约-2.7%</td><td class="l">逼近年内低点，成长风格领跌</td></tr>
+<tr><td>科创50</td><td>1358.65</td><td class="neg">深度回调</td><td class="l">自年内高点回撤显著，科技股普遍腰斩</td></tr>
+<tr><td>两市成交额</td><td colspan="3" class="l">约 1.55–1.57 万亿元，较前周缩量；周内出现 5108 只个股下跌的极端普跌日</td></tr>
+</table>
+
+<h3>二、本周驱动</h3>
+<div class="warning">
+① <b>美债 10Y 冲 5.36%</b>（2002 年以来高位）+ 美国 9 月 CPI 超预期 → 12 月美联储加息概率升至 70%+；<br>
+② <b>费半八连跌</b>（2008 年以来最长），CoreWeave 单周 -25%，全球科技股杀估值未止；<br>
+③ <b>中东升级</b>：霍尔木兹海峡布雷、油轮触雷，WTI 破 101 美元，输入性通胀担忧升温；<br>
+④ 韩国 KOSPI 单日 -7.57% 触发熔断、日经 -4.90%，亚太同步去杠杆；<br>
+⑤ 周五尾盘宽基 ETF 放量，护盘资金迹象明显；单周宽基 ETF 净流入超 800 亿、回购增持超 30 亿（宁德 200-400 亿、美的近百亿注销式回购）。
+</div>
+
+<h3>三、策略运行状态</h3>
+<div class="cmp">
+  <div class="item"><b>大盘过滤（50日线）</b><br><span class="tag on">全周触发</span><br>沪深300 收盘持续运行于 50 日均线下方</div>
+  <div class="item"><b>仓位</b><br><span style="font-size:1.25em;font-weight:700;color:#cc0000">空仓</span><br>第 1 名动量标的亦不进场</div>
+  <div class="item"><b>本周超额</b><br><span style="font-size:1.25em;font-weight:700;color:#1a9c4b">+0.9pct</span><br>策略约 -1.2% vs 沪指 -2.1%</div>
+  <div class="item"><b>Q4 累计超额</b><br><span style="font-size:1.25em;font-weight:700;color:#1a9c4b">+4.30%</span><br>见随笔 #068 系统账本</div>
+</div>
+
+<h3>四、动量排名快照（10/16 收盘 · 54日动量）</h3>
+<table>
+<tr><th>#</th><th>ETF</th><th>代码</th><th>动量</th></tr>
+<tr><td>1</td><td class="l">银行ETF</td><td>512800</td><td class="pos">+7.5%</td></tr>
+<tr><td>2</td><td class="l">地产ETF</td><td>512200</td><td class="pos">+7.3%</td></tr>
+<tr><td>3</td><td class="l">黄金ETF</td><td>518880</td><td class="pos">+2.0%</td></tr>
+<tr><td>4</td><td class="l">消费ETF</td><td>159928</td><td class="pos">+1.7%</td></tr>
+<tr><td>5</td><td class="l">医药ETF</td><td>512010</td><td class="pos">+0.5%</td></tr>
+<tr><td>6</td><td class="l">中证500ETF</td><td>510500</td><td class="neg">-9.8%</td></tr>
+</table>
+<div class="highlight"><b>解读：</b>动量前两名集中在银行/地产——典型的防御+政策博弈结构，但<b>环境优先级高于标的质量</b>：过滤线不收复，第 1 名是银行也不进场。黄金 ETF 动量转正（+2.0%）值得关注，若大盘过滤解除而黄金仍居前，将是罕见的"避险资产领涨动量池"信号。</div>
+
+<h3>五、入场检查清单（三条件同时满足才解除空仓）</h3>
+<table>
+<tr><th>条件</th><th>判定标准</th><th>10/17 状态</th></tr>
+<tr><td class="l">① 收复 50 日线</td><td class="l">沪深300 收盘有效站上 50 日均线</td><td><span class="tag on">未满足</span></td></tr>
+<tr><td class="l">② 量能回补</td><td class="l">两市成交额回到 1.8 万亿上方</td><td><span class="tag on">未满足（1.57万亿）</span></td></tr>
+<tr><td class="l">③ 情绪温度回升</td><td class="l">涨跌家数/涨停家数/恐慌指标回暖</td><td><span class="tag on">未满足（周五仅弱企稳）</span></td></tr>
+</table>
+
+<h3>六、下周关注</h3>
+<div class="box" style="margin:0">
+① 10/19 三季度 GDP 发布会（10:00）+ 金融街论坛（潘功胜/吴清演讲，政策信号）；<br>
+② 美股财报季：特斯拉、Netflix、Meta，AI 资本开支指引是全球科技股定价锚；<br>
+③ 油价（WTI 100 美元关口）与美债 10Y（5.36%）走向——双重压制能否缓解；<br>
+④ A股三季报密集披露期，业绩验证窗口，警惕高位题材股不达预期。
+</div>
+
+</div>
+</div>
+
+<div class="footer">
+QuantBot 量化投研系统 · 本页随每周六飞书周报同步更新<br>
+策略规则与完整回测：<a href="etf-rotation-backtest-report.html">ETF动量轮动策略完整回测报告（2015-2026）</a><br>
+本档案为量化研究记录，不构成投资建议。
+</div>
+
+</body>
+</html>
