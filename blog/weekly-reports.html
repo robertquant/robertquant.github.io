@@ -54,8 +54,8 @@
 <h2>📑 归档索引</h2>
 <div class="box">
 <table>
-<tr><th>期号</th><th>交易周</th><th>沪指周涨跌</th><th>策略周收益</th><th>周超额</th><th>仓位状态</th><th>检查清单</th></tr>
-<tr><td>W001</td><td>10/12 – 10/16</td><td class="neg">-2.1%</td><td class="neg">-1.2%</td><td class="pos">+0.9pct</td><td><span class="tag on">过滤触发·空仓</span></td><td><span class="tag on">未通过</span></td></tr>
+<tr><th>期号</th><th>交易周</th><th>基准周涨跌<sup>沪深300</sup></th><th>策略周收益</th><th>周超额</th><th>仓位状态</th><th>检查清单</th></tr>
+<tr><td>W001</td><td>10/12 – 10/16</td><td class="neg">-3.40%<sup>沪深300</sup></td><td>0.00%</td><td class="pos">+3.40pct</td><td><span class="tag on">过滤触发·空仓</span></td><td><span class="tag on">未通过</span></td></tr>
 </table>
 <div class="highlight" style="margin-bottom:4px"><b>归档说明：</b>每周六 10:15（北京时间）随飞书周报同步入库。每期的完整版含动量排名、过滤线状态、入场检查清单三条件与净值账本。策略规则与回测依据见 <a href="etf-rotation-backtest-report.html">《ETF动量轮动策略完整回测报告》</a>。</div>
 </div>
@@ -63,13 +63,14 @@
 <h2>📖 各期详情</h2>
 
 <div class="issue" id="w001">
-<div class="issue-h">W001 · 2026-10-17（交易周 10/12 – 10/16）</div>
+<div class="issue-h">W001 · 2026-10-17（交易周 10/12 – 10/16）<span style="float:right;font-size:.75em;font-weight:400">✏️ 10/20 已更正为引擎实算值</span></div>
 <div class="issue-b">
 
 <h3 style="margin-top:10px">一、市场全景</h3>
 <table>
 <tr><th>指数</th><th>收盘</th><th>本周</th><th>备注</th></tr>
-<tr><td>上证指数</td><td>3716.28</td><td class="neg">-2.1%</td><td class="l">周五弱企稳 +0.24%，3700 点一线多空拉锯</td></tr>
+<tr><td>上证指数</td><td>3716.28</td><td class="neg">-2.56%</td><td class="l">周五弱企稳 +0.24%，3700 点一线多空拉锯</td></tr>
+<tr><td>沪深300</td><td>—</td><td class="neg">-3.40%</td><td class="l">策略基准口径（10/09→10/16）</td></tr>
 <tr><td>创业板指</td><td>2772</td><td class="neg">约-2.7%</td><td class="l">逼近年内低点，成长风格领跌</td></tr>
 <tr><td>科创50</td><td>1358.65</td><td class="neg">深度回调</td><td class="l">自年内高点回撤显著，科技股普遍腰斩</td></tr>
 <tr><td>两市成交额</td><td colspan="3" class="l">约 1.55–1.57 万亿元，较前周缩量；周内出现 5108 只个股下跌的极端普跌日</td></tr>
@@ -88,8 +89,8 @@
 <div class="cmp">
   <div class="item"><b>大盘过滤（50日线）</b><br><span class="tag on">全周触发</span><br>沪深300 收盘持续运行于 50 日均线下方</div>
   <div class="item"><b>仓位</b><br><span style="font-size:1.25em;font-weight:700;color:#cc0000">空仓</span><br>第 1 名动量标的亦不进场</div>
-  <div class="item"><b>本周超额</b><br><span style="font-size:1.25em;font-weight:700;color:#1a9c4b">+0.9pct</span><br>策略约 -1.2% vs 沪指 -2.1%</div>
-  <div class="item"><b>Q4 累计超额</b><br><span style="font-size:1.25em;font-weight:700;color:#1a9c4b">+4.30%</span><br>见随笔 #068 系统账本</div>
+  <div class="item"><b>本周超额</b><br><span style="font-size:1.25em;font-weight:700;color:#1a9c4b">+3.40pct</span><br>策略 0.00% vs 沪深300 -3.40%</div>
+  <div class="item"><b>Q4 累计超额</b><br><span style="font-size:1.25em;font-weight:700;color:#1a9c4b">+3.62%</span><br>截至 10/20，ledger实算</div>
 </div>
 
 <h3>四、动量排名快照（10/16 收盘 · 54日动量）</h3>
