@@ -56,6 +56,7 @@
 <table>
 <tr><th>期号</th><th>交易周</th><th>基准周涨跌<sup>沪深300</sup></th><th>策略周收益</th><th>周超额</th><th>仓位状态</th><th>检查清单</th></tr>
 <tr><td>W001</td><td>10/12 – 10/16</td><td class="neg">-3.40%<sup>沪深300</sup></td><td>0.00%</td><td class="pos">+3.40pct</td><td><span class="tag on">过滤触发·空仓</span></td><td><span class="tag on">未通过</span></td></tr>
+<tr><td>W002</td><td>10/19 – 10/23</td><td class="neg">-1.56%<sup>沪深300</sup></td><td>0.00%</td><td class="pos">+1.56pct</td><td><span class="tag on">过滤触发·空仓</span></td><td><span class="tag on">未通过</span></td></tr>
 </table>
 <div class="highlight" style="margin-bottom:4px"><b>归档说明：</b>每周六 10:15（北京时间）随飞书周报同步入库。每期的完整版含动量排名、过滤线状态、入场检查清单三条件与净值账本。策略规则与回测依据见 <a href="etf-rotation-backtest-report.html">《ETF动量轮动策略完整回测报告》</a>。</div>
 </div>
@@ -119,6 +120,67 @@
 ② 美股财报季：特斯拉、Netflix、Meta，AI 资本开支指引是全球科技股定价锚；<br>
 ③ 油价（WTI 100 美元关口）与美债 10Y（5.36%）走向——双重压制能否缓解；<br>
 ④ A股三季报密集披露期，业绩验证窗口，警惕高位题材股不达预期。
+</div>
+
+</div>
+</div>
+
+<div class="issue" id="w002">
+<div class="issue-h">W002 · 2026-10-24（交易周 10/19 – 10/23）</div>
+<div class="issue-b">
+
+<h3 style="margin-top:10px">一、市场全景</h3>
+<table>
+<tr><th>指数</th><th>收盘</th><th>本周</th><th>备注</th></tr>
+<tr><td>上证指数</td><td>3690.48</td><td class="neg">-0.69%</td><td class="l">周五深V反包：盘中最低 3574.27，周四收 3658.03 后周五 +0.89% 修复</td></tr>
+<tr><td>沪深300</td><td>—</td><td class="neg">-1.56%</td><td class="l">策略基准口径（10/16→10/23，引擎 ledger 实算）</td></tr>
+<tr><td>创业板指</td><td>2684.10</td><td class="neg">约-3.2%</td><td class="l">周四创 14 个月新低 2576.90（-4.37%），周五 +4.16% 强修复</td></tr>
+<tr><td>两市成交额</td><td colspan="3" class="l">周一至周四 1.43–1.53 万亿（周一 1.44 万亿创 2026 年地量），周五反弹放量至 1.96 万亿（+4200 亿）；周均约 1.56 万亿</td></tr>
+</table>
+
+<h3>二、本周驱动</h3>
+<div class="warning">
+① <b>宁德时代三季报暴雷</b>：周三 -12.03%（成交 324 亿，市值蒸发超千亿），拖累创业板指创 14 个月新低，权重流动性螺旋拖累全市场；<br>
+② <b>宏观双杀</b>：美债 10Y 5.1%+、30Y 5.44% 二十年新高，WTI 维持 100 美元上方，滞胀组合压制风险偏好；<br>
+③ <b>全球 AI 叙事退潮</b>：费半 10/22 -6.72%（自高点回撤 22%），特斯拉砍 capex，光模块拥挤交易踩踏（新易盛 -12.28%、中际旭创成交 200 亿居 A 股首位）；<br>
+④ <b>周五恐慌出清后深V反包</b>：沪指 3574→3690、创业板 +4.16%、成交 1.96 万亿、涨跌 4526:909、涨停 84/跌停 7——修复积极但未确认；<br>
+⑤ <b>政策面托底</b>：金融街论坛首批 18 只主动 ETF 获批、潘功胜非银赎回流动性工具，汇金宽基 ETF 增持迹象（连续多日尾盘放量）。
+</div>
+
+<h3>三、策略运行状态</h3>
+<div class="cmp">
+  <div class="item"><b>大盘过滤（50日线）</b><br><span class="tag on">全周触发</span><br>沪深300 距 50 日线 -8.25%，较前周（-7.81%）走扩</div>
+  <div class="item"><b>仓位</b><br><span style="font-size:1.25em;font-weight:700;color:#cc0000">空仓</span><br>空仓延续，Q4 以来第 3 周未进场</div>
+  <div class="item"><b>本周超额</b><br><span style="font-size:1.25em;font-weight:700;color:#1a9c4b">+1.56pct</span><br>策略 0.00% vs 沪深300 -1.56%</div>
+  <div class="item"><b>Q4 累计超额</b><br><span style="font-size:1.25em;font-weight:700;color:#1a9c4b">+4.91pct</span><br>截至 10/23，ledger 实算（净值 1.000 vs 基准 0.9509）</div>
+</div>
+
+<h3>四、动量排名快照（10/23 收盘 · 54日动量）</h3>
+<table>
+<tr><th>#</th><th>ETF</th><th>代码</th><th>动量</th><th>vs 前周</th></tr>
+<tr><td>1</td><td class="l">银行ETF</td><td>512800</td><td class="pos">+1.6%</td><td class="neg">-5.9pct</td></tr>
+<tr><td>2</td><td class="l">医药ETF</td><td>512010</td><td class="neg">-0.3%</td><td>-0.8pct</td></tr>
+<tr><td>3</td><td class="l">地产ETF</td><td>512200</td><td class="neg">-1.9%</td><td class="neg">-9.2pct</td></tr>
+<tr><td>4</td><td class="l">黄金ETF</td><td>518880</td><td class="neg">-2.8%</td><td class="neg">-4.8pct</td></tr>
+<tr><td>5</td><td class="l">消费ETF</td><td>159928</td><td class="neg">-4.9%</td><td class="neg">-6.6pct</td></tr>
+<tr><td>6</td><td class="l">中证500ETF</td><td>510500</td><td class="neg">-8.6%</td><td>+1.2pct</td></tr>
+</table>
+<div class="highlight"><b>解读：</b>动量全面转弱——前六中五只落入负值，榜首银行动量从 +7.5% 衰减至 +1.6%，逼近零轴；医药升至第 2 为唯一相对改善。本轮调整是<b>普跌而非轮动</b>，防御资产相对抗跌但不具备进攻动量。黄金自第 3 滑至第 4（+2.0%→-2.8%），避险溢价随周五风险修复回吐。</div>
+
+<h3>五、入场检查清单（三条件同时满足才解除空仓）</h3>
+<table>
+<tr><th>条件</th><th>判定标准</th><th>10/23 状态</th></tr>
+<tr><td class="l">① 收复 50 日线</td><td class="l">沪深300 收盘有效站上 50 日均线</td><td><span class="tag on">未满足（距线 -8.25%，走扩）</span></td></tr>
+<tr><td class="l">② 量能回补</td><td class="l">两市成交额回到 1.8 万亿上方</td><td><span class="tag on">未满足（周均约 1.56 万亿；周五 1.96 万亿为积极信号，持续性待验）</span></td></tr>
+<tr><td class="l">③ 情绪温度回升</td><td class="l">涨跌家数/涨停家数/恐慌指标回暖</td><td><span class="tag on">未满足（周四恐慌极值：超 5000 股下跌、跌停 55；周五深V修复未确认）</span></td></tr>
+</table>
+
+<h3>六、下周关注</h3>
+<div class="box" style="margin:0">
+① 美联储 10/27-28 议息会议，12 月加息概率定价（美债 30Y 5.44% 能否见顶）；<br>
+② 周末三季报大样本 + 美股财报后续表现（Meta/特斯拉发布后的全球 AI 链定价）；<br>
+③ 反弹持续性验证：沪指不破 3574 / 站稳 3730，防御补跌（银行周五 -1.62%、工行 -3.14%）能否收敛；<br>
+④ 若三重门全过且过滤器关闭 → 系统首次入场，需写决策帖。
 </div>
 
 </div>
