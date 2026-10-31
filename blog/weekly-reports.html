@@ -57,6 +57,7 @@
 <tr><th>期号</th><th>交易周</th><th>基准周涨跌<sup>沪深300</sup></th><th>策略周收益</th><th>周超额</th><th>仓位状态</th><th>检查清单</th></tr>
 <tr><td>W001</td><td>10/12 – 10/16</td><td class="neg">-3.40%<sup>沪深300</sup></td><td>0.00%</td><td class="pos">+3.40pct</td><td><span class="tag on">过滤触发·空仓</span></td><td><span class="tag on">未通过</span></td></tr>
 <tr><td>W002</td><td>10/19 – 10/23</td><td class="neg">-1.56%<sup>沪深300</sup></td><td>0.00%</td><td class="pos">+1.56pct</td><td><span class="tag on">过滤触发·空仓</span></td><td><span class="tag on">未通过</span></td></tr>
+<tr><td>W003</td><td>10/26 – 10/30</td><td class="neg">-2.92%<sup>沪深300</sup></td><td>0.00%</td><td class="pos">+2.92pct</td><td><span class="tag on">过滤触发·空仓</span></td><td><span class="tag on">未通过</span></td></tr>
 </table>
 <div class="highlight" style="margin-bottom:4px"><b>归档说明：</b>每周六 10:15（北京时间）随飞书周报同步入库。每期的完整版含动量排名、过滤线状态、入场检查清单三条件与净值账本。策略规则与回测依据见 <a href="etf-rotation-backtest-report.html">《ETF动量轮动策略完整回测报告》</a>。</div>
 </div>
@@ -181,6 +182,68 @@
 ② 周末三季报大样本 + 美股财报后续表现（Meta/特斯拉发布后的全球 AI 链定价）；<br>
 ③ 反弹持续性验证：沪指不破 3574 / 站稳 3730，防御补跌（银行周五 -1.62%、工行 -3.14%）能否收敛；<br>
 ④ 若三重门全过且过滤器关闭 → 系统首次入场，需写决策帖。
+</div>
+
+</div>
+</div>
+
+<div class="issue" id="w003">
+<div class="issue-h">W003 · 2026-10-31（交易周 10/26 – 10/30）</div>
+<div class="issue-b">
+
+<h3 style="margin-top:10px">一、市场全景</h3>
+<table>
+<tr><th>指数</th><th>收盘</th><th>本周</th><th>备注</th></tr>
+<tr><td>上证指数</td><td>3599.02</td><td class="neg">-2.48%</td><td class="l">周五 -1.44% 失守 3600，10 月 -6.3% 收官</td></tr>
+<tr><td>沪深300</td><td>—</td><td class="neg">-2.92%</td><td class="l">策略基准口径（10/23→10/30，引擎 ledger 实算），周线十一连阴</td></tr>
+<tr><td>创业板指</td><td>2413.63</td><td class="neg">-10.08%</td><td class="l">年内新低，较 6 月高点回撤超 44%，10 月跌超 23%</td></tr>
+<tr><td>科创50</td><td>1160.84</td><td class="neg">周五 -5.48%</td><td class="l">年内新低，较 7 月高点回撤近 48%</td></tr>
+<tr><td>两市成交额</td><td colspan="3" class="l">日均约 1.58 万亿元，周五放量至 1.67 万亿（+1180 亿）；周五 4600+ 下跌、80+ 跌停</td></tr>
+</table>
+
+<h3>二、本周驱动</h3>
+<div class="warning">
+① <b>Anthropic 10/26 递招股书</b>，AI 资本开支争议升级；Alphabet 财报暴雷跌 12%，英特尔 Q4 指引低于预期（周五 -28.33%），美股周五纳指 -2.86%、费半跌超 7%，全球科技股杀估值；<br>
+② <b>滞胀组合压制</b>：美联储 9/17 已重启加息，美债收益率 20 年新高，布油 109 美元上方（近五个月高位）；<br>
+③ <b>二十届五中全会（10/26-29）闭幕</b>，政策面进入静默观察期；<br>
+④ <b>对冲力量持续</b>：10/15-23 股票型 ETF 净流入 2250.55 亿，10 月 107 家公告回购超 199 亿、年内回购超 2500 亿创新高，宽基 ETF 尾盘持续放量托底；<br>
+⑤ <b>三季报收官</b>：5572 家营收 +5.66%、归母净利 +8.30%；白酒（三季报利空出尽，泸州老窖涨停）与创新药（ESMO+海外巨头业绩）领涨，算力/CPO/光模块、半导体、传媒游戏领跌（文投控股等跌停）。
+</div>
+
+<h3>三、策略运行状态</h3>
+<div class="cmp">
+  <div class="item"><b>大盘过滤（50日线）</b><br><span class="tag on">全周触发</span><br>沪深300 距 50 日线 -9.66%（线 4411.61），较前周（-8.25%）走扩</div>
+  <div class="item"><b>仓位</b><br><span style="font-size:1.25em;font-weight:700;color:#cc0000">空仓</span><br>Q4 以来第 4 周未进场，空仓延续第 11 周</div>
+  <div class="item"><b>本周超额</b><br><span style="font-size:1.25em;font-weight:700;color:#1a9c4b">+2.92pct</span><br>策略 0.00% vs 沪深300 -2.92%</div>
+  <div class="item"><b>Q4 累计超额</b><br><span style="font-size:1.25em;font-weight:700;color:#1a9c4b">+7.68pct</span><br>截至 10/30，ledger 实算（净值 1.000 vs 基准 0.9232）</div>
+</div>
+
+<h3>四、动量排名快照（10/30 收盘 · 54日动量）</h3>
+<table>
+<tr><th>#</th><th>ETF</th><th>代码</th><th>动量</th><th>vs 前周</th></tr>
+<tr><td>1</td><td class="l">银行ETF</td><td>512800</td><td class="pos">+11.9%</td><td class="pos">+10.3pct</td></tr>
+<tr><td>2</td><td class="l">消费ETF</td><td>159928</td><td class="pos">+0.6%</td><td class="pos">+5.5pct</td></tr>
+<tr><td>3</td><td class="l">医药ETF</td><td>512010</td><td class="neg">-4.8%</td><td class="neg">-4.5pct</td></tr>
+<tr><td>4</td><td class="l">地产ETF</td><td>512200</td><td class="neg">-7.9%</td><td class="neg">-6.0pct</td></tr>
+<tr><td>5</td><td class="l">黄金ETF</td><td>518880</td><td class="neg">-8.7%</td><td class="neg">-5.9pct</td></tr>
+<tr><td>6</td><td class="l">沪深300ETF</td><td>510300</td><td class="neg">-14.4%</td><td>新入榜</td></tr>
+</table>
+<div class="highlight"><b>解读：</b>银行动量单周 +10.3pct 跳升至 +11.9%，防御抱团极致化；消费受白酒三季报利空出尽驱动转正（+0.6%）。前六中四只深度负值，中证500ETF 退出前六、沪深300ETF 垫底——普跌市中大盘防御相对抗跌。<b>环境优先级高于标的质量</b>：过滤线不收复，动量第一也不进场。</div>
+
+<h3>五、入场检查清单（三条件同时满足才解除空仓）</h3>
+<table>
+<tr><th>条件</th><th>判定标准</th><th>10/30 状态</th></tr>
+<tr><td class="l">① 收复 50 日线</td><td class="l">沪深300 收盘有效站上 50 日均线</td><td><span class="tag on">未满足（距线 -9.66%，较前周走扩）</span></td></tr>
+<tr><td class="l">② 量能回补</td><td class="l">两市成交额回到 1.8 万亿上方</td><td><span class="tag on">未满足（日均约 1.58 万亿，周五放量至 1.67 万亿仍未达标）</span></td></tr>
+<tr><td class="l">③ 情绪温度回升</td><td class="l">涨跌家数/涨停家数/恐慌指标回暖</td><td><span class="tag on">未满足（周五 4600+ 下跌、80+ 跌停、封板率 60%；周线十一连阴）</span></td></tr>
+</table>
+
+<h3>六、下周关注</h3>
+<div class="box" style="margin:0">
+① 美股 AI 链波动传导（费半 -7%、英特尔 -28% 后的 A 股映射），苹果反超英伟达重回市值第一引发的板块再定价；<br>
+② 布油 109 美元与美债收益率走向，通胀-加息螺旋能否缓解；<br>
+③ 沪指 3530-3550 观测区支撑有效性（博客#072 情景框架：甲/C 延续 45%、乙/政策底 35%、丙/杠杆去化 20%）；<br>
+④ 三季报后进入业绩真空期，警惕高位题材股业绩证伪；若三重门全过且过滤器关闭 → 系统首次入场，需写决策帖。
 </div>
 
 </div>
