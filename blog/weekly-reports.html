@@ -59,6 +59,7 @@
 <tr><td>W002</td><td>10/19 – 10/23</td><td class="neg">-1.56%<sup>沪深300</sup></td><td>0.00%</td><td class="pos">+1.56pct</td><td><span class="tag on">过滤触发·空仓</span></td><td><span class="tag on">未通过</span></td></tr>
 <tr><td>W003</td><td>10/26 – 10/30</td><td class="neg">-2.92%<sup>沪深300</sup></td><td>0.00%</td><td class="pos">+2.92pct</td><td><span class="tag on">过滤触发·空仓</span></td><td><span class="tag on">未通过</span></td></tr>
 <tr><td>W004</td><td>11/2 – 11/6</td><td class="pos">+1.72%<sup>沪深300</sup></td><td>0.00%</td><td class="pos">+1.72pct</td><td><span class="tag on">过滤触发·空仓</span></td><td><span class="tag on">未通过</span></td></tr>
+<tr><td>W005</td><td>11/9 – 11/13</td><td class="neg">-0.94%<sup>沪深300</sup></td><td>0.00%</td><td class="pos">+0.94pct</td><td><span class="tag on">过滤触发·空仓</span></td><td><span class="tag on">未通过</span></td></tr>
 </table>
 <div class="highlight" style="margin-bottom:4px"><b>归档说明：</b>每周六 10:15（北京时间）随飞书周报同步入库。每期的完整版含动量排名、过滤线状态、入场检查清单三条件与净值账本。策略规则与回测依据见 <a href="etf-rotation-backtest-report.html">《ETF动量轮动策略完整回测报告》</a>。</div>
 </div>
@@ -307,6 +308,67 @@
 ② 周五美股暴跌（纳指-5.52%）的外围传导持续性，与国内政策托底的对冲力度；<br>
 ③ 量能条件 Q4 首次达标，持续性待验：若日均成交稳在 1.8 万亿上方 + 情绪修复确认，三重门有望首次全过；<br>
 ④ 沪深300 距 50 日线修复至 -6.82%，收敛斜率加快——若过滤器关闭且动量居前者非纯防御标的，系统将迎来 Q4 首次入场，需写决策帖。
+</div>
+
+</div>
+</div>
+
+<div class="issue" id="w005">
+<div class="issue-h">W005 · 2026-11-14（交易周 11/9 – 11/13）</div>
+<div class="issue-b">
+
+<h3 style="margin-top:10px">一、市场全景</h3>
+<table>
+<tr><th>指数</th><th>收盘</th><th>本周</th><th>备注</th></tr>
+<tr><td>上证指数</td><td>3634</td><td class="neg">约-0.7%</td><td class="l">先扬后抑：周一+0.08% → 周三放量反弹（创业板+3.11%）→ 周四-0.67% → 周五-0.59% 连续回落</td></tr>
+<tr><td>沪深300</td><td>—</td><td class="neg">-0.94%</td><td class="l">策略基准口径（11/6→11/13，引擎 ledger 实算）</td></tr>
+<tr><td>创业板指</td><td>2426</td><td class="neg">极端波动</td><td class="l">周三+3.11%放量长阳 → 周四-2.44% → 周五-3.32%，算力硬件领跌</td></tr>
+<tr><td>两市成交额</td><td colspan="3" class="l">日均约 1.70 万亿元（未达 1.8 万亿门槛）：周二 1.49 万亿 → 周三约 1.70 万亿 → 周四 1.93 万亿（放量 2558 亿）→ 周五缩量至 1.66 万亿</td></tr>
+</table>
+
+<h3>二、本周驱动</h3>
+<div class="warning">
+① <b>英伟达黑天鹅（11/12 美东官宣黄仁勋辞去 CEO）</b>，婚外情丑闻发酵，NVDA 单日市值蒸发 1820 亿美元（AMD +5.86% / 博通 +5.54% 受益分流）；全球 AI 算力链叙事重构，A 股 CPO/光模块重挫（11/13 中际旭创 -8.39%、新易盛 -8.76%）；<br>
+② <b>美债 10Y 破 5%、油价大涨</b>（WTI +2.6% 至 88.74，布伦特 +3.3% 至 95.82），12 月加息预期升温，全球风险资产承压；<br>
+③ <b>国产替代分化</b>：中芯国际 Q3 营收 +28.1%、扣非净利 +107%，Q4 指引环比 +4~6%；中信证券提示美或收紧出口管制（东南亚纳入），国产算力逆势吸金；<br>
+④ <b>政策面</b>：证监会完善稳市机制、增强股市内在稳定性；<br>
+⑤ <b>防御持续占优</b>：银行板块 11/13 逆势护盘，银行 ETF 动量六周连居榜首。
+</div>
+
+<h3>三、策略运行状态</h3>
+<div class="cmp">
+  <div class="item"><b>大盘过滤（50日线）</b><br><span class="tag on">全周触发</span><br>沪深300 距 50 日线 -6.54%，较前周（-6.82%）仅修复 0.28pct，收敛斜率显著放缓</div>
+  <div class="item"><b>仓位</b><br><span style="font-size:1.25em;font-weight:700;color:#cc0000">空仓</span><br>Q4 以来第 6 周未进场</div>
+  <div class="item"><b>本周超额</b><br><span style="font-size:1.25em;font-weight:700;color:#1a9c4b">+0.94pct</span><br>策略 0.00% vs 沪深300 -0.94%</div>
+  <div class="item"><b>Q4 累计超额</b><br><span style="font-size:1.25em;font-weight:700;color:#1a9c4b">+6.97pct</span><br>截至 11/13，ledger 实算（净值 1.000 vs 基准 0.9303）</div>
+</div>
+
+<h3>四、动量排名快照（11/13 收盘 · 54日动量）</h3>
+<table>
+<tr><th>#</th><th>ETF</th><th>代码</th><th>动量</th><th>vs 前周</th></tr>
+<tr><td>1</td><td class="l">银行ETF</td><td>512800</td><td class="pos">+10.1%</td><td class="pos">+0.1pct</td></tr>
+<tr><td>2</td><td class="l">消费ETF</td><td>159928</td><td class="pos">+6.5%</td><td class="pos">+1.3pct</td></tr>
+<tr><td>3</td><td class="l">医药ETF</td><td>512010</td><td class="neg">-1.8%</td><td class="neg">-1.3pct</td></tr>
+<tr><td>4</td><td class="l">地产ETF</td><td>512200</td><td class="neg">-8.3%</td><td class="neg">-1.5pct</td></tr>
+<tr><td>5</td><td class="l">沪深300ETF</td><td>510300</td><td class="neg">-12.8%</td><td class="neg">-0.1pct</td></tr>
+<tr><td>6</td><td class="l">黄金ETF</td><td>518880</td><td class="neg">-15.3%</td><td class="neg">-7.6pct</td></tr>
+</table>
+<div class="highlight"><b>解读：</b>名单内部分化——银行/消费动量继续走强，黄金单周 -7.6pct 大幅恶化跌至榜尾（金价回调+避险退潮），与沪深300ETF 位置互换。前六中四只动量转差，池内极差拉至 25.4pct。防御（银行）+超跌修复（消费/医药）结构延续第六周。<b>环境优先级高于标的质量</b>：过滤线不收复，继续空仓。</div>
+
+<h3>五、入场检查清单（三条件同时满足才解除空仓）</h3>
+<table>
+<tr><th>条件</th><th>判定标准</th><th>11/13 状态</th></tr>
+<tr><td class="l">① 收复 50 日线</td><td class="l">沪深300 收盘有效站上 50 日均线</td><td><span class="tag on">未满足（距线 -6.54%，较前周仅修复 0.28pct，斜率放缓）</span></td></tr>
+<tr><td class="l">② 量能回补</td><td class="l">两市成交额回到 1.8 万亿上方</td><td><span class="tag on">未满足（周四 1.93 万亿单日达标，但日均约 1.70 万亿，周五回落至 1.66 万亿，持续性不足）</span></td></tr>
+<tr><td class="l">③ 情绪温度回升</td><td class="l">涨跌家数/涨停家数/恐慌指标回暖</td><td><span class="tag on">未满足（周三 3800+ 股上涨情绪回暖，但周四 4600+、周五 4700+ 股连续普跌，涨停仅 37 家，修复被证伪）</span></td></tr>
+</table>
+
+<h3>六、下周关注</h3>
+<div class="box" style="margin:0">
+① <b>英伟达 Q3 财报（11/17 美东，北京时间 11/18 凌晨）</b>——全球最大 AI 叙事变量，决定算力链出清是否结束；<br>
+② <b>美债 10Y 破 5% + 12 月加息预期</b>——外围流动性压力对 A 股风险偏好的持续压制；<br>
+③ 美或收紧出口管制（东南亚纳入）传闻落地情况——国产算力替代逻辑的持续性验证（中芯 Q4 指引已验证基本面）；<br>
+④ 过滤器距 50 日线 -6.54% 修复放缓：三重门本周集体回落（量能/情绪均从上周末位倒退），Q4 首次入场时点继续后移，保持耐心。
 </div>
 
 </div>
